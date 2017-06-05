@@ -1,0 +1,14 @@
+.bankWindow {
+    height: 200px;
+    width: 100%;
+    float: left;
+    background-color: #738db7;
+}
+
+.bankButton {
+    height: 50px;
+    width: 120px;
+    border-width: medium;
+    border-color: #000000;
+    background-color: #305DAB; 
+}

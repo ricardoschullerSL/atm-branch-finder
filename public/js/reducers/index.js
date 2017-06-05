@@ -1,9 +1,10 @@
 import { combineReducers } from "redux";
-
-const defaultReducer = function(state={}, action) {
-    return state;
-}
+import bankWindow from "./BankReducer.js";
+import infoWindow from "./infoWindowReducer.js";
+import mapWindow from "./mapReducer.js"
 
 export default combineReducers({
-    defaultReducer
+    infoWindow,
+    mapWindow,
+    bankWindow
 });
