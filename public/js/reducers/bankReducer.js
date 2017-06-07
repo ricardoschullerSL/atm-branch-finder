@@ -2,7 +2,7 @@ import { BANKDATA } from "../staticdata/bankData.js";
 
 export default function (state= {
     banks:BANKDATA,
-    activeBank: 0,
+    activeBankId: 0,
     currentAtmId: 0,
 }, action) {
     switch(action.type) {
@@ -27,7 +27,7 @@ export default function (state= {
         
         case "SET_ACTIVE_BANK_DATA" : {
             const newBanks = state.banks.map((bank, i ) => {
-                if (i === state.activeBank) {
+                if (i === state.activeBankId) {
                     bank = action.payload;
                 } 
                 return bank;

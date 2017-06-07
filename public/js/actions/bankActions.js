@@ -11,7 +11,7 @@ export function changeActiveBank(bankId) {
 export function getBankData() {
     console.log("getBankData is called!")
     const state = store.getState();
-    const bank = state.bankWindow.banks[state.bankWindow.activeBank];
+    const bank = state.bankWindow.banks[state.bankWindow.activeBankId];
     const ATM_uri = bank.uris.atm;
     axios.get(ATM_uri)
     .then((result) => {

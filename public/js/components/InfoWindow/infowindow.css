@@ -4,3 +4,8 @@
     width: 20%;
     float: left;
 }
+
+.infoItemList {
+    list-style-type:none;
+    padding-left: 0;
+}

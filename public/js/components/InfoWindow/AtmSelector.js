@@ -10,8 +10,16 @@ export default class AtmSelector extends React.Component {
     decreaseAtmIdCounter() {
         if (this.props.activeBank.data) {
             const newCounter = this.props.atmId === 0 ? 
-                                this.props.activeBank.data.length : this.props.atmId - 1;
-            this.props.dispatch({type:"SET_ATM_ID_COUNTER", payload: newCounter}) 
+                                this.props.activeBank.data.length - 1 : this.props.atmId - 1;
+            this.props.dispatch({type:"SET_ATM_ID_COUNTER", payload: newCounter})
+            this.props.dispatch({
+                type:"SET_LATITUDE",
+                payload: this.props.activeBank.data[newCounter].GeographicLocation.Latitude
+            });
+            this.props.dispatch({
+                type:"SET_LONGITUDE",
+                payload: this.props.activeBank.data[newCounter].GeographicLocation.Longitude
+            }); 
         }
     }
     
@@ -20,6 +28,14 @@ export default class AtmSelector extends React.Component {
             const newCounter = this.props.atmId === this.props.activeBank.data.length ?
                                 0 : this.props.atmId + 1;
             this.props.dispatch({type:"SET_ATM_ID_COUNTER", payload: newCounter});
+            this.props.dispatch({
+                type:"SET_LATITUDE",
+                payload: this.props.activeBank.data[newCounter].GeographicLocation.Latitude
+            });
+            this.props.dispatch({
+                type:"SET_LONGITUDE",
+                payload: this.props.activeBank.data[newCounter].GeographicLocation.Longitude
+            });
         }
     }
     
@@ -29,6 +45,7 @@ export default class AtmSelector extends React.Component {
             <div className="atmSelector">
                 ATM Selector goes here
                 <button onClick={this.decreaseAtmIdCounter.bind(this)}>Decrease</button>
+                {this.props.atmId}
                 <button onClick={this.increaseAtmIdCounter.bind(this)}>Increase</button>
             </div>
         )

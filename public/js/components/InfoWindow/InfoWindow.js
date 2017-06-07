@@ -4,6 +4,7 @@ import store from "../../store";
 import { connect } from "react-redux";
 import { getBankData } from "../../actions/bankActions";
 import AtmSelector from "./AtmSelector";
+import InfoView from "./InfoView";
 
 
 @connect((store) => {
@@ -11,7 +12,7 @@ import AtmSelector from "./AtmSelector";
         atm: store.infoWindow.atm,
         infoItems: store.infoWindow.infoItems,
         banks: store.bankWindow.banks,
-        activeBank: store.bankWindow.activeBank,
+        activeBankId: store.bankWindow.activeBankId,
         currentAtmId: store.bankWindow.currentAtmId
         
     }
@@ -35,8 +36,9 @@ export default class InfoWindow extends React.Component{
                 <div className="infoWindow">This is the InfoWindow <br></br>
                 <button onClick={getBankData}>Click to get data</button>
                 <AtmSelector atmId={this.props.currentAtmId} 
-                            activeBank={this.props.banks[this.props.activeBank]}/>
-                    {(this.props.infoItems) ? ListInfoItems(this.props.infoItems): "No Info found."}
+                            activeBank={this.props.banks[this.props.activeBankId]}/>
+                <InfoView atmId={this.props.currentAtmId} 
+                        activeBank={this.props.banks[this.props.activeBankId]}/>
                 </div>
             )
         }
@@ -46,18 +48,4 @@ export default class InfoWindow extends React.Component{
             )
         }    
     }
-}
-
-function ListInfoItems(items) {
-    const listItems = (
-        <ul className="infoItems">
-            {items.map((item, key) => 
-            <li key={key}>{item.id}:{item.value}</li>)}
-        </ul>
-    )
-    return (
-        <div>
-            {listItems}
-        </div>
-    )
 }
