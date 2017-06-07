@@ -19,18 +19,22 @@ export default class BankWindow extends React.Component{
         return (
             <div className="bankWindow">
                 This is where the banks go.
-                {(this.props.banks) ? ListBanks(this.props) : "No Banks Found"}
+                {(this.props.banks) ? ListBanks(this.props.banks) : "No Banks Found"}
             </div>
         )
     }
 }
 
-function ListBanks(props) {
+function ListBanks(banks) {
     const listBanks = (
-        <ul>
-            {props.banks.map((bank, key) =>
-            <li key={key}><BankButton bank={bank} /></li>)}
-        </ul>
+        <table>
+            <tbody>
+            <tr>
+            {banks.map((bank, key) =>
+            <td key={key}><BankButton bank={bank} bankId={key} /></td>)}
+            </tr>
+            </tbody>
+        </table>
     )
     return (
         <div>

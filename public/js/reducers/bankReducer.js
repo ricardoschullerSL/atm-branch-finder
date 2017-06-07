@@ -1,14 +1,47 @@
+import { BANKDATA } from "../staticdata/bankData.js";
+
 export default function (state= {
-    banks:[{id:"Halifax", uri:"https://api.halifax.co.uk/open-banking/v1.2/atms"}],
+    banks:BANKDATA,
     activeBank: 0,
+    currentAtmId: 0,
 }, action) {
     switch(action.type) {
         case "ADD_BANK" : {
             if (state.banks.find(bank => bank.id === action.payload.id) === -1) {
-                return {...state,
-                    banks: state.banks.map(bank => bank.id === action.payload.id ?
-                    action.payload : bank )
+                return state;
+            } else {
+                let newBanks = state.banks.concat([action.payload]);
+                return {
+                    ...state,
+                    banks: newBanks
                 }
+            }
+        }
+        
+        case "SET_ACTIVE_BANK" : {
+            return {
+                ...state,
+                activeBank: action.payload
+            }
+        }
+        
+        case "SET_ACTIVE_BANK_DATA" : {
+            const newBanks = state.banks.map((bank, i ) => {
+                if (i === state.activeBank) {
+                    bank = action.payload;
+                } 
+                return bank;
+            });
+            return {
+                ...state,
+                banks: newBanks
+            }    
+        }
+        
+        case "SET_ATM_ID_COUNTER" : {
+            return {
+                ...state,
+                currentAtmId: action.payload
             }
         }
     }
