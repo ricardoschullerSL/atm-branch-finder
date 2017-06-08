@@ -10,7 +10,7 @@ describe('a passing test', () => {
 });
 
 describe("bankWindow", function() {
-    describe("Renders", function () {
+    describe("renders", function () {
         it("a bank button", function() {
             const testBank = {id:"Halifax"};
             const wrapper = mount(<BankButton store={store} bank={testBank} bankId={0} />)

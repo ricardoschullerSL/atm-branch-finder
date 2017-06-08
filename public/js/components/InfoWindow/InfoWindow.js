@@ -20,14 +20,7 @@ import InfoView from "./InfoView";
 export default class InfoWindow extends React.Component{
     constructor(props) {
         super(props);
-        this.props.dispatch({type:"SET_DEFAULT_LOCATION_INFO",
-        payload:{
-            city:"Haarlem",
-            street:"Grote Houtstraat",
-            postcode:"2022NA",
-            latitude:"52.379034",
-            longitude:"4.4633018"
-        }})
+        
     }
     render() {
         
