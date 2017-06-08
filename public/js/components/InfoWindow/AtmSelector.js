@@ -12,14 +12,7 @@ export default class AtmSelector extends React.Component {
             const newCounter = this.props.atmId === 0 ? 
                                 this.props.activeBank.data.length - 1 : this.props.atmId - 1;
             this.props.dispatch({type:"SET_ATM_ID_COUNTER", payload: newCounter})
-            this.props.dispatch({
-                type:"SET_LATITUDE",
-                payload: this.props.activeBank.data[newCounter].GeographicLocation.Latitude
-            });
-            this.props.dispatch({
-                type:"SET_LONGITUDE",
-                payload: this.props.activeBank.data[newCounter].GeographicLocation.Longitude
-            }); 
+            this.setATMLocation(newCounter);
         }
     }
     
@@ -28,15 +21,19 @@ export default class AtmSelector extends React.Component {
             const newCounter = this.props.atmId === this.props.activeBank.data.length ?
                                 0 : this.props.atmId + 1;
             this.props.dispatch({type:"SET_ATM_ID_COUNTER", payload: newCounter});
-            this.props.dispatch({
-                type:"SET_LATITUDE",
-                payload: this.props.activeBank.data[newCounter].GeographicLocation.Latitude
-            });
-            this.props.dispatch({
-                type:"SET_LONGITUDE",
-                payload: this.props.activeBank.data[newCounter].GeographicLocation.Longitude
-            });
+            this.setATMLocation(newCounter);
         }
+    }
+    
+    setATMLocation(atmId) {
+        this.props.dispatch({
+            type:"SET_LATITUDE",
+            payload: this.props.activeBank.data[atmId].GeographicLocation.Latitude
+        });
+        this.props.dispatch({
+            type:"SET_LONGITUDE",
+            payload: this.props.activeBank.data[atmId].GeographicLocation.Longitude
+        });
     }
     
     render() {
@@ -51,3 +48,4 @@ export default class AtmSelector extends React.Component {
         )
     }
 }
+

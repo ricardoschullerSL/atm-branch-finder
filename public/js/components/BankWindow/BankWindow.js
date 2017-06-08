@@ -6,7 +6,7 @@ import BankButton from "./BankButton/BankButton.js";
 @connect((store) => {
     return {
         banks: store.bankWindow.banks,
-        activeBank: store.bankWindow.activeBank
+        activeBankId: store.bankWindow.activeBankId
     }
 })
 export default class BankWindow extends React.Component{
@@ -23,11 +23,11 @@ export default class BankWindow extends React.Component{
             </div>
         )
     }
-}
+};
 
 function ListBanks(banks) {
     const listBanks = (
-        <table>
+        <table className="bankTable">
             <tbody>
             <tr>
             {banks.map((bank, key) =>

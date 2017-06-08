@@ -13,14 +13,35 @@ module.exports = {
                 loader: "babel-loader",
                 query: {
                     presets: ["react", "es2015", "stage-0"],
-                    plugins: ["transform-decorators-legacy"]
+                    plugins: ["transform-decorators-legacy", "react-require"]
                     }
+            },
+            {
+              test: /\.json$/,
+              loader: 'json-loader',
             },
             {
                 test:/\.css$/,
                 use:["style-loader", "css-loader"]
             }
         ]
+    },
+    externals: {
+      'jsdom': 'window',
+      'react/addons': true,
+      'react/lib/ExecutionEnvironment': true,
+      'react/lib/ReactContext': true
+    },
+    resolve: {
+          root: [
+            // allows us to import modules as if /src was the root.
+            // so I can do: import Comment from 'components/Comment'
+            // instead of:  import Comment from '../components/Comment' or whatever relative path would be
+            path.resolve(__dirname, './src')
+          ],
+          // allows you to require without the .js at end of filenames
+          // import Component from 'component' vs. import Component from 'component.js'
+          extensions: ['', '.js', '.json', '.jsx']
     },
     output: {
         filename: "bundle.js",

@@ -10,7 +10,7 @@ export default class InfoView extends React.Component {
     render() {
         return (
             <div>
-                Here should be ATM info items.<br></br>
+                <h3>ATM INFO</h3><br></br>
                 {this.props.activeBank.data ? 
                     ListInfoItems(this.props.activeBank.data[this.props.atmId]) : "No info items" }
             </div>
