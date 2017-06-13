@@ -11,7 +11,6 @@ import { connect } from "react-redux";
 export default class BankContainer extends React.Component {
     constructor(props) {
         super(props)
-        console.log("BankContainer", this.props);
     }
     
     render() {
