@@ -37,13 +37,12 @@ export default class AtmSelector extends React.Component {
     }
     
     render() {
-        console.log(this.props)
         return (
             <div className="atmSelector">
                 ATM Selector goes here
-                <button onClick={this.decreaseAtmIdCounter.bind(this)}>Decrease</button>
+                <button className="previousButton" onClick={this.decreaseAtmIdCounter.bind(this)}>Previous</button>
                 {this.props.atmId}
-                <button onClick={this.increaseAtmIdCounter.bind(this)}>Increase</button>
+                <button className="nextButton" onClick={this.increaseAtmIdCounter.bind(this)}>Next</button>
             </div>
         )
     }

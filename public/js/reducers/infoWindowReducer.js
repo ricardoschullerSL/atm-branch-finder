@@ -6,7 +6,6 @@ export default function(state= {
             postcode:"",
             latitude:"",
             longitude:""
-            
         }
     },
     infoItems: [{id:"Info1", type:"Something", value:"Test1"}]

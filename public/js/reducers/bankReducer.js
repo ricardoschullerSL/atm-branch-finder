@@ -6,6 +6,7 @@ export default function (state= {
     currentAtmId: 0,
 }, action) {
     switch(action.type) {
+        
         case "ADD_BANK" : {
             if (state.banks.find(bank => bank.id === action.payload.id) === -1) {
                 return state;

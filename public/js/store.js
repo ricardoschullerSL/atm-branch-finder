@@ -4,7 +4,16 @@ import thunk from "redux-thunk";
 
 import reducer from "./reducers";
 
-const middleWare = applyMiddleware(thunk, createLogger());
-const composeEnhancers = compose;
+var middleWare = {};
 
-export default createStore(reducer, middleWare);
+if (process.title === "browser") {
+    middleWare = applyMiddleware(thunk, createLogger());
+} else {
+    middleWare= applyMiddleware(thunk);
+}
+
+const composeEnhancers = compose;
+const store = createStore(reducer, middleWare);
+
+
+export default store
