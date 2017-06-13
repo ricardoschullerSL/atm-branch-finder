@@ -2,18 +2,43 @@ import React from "react";
 import store from "../public/js/store.js";
 import InfoWindow from "../public/js/components/InfoWindow/";
 import InfoView from "../public/js/components/InfoWindow/InfoView.js";
-import AtmSelector from "../public/js/components/InfoWindow/AtmSelector.js";
+import AtmSelector from "../public/js/components/AtmSelector/";
 
 describe("InfoWindow", function() {
     describe("renders", function() {
+        const s = {
+            atm: {
+                location: {
+                    city:"",
+                    street:"",
+                    postcode:"",
+                    latitude:"",
+                    longitude:""
+                }
+            },
+            infoItems: [{id:"Info1", type:"Something", value:"Test1"}],
+            banks: [{id:"Halifax"}],
+            activeBankId: 0,
+            currentAtmId: 0,
+        }
         it("an InfoView", function() {
-            const wrapper = shallow(<InfoWindow store={store} />).shallow();
+            const wrapper = shallow(<InfoWindow atm={s.atm}
+                                                infoItems={s.infoItems} 
+                                                banks={s.banks} 
+                                                activeBankId={s.activeBankId}
+                                                currentAtmId={s.currentAtmId} 
+                                            />);
             expect(wrapper.find("InfoView")).to.have.length(1);
             
         });
         it("an AtmSelector", function() {
-            const wrapper = shallow(<InfoWindow store={store} />).shallow();
-            expect(wrapper.find("Connect(AtmSelector)")).to.have.length(1);
+            const wrapper = shallow(<InfoWindow atm={s.atm}
+                                                infoItems={s.infoItems} 
+                                                banks={s.banks} 
+                                                activeBankId={s.activeBankId}
+                                                currentAtmId={s.currentAtmId} 
+                                            />);
+            expect(wrapper.find("AtmSelector")).to.have.length(1);
         }) 
     })
 })
