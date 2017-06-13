@@ -2,10 +2,10 @@ import axios from "axios";
 import store from "../store";
 
 export function changeActiveBank(bankId) {
-    return {
-        type:"SET_ACTIVE_BANK",
+    store.dispatch({
+        type:"SET_ACTIVE_BANK_ID",
         payload: bankId
-    };
+    });
 }
 
 export function getBankData() {

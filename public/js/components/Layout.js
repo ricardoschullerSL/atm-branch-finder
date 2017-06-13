@@ -1,10 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import InfoWindow from "./InfoWindow/InfoWindow.js";
-import MapWindow from "./MapWindow/MapWindow.js";
-import BankWindow from "./BankWindow/BankWindow.js";
+import InfoWindow from "./InfoWindow/";
+import MapWindow from "./MapWindow/";
+import BankWindow from "./BankWindow/";
 
-
+@connect((store) => {
+    return {
+        banks: store.bankWindow.banks,
+        activeBankId: store.bankWindow.activeBankId
+    }
+})
 export default class Layout extends React.Component{
     
     
@@ -14,7 +19,7 @@ export default class Layout extends React.Component{
             <p>Work in progress</p>
         </div>
         <div>
-            <BankWindow />
+            <BankWindow banks={this.props.banks} activeBankId={this.props.activeBankId} />
             <div>
                 <InfoWindow />
                 <MapWindow />

@@ -1,14 +1,9 @@
 import React from "react";
 import {connect} from "react-redux";
 import styles from "./bankwindow.css";
-import BankButton from "./BankButton/BankButton.js";
+import BankButton from "../BankButton/";
 
-@connect((store) => {
-    return {
-        banks: store.bankWindow.banks,
-        activeBankId: store.bankWindow.activeBankId
-    }
-})
+
 export default class BankWindow extends React.Component{
     constructor(props){
         super(props)

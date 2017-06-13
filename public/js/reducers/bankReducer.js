@@ -19,10 +19,10 @@ export default function (state= {
             }
         }
         
-        case "SET_ACTIVE_BANK" : {
+        case "SET_ACTIVE_BANK_ID" : {
             return {
                 ...state,
-                activeBank: action.payload
+                activeBankId: action.payload
             }
         }
         

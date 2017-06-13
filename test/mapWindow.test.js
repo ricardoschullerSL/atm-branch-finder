@@ -1,6 +1,6 @@
 import React from "react";
 import store from "../public/js/store.js";
-import MapWindow from "../public/js/components/MapWindow/MapWindow.js";
+import MapWindow from "../public/js/components/MapWindow/";
 
 describe("MapWindow", () => {
     describe("renders", () => {

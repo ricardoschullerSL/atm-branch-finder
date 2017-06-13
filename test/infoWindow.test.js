@@ -1,6 +1,6 @@
 import React from "react";
 import store from "../public/js/store.js";
-import InfoWindow from "../public/js/components/InfoWindow/InfoWindow.js";
+import InfoWindow from "../public/js/components/InfoWindow/";
 import InfoView from "../public/js/components/InfoWindow/InfoView.js";
 import AtmSelector from "../public/js/components/InfoWindow/AtmSelector.js";
 
