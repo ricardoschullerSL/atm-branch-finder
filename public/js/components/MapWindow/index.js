@@ -1,13 +1,7 @@
 import React from "react";
-import {connect} from "react-redux";
 import styles from "./mapwindow.css";
 
-@connect((store) => {
-    return {
-        latitude: store.mapWindow.latitude,
-        longitude: store.mapWindow.longitude
-    }
-})
+
 export default class MapWindow extends React.Component {
     constructor(props) {
         super(props)

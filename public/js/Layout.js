@@ -1,6 +1,6 @@
 import React from "react";
 import InfoContainer from "./containers/InfoContainer/";
-import MapWindow from "./components/MapWindow/";
+import MapContainer from "./containers/MapContainer/";
 import BankContainer from "./containers/BankContainer/";
 
 export default class Layout extends React.Component {
@@ -14,7 +14,7 @@ export default class Layout extends React.Component {
             <BankContainer />
             <div>
                 <InfoContainer />
-                <MapWindow />
+                <MapContainer />
             </div>
         </div>
         </div>)
