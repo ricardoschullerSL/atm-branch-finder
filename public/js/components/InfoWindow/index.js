@@ -16,8 +16,7 @@ export default class InfoWindow extends React.Component{
             return (
                 <div className="infoWindow">This is the InfoWindow <br></br>
                 <button onClick={getBankData}>Click to get data</button>
-                <AtmSelector activeATMIndex={this.props.activeATMIndex}
-                            filteredATMS= {this.props.filteredATMS}/>
+                <AtmSelector />
                 <InfoView activeATMIndex={this.props.activeATMIndex} 
                         filteredATMS= {this.props.filteredATMS} />
                 </div>

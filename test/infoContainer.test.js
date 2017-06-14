@@ -14,8 +14,9 @@ describe("InfoContainer", () => {
     })
 })
 //Test Store
-const s = {
-    filteredATMS:[
+const s = store.getState();
+s.infoWindow.activeATMindex= 0;
+s.infoWindow.filteredATMS = [
         {
             ATMID:"TestATM 1",
             Currency:["GBP"],
@@ -43,22 +44,20 @@ const s = {
                 Latitude: "1.1"
             }
         }
-    ],
-    activeATMIndex: 0
-};
+    ]
 
 describe("InfoWindow", () => {
     describe("renders", () => {
         it("an InfoView", () => {
-            const wrapper = shallow(<InfoWindow filteredATMS={s.filteredATMS}
-                                                activeATMIndex={s.activeATMIndex}
+            const wrapper = shallow(<InfoWindow filteredATMS={s.infoWindow.filteredATMS}
+                                                activeATMIndex={s.infoWindow.activeATMIndex}
                                             />);
             expect(wrapper.find("InfoView")).to.have.length(1);
             
         });
         it("an AtmSelector", function() {
-            const wrapper = shallow(<InfoWindow filteredATMS={s.filteredATMS}
-                                                activeATMIndex={s.activeATMIndex} 
+            const wrapper = shallow(<InfoWindow filteredATMS={s.infoWindow.filteredATMS}
+                                                activeATMIndex={s.infoWindow.activeATMIndex} 
                                             />);
             expect(wrapper.find("AtmSelector")).to.have.length(1);
         }) 
@@ -68,15 +67,15 @@ describe("InfoWindow", () => {
 describe("InfoView", () => {        
     describe("renders", () => {
         it("an infoItemList", () => {
-            const wrapper = shallow(<InfoView filteredATMS={s.filteredATMS}
-                                                activeATMIndex={s.activeATMIndex} />);
+            const wrapper = shallow(<InfoView filteredATMS={s.infoWindow.filteredATMS}
+                                                activeATMIndex={s.infoWindow.activeATMIndex} />);
             expect(wrapper.find("ul")).to.have.length(1);
         });
     });
     describe("has property", () => {
         it("class name 'infoItemList'", () => {
-            const wrapper = shallow(<InfoView filteredATMS={s.filteredATMS}
-                                                activeATMIndex={s.activeATMIndex} />);
+            const wrapper = shallow(<InfoView filteredATMS={s.infoWindow.filteredATMS}
+                                                activeATMIndex={s.infoWindow.activeATMIndex} />);
             expect(wrapper.find("ul").hasClass("infoItemList")).to.equal(true);
         });
     });
@@ -85,38 +84,33 @@ describe("InfoView", () => {
 describe("AtmSelector", () => {
     describe("renders", () => {
         it("a previous button", () => {
-            const wrapper = shallow(<AtmSelector filteredATMS={s.filteredATMS}
-                                                activeATMIndex={s.activeATMIndex}/>)
+            const wrapper = shallow(<AtmSelector />)
             expect(wrapper.find(".previousButton")).to.have.length(1);
         });
         it("a next button", () => {
             const wrapper = shallow(
-                <AtmSelector filteredATMS={s.filteredATMS}
-                            activeATMIndex={s.activeATMIndex}/>)
+                <AtmSelector />)
             expect(wrapper.find(".nextButton")).to.have.length(1);
         });
     });
     describe("has property", () => {
         it("class name 'atmSelector'", () => {
-            const wrapper = shallow(<AtmSelector filteredATMS={s.filteredATMS}
-                                                activeATMIndex={s.activeATMIndex}/>);
+            const wrapper = shallow(<AtmSelector />);
             expect(wrapper.find("div").hasClass("atmSelector")).to.equal(true);
         });
     });
     describe("can", () => {
-        it("decrease the ATM ID counter", () => {
-            const wrapper = shallow(<AtmSelector filteredATMS={s.filteredATMS}
-                                                activeATMIndex={1}/>);
-            wrapper.find(".previousButton").simulate("click");
-            expect(store.getState().infoWindow.activeATMIndex).to.equal(0);
-        });
         it("increase the ATM ID counter", () => {
-            const wrapper = shallow(<AtmSelector filteredATMS={s.filteredATMS}
-                                                activeATMIndex={0}/>);
+            const wrapper = shallow(<AtmSelector />);
             wrapper.find(".previousButton").simulate("click");
             expect(store.getState().infoWindow.activeATMIndex).to.equal(1);
         });
-            
+        it("decrease the ATM ID counter", () => {
+            const wrapper = shallow(<AtmSelector />);
+            wrapper.find(".previousButton").simulate("click");
+            expect(store.getState().infoWindow.activeATMIndex).to.equal(0);
+        });
+
     });
     
 })
