@@ -9,14 +9,25 @@ export function changeActiveBank(bankId) {
 }
 
 export function getBankData() {
-    console.log("getBankData is called!")
     const state = store.getState();
     const bank = state.bankWindow.banks[state.bankWindow.activeBankId];
     const ATM_uri = bank.uris.atm;
     axios.get(ATM_uri)
     .then((result) => {
-        const newBank = Object.assign({}, bank);
-        newBank.data = result.data.data;
-        store.dispatch({type:"SET_ACTIVE_BANK_DATA", payload:newBank}) 
-    });    
+        store.dispatch({type:"SET_ALL_ATMS", payload:result.data.data})
+        filterBankData("TownName", "BRISTOL"); 
+    });
+        
+}
+
+export function filterBankData(key, value) {
+    const state = store.getState();
+    const filteredData = state.infoWindow.allATMS.filter((item) => {
+        return item.Address[key] === value;
+    });
+    store.dispatch({
+        type:"SET_FILTERED_ATMS",
+        payload: filteredData
+    });
+    
 }

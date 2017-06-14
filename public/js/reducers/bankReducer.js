@@ -29,7 +29,8 @@ export default function (state= {
         case "SET_ACTIVE_BANK_DATA" : {
             const newBanks = state.banks.map((bank, i ) => {
                 if (i === state.activeBankId) {
-                    bank = action.payload;
+                    bank.data = action.payload;
+                    console.log(bank);
                 } 
                 return bank;
             });
@@ -43,6 +44,18 @@ export default function (state= {
             return {
                 ...state,
                 currentAtmId: action.payload
+            }
+        }
+        case "SET_ACTIVE_BANK_FILTERED_DATA" : {
+            const newBanks = state.banks.map((bank, i) => {
+                if (i === state.activeBankId) {
+                    bank.filteredData = action.payload;
+                }
+                return bank;
+            });
+            return {
+                ...state,
+                banks: newBanks
             }
         }
     }

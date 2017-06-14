@@ -6,9 +6,8 @@ import { connect } from "react-redux";
     return {
         atm: store.infoWindow.atm,
         infoItems: store.infoWindow.infoItems,
-        banks: store.bankWindow.banks,
-        activeBankId: store.bankWindow.activeBankId,
-        currentAtmId: store.bankWindow.currentAtmId
+        activeATMIndex: store.infoWindow.activeATMIndex,
+        filteredATMS: store.infoWindow.filteredATMS
         
     }
 })

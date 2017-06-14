@@ -1,12 +1,12 @@
 import store from "../store";
 
-export function setATMLocation(activeBank, atmId) {
+export function setATMLocation(latitude, longitude) {
     store.dispatch({
         type:"SET_LATITUDE",
-        payload: activeBank.data[atmId].GeographicLocation.Latitude
+        payload: latitude
     });
     store.dispatch({
         type:"SET_LONGITUDE",
-        payload: activeBank.data[atmId].GeographicLocation.Longitude
+        payload: longitude
     });
 }

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./infowindow.css";
 import { getBankData } from "../../actions/bankActions";
 import AtmSelector from "../AtmSelector/";
-import InfoView from "./InfoView";
+import InfoView from "../InfoView";
 
 
 export default class InfoWindow extends React.Component{
@@ -12,20 +12,22 @@ export default class InfoWindow extends React.Component{
     }
     render() {
         
-        if (this.props.atm) {
+        if (this.props.filteredATMS) {
             return (
                 <div className="infoWindow">This is the InfoWindow <br></br>
                 <button onClick={getBankData}>Click to get data</button>
-                <AtmSelector atmId={this.props.currentAtmId} 
-                            activeBank={this.props.banks[this.props.activeBankId]}/>
-                <InfoView atmId={this.props.currentAtmId} 
-                        activeBank={this.props.banks[this.props.activeBankId]}/>
+                <AtmSelector activeATMIndex={this.props.activeATMIndex}
+                            filteredATMS= {this.props.filteredATMS}/>
+                <InfoView activeATMIndex={this.props.activeATMIndex} 
+                        filteredATMS= {this.props.filteredATMS} />
                 </div>
             )
         }
         else {
             return (
-                <div className="infoWindow">No Info Yet</div>
+                <div className="infoWindow">
+                    <button onClick={getBankData}>Click to get data</button><br></br>
+                    No Info Yet</div>
             )
         }    
     }

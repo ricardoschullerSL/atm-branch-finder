@@ -9,26 +9,25 @@ export default class AtmSelector extends React.Component {
     }
     
     decreaseAtmIdCounter() {
-        if (this.props.activeBank.data) {
-            const newCounter = this.props.atmId === 0 ? 
-                                this.props.activeBank.data.length - 1 : this.props.atmId - 1;
+        if (this.props.filteredATMS) {
+            const newCounter = this.props.activeATMIndex === 0 ? 
+                                this.props.filteredATMS.length - 1 : this.props.activeATMIndex - 1;
             setAtmIdCounter(newCounter);
-            setATMLocation(this.props.activeBank, newCounter);
+            const atm = this.props.filteredATMS[newCounter];
+            setATMLocation(atm.GeographicLocation.Latitude, atm.GeographicLocation.Longitude)
         }
     }
     
     increaseAtmIdCounter() {
-        if (this.props.activeBank.data) {
-            const newCounter = this.props.atmId === this.props.activeBank.data.length ?
-                                0 : this.props.atmId + 1;
+        if (this.props.filteredATMS) {
+            const newCounter = this.props.activeATMIndex === this.props.filteredATMS.length - 1?
+                                0 : this.props.activeATMIndex + 1;
             setAtmIdCounter(newCounter);
-            setATMLocation(this.props.activeBank, newCounter);
+            const atm = this.props.filteredATMS[newCounter];
+            setATMLocation(atm.GeographicLocation.Latitude, atm.GeographicLocation.Longitude);
         }
     }
-    
-    setATMLocation(activeBank, atmId) {
-        setATMLocation(activeBank, atmId);
-    }
+
     
     render() {
         return (
