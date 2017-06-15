@@ -10560,14 +10560,18 @@ function getBankData() {
     var ATM_uri = bank.uris.atm;
     _axios2.default.get(ATM_uri).then(function (result) {
         _store2.default.dispatch({ type: "SET_ALL_ATMS", payload: result.data.data });
-        filterBankData("TownName", "BRISTOL");
+        filterBankData("TownName", "Bristol");
     });
 }
 
 function filterBankData(key, value) {
     var state = _store2.default.getState();
     var filteredData = state.infoWindow.allATMS.filter(function (item) {
-        return item.Address[key] === value;
+        if (item.Address[key]) {
+            return item.Address[key].toUpperCase() === value.toUpperCase();
+        } else {
+            return false;
+        }
     });
     _store2.default.dispatch({
         type: "SET_FILTERED_ATMS",
