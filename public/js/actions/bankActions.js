@@ -15,7 +15,7 @@ export function getBankData() {
     axios.get(ATM_uri)
     .then((result) => {
         store.dispatch({type:"SET_ALL_ATMS", payload:result.data.data})
-        filterBankData("TownName", "BRISTOL"); 
+        filterBankData("TownName", "Bristol"); 
     });
         
 }
@@ -23,7 +23,11 @@ export function getBankData() {
 export function filterBankData(key, value) {
     const state = store.getState();
     const filteredData = state.infoWindow.allATMS.filter((item) => {
-        return item.Address[key] === value;
+        if (item.Address[key]) {
+            return item.Address[key].toUpperCase() === value.toUpperCase();
+        } else {
+            return false;
+        }
     });
     store.dispatch({
         type:"SET_FILTERED_ATMS",

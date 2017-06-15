@@ -61,12 +61,4 @@ describe("BankButton", () => {
             expect(wrapper.find("div").hasClass("bankButton")).to.equal(true);
         });
     });
-    describe("can", () => {
-        it("change activeBankId.", () => {
-            state.bankWindow.activeBankId = 1;
-            const wrapper = shallow(<BankButton bank={testBank} bankId={0}/>);
-            wrapper.simulate("click");
-            expect(store.getState().bankWindow.activeBankId).to.equal(0);
-        });
-    });
 });

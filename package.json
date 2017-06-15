@@ -2,7 +2,7 @@
   "name": "atm-branch-finder",
   "version": "1.0.0",
   "description": "Find an ATM near you using Open Banking API",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --compilers js:babel-register --require ignore-styles --require ./test/helpers.js",
     "dev": "SET NODE_ENV=development & webpack-dev-server --content-base public --inline --hot"
@@ -38,6 +38,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.24.1",
+    "body-parser": "^1.17.2",
     "chai": "^4.0.1",
     "css-loader": "^0.28.4",
     "enzyme": "^2.8.2",
