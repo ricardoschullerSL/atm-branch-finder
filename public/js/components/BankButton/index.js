@@ -1,5 +1,5 @@
 import React from "react";
-import { changeActiveBank } from "../../actions/bankActions.js";
+import { changeActiveBank, getEndPointData } from "../../actions/bankActions.js";
 
 
 export default class BankButton extends React.Component {
@@ -9,6 +9,7 @@ export default class BankButton extends React.Component {
     
     setActiveBank() {
         changeActiveBank(this.props.bankId);
+        getEndPointData();
     }
     
     render() {

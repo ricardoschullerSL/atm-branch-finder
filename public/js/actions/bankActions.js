@@ -1,5 +1,6 @@
 import axios from "axios";
 import store from "../store";
+import { setInfoObjectLocation } from "./mapActions.js";
 
 export function changeActiveBank(bankId) {
     store.dispatch({
@@ -21,11 +22,17 @@ export function getEndPointData(endPoint) {
     }
     const bank = store.getState().bankWindow.banks[store.getState().bankWindow.activeBankId];
     const endPoint_uri = bank.uris[endPoint];
-    axios.get(endPoint_uri)
-    .then((result) => {
-        setEndPointData(endPoint, result.data.data);
-        filterEndPointData(endPoint, result.data.data, "TownName", "Bristol"); 
-    });
+    if (!bank[endPoint]) {
+        axios.get(endPoint_uri)
+        .then((result) => {
+            console.log("Got endpoint data from bank API.")
+            setEndPointData(endPoint, result.data.data);
+            filterEndPointData(endPoint, result.data.data, "TownName", "Bristol");
+            setInfoObjectLocation(); 
+        });
+    } else {
+        console.log("Endpoint data already there.")
+    }
 }
 
 export function setInfoObjects(infoObjects) {
@@ -37,7 +44,7 @@ export function setEndPointData(endPoint, payload) {
         endPoint = store.getState().bankWindow.activeEndPoint;
     }
     switch(endPoint) {
-        case "atm" : {
+        case "atms" : {
             return store.dispatch({type:"SET_ACTIVE_BANK_ATM_DATA", payload: payload});
         }
         case "branches" : {
@@ -52,8 +59,9 @@ export function filterEndPointData(endPoint, data, key, value) {
         endPoint = store.getState().bankWindow.activeEndPoint;
     }
     const state = store.getState();
+    store.dispatch({type:"SET_INFO_ID", payload:0});
     switch(endPoint) {
-        case "atm" : {
+        case "atms" : {
             const filteredData = data.filter((item) => {
                 return (item.Address[key] && value) ? 
                         item.Address[key].toUpperCase() === value.toUpperCase() : false;

@@ -7,15 +7,17 @@ export function setATMLocation() {
     setLocation(atm.GeographicLocation.Latitude, atm.GeographicLocation.Longitude);
 }
 
-export function setLocation(latitude, longitude) {
+export function setInfoObjectLocation() {
     const infoObject = store.getState().infoWindow.filteredInfoObjects[store.getState().infoWindow.infoId];
+    if (infoObject) {
+        store.dispatch({
+            type:"SET_INFO_OBJECT_LATITUDE",
+            payload: infoObject.GeographicLocation.Latitude
+        });
     
-    store.dispatch({
-        type:"SET_LATITUDE",
-        payload: infoObject.GeographicLocation.Latitude
-    });
-    store.dispatch({
-        type:"SET_LONGITUDE",
-        payload: infoObject.GeographicLocation.Longitude
-    });
+        store.dispatch({
+            type:"SET_INFO_OBJECT_LONGITUDE",
+            payload: infoObject.GeographicLocation.Longitude
+        });
+    }
 }

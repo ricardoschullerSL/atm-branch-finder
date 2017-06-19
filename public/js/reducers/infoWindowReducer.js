@@ -2,7 +2,6 @@ export default function(state= {
     infoId: 0,
     infoObjects:[],
     filteredInfoObjects:[],
-    infoViewItems: [{key:"Key", value:"Value"}]
     
 }, action) {
     switch(action.type) {

@@ -9,7 +9,7 @@ export default class EndPointSelector extends React.Component {
     render() {
         return (<div>
             Endpoint selector
-            <button onClick={() => {setActiveEndPoint("atm")}}>ATM</button>
+            <button onClick={() => {setActiveEndPoint("atms")}}>ATM</button>
             <button onClick={() => {setActiveEndPoint("branches")}}>Branches</button>
         </div>)
     }

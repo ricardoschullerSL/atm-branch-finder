@@ -1,5 +1,5 @@
 import React from "react";
-import { setLocation } from "../../actions/mapActions.js";
+import { setInfoObjectLocation } from "../../actions/mapActions.js";
 import { decreaseInfoIdCounter , 
     increaseInfoIdCounter } from "../../actions/infoActions.js";
 
@@ -11,12 +11,12 @@ export default class InfoViewSelector extends React.Component {
     
     previous() {
         decreaseInfoIdCounter();
-        setLocation();
+        setInfoObjectLocation();
     }
     
     next() {
         increaseInfoIdCounter();
-        setLocation();
+        setInfoObjectLocation();
     }
 
     

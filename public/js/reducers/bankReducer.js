@@ -4,7 +4,7 @@ export default function (state= {
     banks:BANKDATA,
     activeBankId: 0,
     currentAtmId: 0,
-    activeEndPoint: "atm"
+    activeEndPoint: "atms"
 }, action) {
     switch(action.type) {
         
