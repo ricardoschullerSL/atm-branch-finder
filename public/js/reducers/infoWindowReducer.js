@@ -1,48 +1,33 @@
 export default function(state= {
-    activeATM: {
-        location: {
-            city:"",
-            street:"",
-            postcode:"",
-            latitude:"",
-            longitude:""
-        }
-    },
-    allATMS: [],
-    filteredATMS: [],
-    activeATMIndex: 0,
-    infoItems: [{id:"Info1", type:"Something", value:"Test1"}]
+    infoId: 0,
+    infoObjects:[],
+    filteredInfoObjects:[],
+    infoViewItems: [{key:"Key", value:"Value"}]
     
 }, action) {
     switch(action.type) {
-        case "SET_DEFAULT_LOCATION_INFO": {
-            return {
-                ...state,
-                atm: {...state.atm, location: action.payload}
-            }
-        }
-        case "SET_INFO_ITEMS" : {
+        case "SET_INFO_VIEW_ITEMS" : {
             return {
                 ...state,
                 infoItems: action.payload
             }
         }
-        case "SET_ALL_ATMS": {
+        case "SET_FILTERED_INFO_OBJECTS": {
             return {
                 ...state,
-                allATMS: action.payload
+                filteredInfoObjects: action.payload
             }
         }
-        case "SET_FILTERED_ATMS": {
+        case "SET_INFO_OBJECTS" : {
             return {
                 ...state,
-                filteredATMS: action.payload
+                infoObjects: action.payload
             }
         }
-        case "SET_ACTIVE_ATM_INDEX" : {
+        case "SET_INFO_ID" : {
             return {
                 ...state,
-                activeATMIndex: action.payload
+                infoId: action.payload
             }
         }
     }

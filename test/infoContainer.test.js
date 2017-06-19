@@ -3,9 +3,8 @@ import store from "../public/js/store";
 import InfoContainer from "../public/js/containers/InfoContainer/";
 import InfoWindow from "../public/js/components/InfoWindow/";
 import InfoView from "../public/js/components/InfoView/";
-import AtmSelector from "../public/js/components/AtmSelector/";
+import InfoViewSelector from "../public/js/components/InfoViewSelector/";
 
-var state = null;
 
 beforeEach(() => {
     const testATMS = [
@@ -37,13 +36,6 @@ beforeEach(() => {
                 }
             }
         ];
-
-    state = {
-        infoWindow: {
-            filteredATMS: testATMS,
-            activeATMIndex: 0
-        }
-    };
 });
 describe("InfoContainer", () => {
     describe("renders", () => {
@@ -58,16 +50,16 @@ describe("InfoWindow", () => {
     describe("renders", () => {
         it("an InfoView", () => {
             const wrapper = shallow(
-                <InfoWindow filteredATMS={state.infoWindow.filteredATMS}
-                        activeATMIndex={state.infoWindow.activeATMIndex} />);
+                <InfoWindow filteredInfoObjects={[[{key:"Something", value:"else"}]]}
+                        infoId={0} />);
             expect(wrapper.find("InfoView")).to.have.length(1);
             
         });
-        it("an AtmSelector", function() {
+        it("an InfoViewSelector", function() {
             const wrapper = shallow(
-                <InfoWindow filteredATMS={state.infoWindow.filteredATMS}
-                        activeATMIndex={state.infoWindow.activeATMIndex} />);
-            expect(wrapper.find("AtmSelector")).to.have.length(1);
+                <InfoWindow filteredInfoObjects={[[{key:"Something", value:"else"}]]}
+                        infoId={0} />);
+            expect(wrapper.find("InfoViewSelector")).to.have.length(1);
         }) 
     })
 })
@@ -76,37 +68,35 @@ describe("InfoView", () => {
     describe("renders", () => {
         it("an infoItemList", () => {
             const wrapper = shallow(
-                <InfoView filteredATMS={state.infoWindow.filteredATMS}
-                        activeATMIndex={state.infoWindow.activeATMIndex} />);
+                <InfoView infoObject={{infoViewItems:[{key:"Info1", value:"Test1"}]}}  />);
             expect(wrapper.find("ul")).to.have.length(1);
         });
     });
     describe("has property", () => {
         it("class name 'infoItemList'", () => {
             const wrapper = shallow(
-                <InfoView filteredATMS={state.infoWindow.filteredATMS}
-                        activeATMIndex={state.infoWindow.activeATMIndex} />);
+                <InfoView infoObject={{infoViewItems:[{key:"Info1", value:"Test1"}]}} />);
             expect(wrapper.find("ul").hasClass("infoItemList")).to.equal(true);
         });
     });
 });
 
-describe("AtmSelector", () => {
+describe("InfoViewSelector", () => {
     describe("renders", () => {
         it("a previous button", () => {
-            const wrapper = shallow(<AtmSelector />)
+            const wrapper = shallow(<InfoViewSelector />)
             expect(wrapper.find(".previousButton")).to.have.length(1);
         });
         it("a next button", () => {
             const wrapper = shallow(
-                <AtmSelector />)
+                <InfoViewSelector />)
             expect(wrapper.find(".nextButton")).to.have.length(1);
         });
     });
     describe("has property", () => {
-        it("class name 'atmSelector'", () => {
-            const wrapper = shallow(<AtmSelector />);
-            expect(wrapper.find("div").hasClass("atmSelector")).to.equal(true);
+        it("class name 'infoViewSelector'", () => {
+            const wrapper = shallow(<InfoViewSelector />);
+            expect(wrapper.find("div").hasClass("infoViewSelector")).to.equal(true);
         });
     });
 });

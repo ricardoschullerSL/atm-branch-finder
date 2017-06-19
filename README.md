@@ -16,7 +16,7 @@ To run a server locally:
 npm run dev
 ```
 
-Then open localhost:8000
+Then open localhost:8080
 
 To run the tests:
 ```bash

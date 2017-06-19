@@ -5,15 +5,13 @@ export default class InfoView extends React.Component {
         super(props);
     }
     
-    ATMItems(items) {
+    listItems(items) {
         return (
             <div>
                 <ul className="infoItemList">
-                    <li>ATM ID : {items.ATMID}</li>
-                    <li>Currency: {items.Currency[0]}</li>
-                    <li>Town : {items.Address.TownName}</li>
-                    <li>PostCode : {items.Address.PostCode}</li>
-                    <li>StreetName: {items.Address.StreetName}</li>
+                    {items.map((item, key) =>
+                        <li key={key}>{item.key} : {item.value}</li>
+                    )}    
                 </ul>
             </div>
         )
@@ -22,9 +20,9 @@ export default class InfoView extends React.Component {
     render() {
         return (
             <div>
-                <h3>ATM INFO</h3><br></br>
-                {this.props.filteredATMS.length > 0 ? 
-                    this.ATMItems(this.props.filteredATMS[this.props.activeATMIndex]) : "No info items" }
+                <h3>INFO</h3><br></br>
+                {this.props.infoObject ? 
+                    this.listItems(this.props.infoObject.infoViewItems) : "No info items" }
             </div>
         )
     }

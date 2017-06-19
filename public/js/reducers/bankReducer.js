@@ -4,6 +4,7 @@ export default function (state= {
     banks:BANKDATA,
     activeBankId: 0,
     currentAtmId: 0,
+    activeEndPoint: "atm"
 }, action) {
     switch(action.type) {
         
@@ -26,11 +27,10 @@ export default function (state= {
             }
         }
         
-        case "SET_ACTIVE_BANK_DATA" : {
+        case "SET_ACTIVE_BANK_ATM_DATA" : {
             const newBanks = state.banks.map((bank, i ) => {
                 if (i === state.activeBankId) {
-                    bank.data = action.payload;
-                    console.log(bank);
+                    bank.atms = action.payload;
                 } 
                 return bank;
             });
@@ -38,6 +38,19 @@ export default function (state= {
                 ...state,
                 banks: newBanks
             }    
+        }
+        
+        case "SET_ACTIVE_BANK_BRANCH_DATA" : {
+            const newBanks = state.banks.map((bank, i ) => {
+                if (i === state.activeBankId) {
+                    bank.branches = action.payload;
+                } 
+                return bank;
+            });
+            return {
+                ...state,
+                banks: newBanks
+            } 
         }
         
         case "SET_ATM_ID_COUNTER" : {
@@ -56,6 +69,12 @@ export default function (state= {
             return {
                 ...state,
                 banks: newBanks
+            }
+        }
+        case "SET_ACTIVE_ENDPOINT" : {
+            return {
+                ...state,
+                activeEndPoint: action.payload
             }
         }
     }

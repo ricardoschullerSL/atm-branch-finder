@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./bankwindow.css";
 import BankButton from "../BankButton/";
+import EndPointSelector from "../EndPointSelector";
 
 
 export default class BankWindow extends React.Component{
@@ -13,6 +14,8 @@ export default class BankWindow extends React.Component{
             <div className="bankWindow">
                 This is where the banks go.
                 {(this.props.banks) ? ListBanks(this.props.banks) : "No Banks Found"}
+                <br />
+                <EndPointSelector />
             </div>
         )
     }

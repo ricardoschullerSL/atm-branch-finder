@@ -8,12 +8,14 @@ export function setATMLocation() {
 }
 
 export function setLocation(latitude, longitude) {
+    const infoObject = store.getState().infoWindow.filteredInfoObjects[store.getState().infoWindow.infoId];
+    
     store.dispatch({
         type:"SET_LATITUDE",
-        payload: latitude
+        payload: infoObject.GeographicLocation.Latitude
     });
     store.dispatch({
         type:"SET_LONGITUDE",
-        payload: longitude
+        payload: infoObject.GeographicLocation.Longitude
     });
 }
