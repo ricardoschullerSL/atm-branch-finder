@@ -1,5 +1,5 @@
 import React from "react";
-import { setActiveEndPoint } from "../../actions/bankActions";
+
 
 export default class EndPointSelector extends React.Component {
     constructor(props) {
@@ -9,8 +9,8 @@ export default class EndPointSelector extends React.Component {
     render() {
         return (<div>
             Endpoint selector
-            <button onClick={() => {setActiveEndPoint("atms")}}>ATM</button>
-            <button onClick={() => {setActiveEndPoint("branches")}}>Branches</button>
+            <button onClick={() => {this.props.dispatch({type:"SET_ACTIVE_ENDPOINT", payload:"atms"})}}>ATM</button>
+            <button onClick={() => {this.props.dispatch({type:"SET_ACTIVE_ENDPOINT", payload:"branches"})}}>Branches</button>
         </div>)
     }
 }

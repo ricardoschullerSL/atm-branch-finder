@@ -15,7 +15,7 @@ export default class BankWindow extends React.Component{
                 This is where the banks go.
                 {(this.props.banks) ? ListBanks(this.props.banks) : "No Banks Found"}
                 <br />
-                <EndPointSelector />
+                <EndPointSelector dispatch={this.props.dispatch} />
             </div>
         )
     }

@@ -1,7 +1,7 @@
 import React from "react";
 import { setInfoObjectLocation } from "../../actions/mapActions.js";
-import { decreaseInfoIdCounter , 
-    increaseInfoIdCounter } from "../../actions/infoActions.js";
+import { decreaseInfoIndex , 
+    increaseInfoIndex } from "../../actions/infoActions.js";
 
 
 export default class InfoViewSelector extends React.Component {
@@ -10,13 +10,13 @@ export default class InfoViewSelector extends React.Component {
     }
     
     previous() {
-        decreaseInfoIdCounter();
-        setInfoObjectLocation();
+        this.props.dispatch(decreaseInfoIndex());
+        this.props.dispatch(setInfoObjectLocation());
     }
     
     next() {
-        increaseInfoIdCounter();
-        setInfoObjectLocation();
+        this.props.dispatch(increaseInfoIndex());
+        this.props.dispatch(setInfoObjectLocation());
     }
 
     

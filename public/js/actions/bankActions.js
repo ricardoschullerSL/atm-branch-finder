@@ -1,42 +1,41 @@
 import axios from "axios";
-import store from "../store";
-import { setInfoObjectLocation } from "./mapActions.js";
+import store from "../store.js";
+import { setMapCoordinates } from "./mapActions.js";
 
 export function changeActiveBank(bankId) {
-    store.dispatch({
+    return {
         type:"SET_ACTIVE_BANK_ID",
         payload: bankId
-    });
+    }
 }
 
 export function setActiveEndPoint(endPoint) {
-    store.dispatch({
+    return {
         type:"SET_ACTIVE_ENDPOINT",
         payload: endPoint 
-    });
+    }
 }
 
 export function getEndPointData(endPoint) {    
-    if (!endPoint) {
-        endPoint = store.getState().bankWindow.activeEndPoint;
+    return (dispatch) => {
+        if (!endPoint) {
+            endPoint = store.getState().bankWindow.activeEndPoint;
+        }
+        const bank = store.getState().bankWindow.banks[store.getState().bankWindow.activeBankId];
+        const endPoint_uri = bank.uris[endPoint];
+        if (!bank[endPoint]) {
+            axios.get(endPoint_uri)
+            .then((result) => {
+                console.log("Got endpoint data from bank API.")
+                dispatch(setEndPointData(endPoint, result.data.data));
+                dispatch(filterEndPointData(endPoint, result.data.data, "TownName", "Bristol"));
+                dispatch({type:"SET_INFO_ID", payload:0});
+            });
+        } else {
+            console.log("Endpoint data already there.")
+            dispatch({type:"SET_INFO_ID", payload:0});
+        }
     }
-    const bank = store.getState().bankWindow.banks[store.getState().bankWindow.activeBankId];
-    const endPoint_uri = bank.uris[endPoint];
-    if (!bank[endPoint]) {
-        axios.get(endPoint_uri)
-        .then((result) => {
-            console.log("Got endpoint data from bank API.")
-            setEndPointData(endPoint, result.data.data);
-            filterEndPointData(endPoint, result.data.data, "TownName", "Bristol");
-            setInfoObjectLocation(); 
-        });
-    } else {
-        console.log("Endpoint data already there.")
-    }
-}
-
-export function setInfoObjects(infoObjects) {
-    store.dispatch({type:"SET_INFO_OBJECTS", payload: infoObjects})
 }
 
 export function setEndPointData(endPoint, payload) {
@@ -45,10 +44,10 @@ export function setEndPointData(endPoint, payload) {
     }
     switch(endPoint) {
         case "atms" : {
-            return store.dispatch({type:"SET_ACTIVE_BANK_ATM_DATA", payload: payload});
+            return {type:"SET_ACTIVE_BANK_ATM_DATA", payload: payload};
         }
         case "branches" : {
-            return store.dispatch({type:"SET_ACTIVE_BANK_BRANCH_DATA", payload: payload});
+            return {type:"SET_ACTIVE_BANK_BRANCH_DATA", payload: payload};
         }
     }
     console.log("setEndPointData called"); 
@@ -59,7 +58,6 @@ export function filterEndPointData(endPoint, data, key, value) {
         endPoint = store.getState().bankWindow.activeEndPoint;
     }
     const state = store.getState();
-    store.dispatch({type:"SET_INFO_ID", payload:0});
     switch(endPoint) {
         case "atms" : {
             const filteredData = data.filter((item) => {
@@ -78,10 +76,10 @@ export function filterEndPointData(endPoint, data, key, value) {
             });
             
             
-            return store.dispatch({
+            return {
                 type:"SET_FILTERED_INFO_OBJECTS",
                 payload: filteredInfoObjects
-            });
+            };
         }
         case "branches": {
             const filteredData = data.filter((item) => {
@@ -98,10 +96,10 @@ export function filterEndPointData(endPoint, data, key, value) {
                 ];
                 return branch
             })
-            return store.dispatch({
+            return {
                 type:"SET_FILTERED_INFO_OBJECTS",
                 payload: filteredInfoObjects
-            });
+            }
         }
         default : {
             console.log("Something went wrong, didn't filter the data");

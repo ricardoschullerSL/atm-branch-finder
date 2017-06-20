@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-register --require ignore-styles --require ./test/helpers.js",
+    "test": "./node_modules/.bin/mocha --compilers js:babel-register --require ignore-styles --require ./test/helpers.js --recursive",
     "dev": "SET NODE_ENV=development & webpack-dev-server --content-base public --inline --hot"
   },
   "repository": {
@@ -51,6 +51,7 @@
     "react-addons-test-utils": "^15.5.1",
     "react-dom": "^15.5.4",
     "react-test-renderer": "^15.5.4",
+    "redux-mock-store": "^1.2.3",
     "style-loader": "^0.18.1",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5",

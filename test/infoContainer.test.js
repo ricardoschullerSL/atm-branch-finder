@@ -88,8 +88,7 @@ describe("InfoViewSelector", () => {
             expect(wrapper.find(".previousButton")).to.have.length(1);
         });
         it("a next button", () => {
-            const wrapper = shallow(
-                <InfoViewSelector />)
+            const wrapper = shallow(<InfoViewSelector />)
             expect(wrapper.find(".nextButton")).to.have.length(1);
         });
     });
