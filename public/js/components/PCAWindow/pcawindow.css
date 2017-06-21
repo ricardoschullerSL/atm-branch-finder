@@ -9,7 +9,7 @@
     border: 2px solid gray;
     min-height:100px;
     max-height:120px;
-    width: 100%;
+    width: auto;
     overflow-y: auto;
     
 }
@@ -21,4 +21,5 @@
 
 .pcaPropertyList {
     list-style-type:none;
+    padding: 5px;
 }

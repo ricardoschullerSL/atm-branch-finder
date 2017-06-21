@@ -29,7 +29,6 @@ export function getEndPointData(endPoint, bank) {
         if (!bank[endPoint]) {
             axios.get(endPoint_uri)
             .then((result) => {
-                console.log(result);
                 console.log("Got endpoint data from bank API.")
                 dispatch(setEndPointData(endPoint, result.data.data));
                 dispatch(filterEndPointData(endPoint, result.data.data, "TownName", "Bristol"));
@@ -43,9 +42,6 @@ export function getEndPointData(endPoint, bank) {
 }
 
 export function setEndPointData(endPoint, payload) {
-    if (!endPoint) {
-        endPoint = store.getState().bankWindow.activeEndPoint;
-    }
     switch(endPoint) {
         case "atms" : {
             return {type:"SET_ACTIVE_BANK_ATM_DATA", payload: payload};
@@ -64,10 +60,6 @@ export function setEndPointData(endPoint, payload) {
 }
 
 export function filterEndPointData(endPoint, data, key, value) {
-    if (!endPoint) {
-        endPoint = store.getState().bankWindow.activeEndPoint;
-    }
-    const state = store.getState();
     switch(endPoint) {
         case "atms" : {
             return filterATMData(data, key, value);

@@ -32,19 +32,53 @@ describe("Bank Actions", () => {
     });
     describe("setActiveEndPoint", () => {
         it("should change activeEndPoint", () => {
-            const initialState = {bankWindow: {activeEndpoint:"atms"}};
+            const initialState = {bankWindow: {activeEndPoint:"atms"}};
             const store = mockStore(initialState);
             store.dispatch(bankActions.setActiveEndPoint("branches"));
             expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_ENDPOINT", payload:"branches"}])
         });
     });
-    describe("getEndPointData", () => {
+    describe("getBankData", () => {
+        
         
     });
     describe("setEndPointData", () => {
-        
+        it("should set ATM data", () => {
+            const initialState= {bankWindow: {activeEndPoint:"atms"}};
+            const store = mockStore(initialState);
+            const data = ["Something"]
+            store.dispatch(bankActions.setEndPointData("atms", data));
+            expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_BANK_ATM_DATA", payload:data}]);
+        });
+        it("should set Branch data", () => {
+            const initialState= {bankWindow: {activeEndPoint:"branches"}};
+            const store = mockStore(initialState);
+            const data = ["Something"]
+            store.dispatch(bankActions.setEndPointData("branches", data));
+            expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_BANK_BRANCH_DATA", payload:data}]);
+        });
+        it("should set PCA data", () => {
+            const initialState= {bankWindow: {activeEndPoint:"pca"}};
+            const store = mockStore(initialState);
+            const data = ["Something"]
+            store.dispatch(bankActions.setEndPointData("pca", data));
+            expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_BANK_PCA_DATA", payload:data}]);
+        });
+        it("should return NO_ACTION by default", () => {
+            const initialState= {bankWindow: {activeEndPoint:""}};
+            const store = mockStore(initialState);
+            const data = ["Something"]
+            store.dispatch(bankActions.setEndPointData(null, data));
+            expect(store.getActions()).to.deep.equal([{type:"NO_ACTION"}]);
+        });
     });
     describe("filterEndPointData", () => {
-        
+        it("should return NO_ACTION by default", () => {
+            const initialState= {bankWindow: {activeEndPoint:""}};
+            const store = mockStore(initialState);
+            const data = ["Something"]
+            store.dispatch(bankActions.filterEndPointData(null, data, "TownName","Bristol"));
+            expect(store.getActions()).to.deep.equal([{type:"NO_ACTION", payload:"No filter applied"}]);
+        });
     });
 })
