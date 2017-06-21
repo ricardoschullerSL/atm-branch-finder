@@ -6,3 +6,7 @@ deployment:
     branch: master
     heroku:
       appname: atm-branch-finder
+
+test:
+    post:
+        - bash <(curl -s https://codecov.io/bash)

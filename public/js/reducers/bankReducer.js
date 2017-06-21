@@ -53,6 +53,19 @@ export default function (state= {
             } 
         }
         
+        case "SET_ACTIVE_BANK_PCA_DATA" : {
+            const newBanks = state.banks.map((bank, i ) => {
+                if (i === state.activeBankId) {
+                    bank.pca = action.payload;
+                } 
+                return bank;
+            });
+            return {
+                ...state,
+                banks: newBanks
+            } 
+        }
+        
         case "SET_ATM_ID_COUNTER" : {
             return {
                 ...state,

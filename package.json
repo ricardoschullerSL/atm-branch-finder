@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-register --require ignore-styles --require ./test/helpers.js --recursive",
+    "test": "nyc mocha --compilers js:babel-register --require ignore-styles --require ./test/helpers.js --recursive",
     "dev": "SET NODE_ENV=development & webpack-dev-server --content-base public --inline --hot"
   },
   "repository": {
@@ -48,6 +48,7 @@
     "jsdom": "^11.0.0",
     "mocha": "^3.4.2",
     "mocha-webpack": "^0.7.0",
+    "nyc": "^11.0.2",
     "react-addons-test-utils": "^15.5.1",
     "react-dom": "^15.5.4",
     "react-test-renderer": "^15.5.4",

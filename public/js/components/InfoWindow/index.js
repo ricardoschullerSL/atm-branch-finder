@@ -20,7 +20,7 @@ export default class InfoWindow extends React.Component{
         if (this.props.filteredInfoObjects) {
             return (
                 <div className="infoWindow">This is the InfoWindow <br></br>
-                <button onClick={this.getEndPointData}>Get data</button>
+                <button onClick={this.getEndPointData.bind(this)}>Get data</button>
                 <InfoViewSelector dispatch={this.props.dispatch} infoId={this.props.infoId} />
                 <InfoView infoObject={this.props.filteredInfoObjects[this.props.infoId]} />
                 </div>

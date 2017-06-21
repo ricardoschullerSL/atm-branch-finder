@@ -1,6 +1,6 @@
 import React from "react";
-import {connect} from "react-redux";
-import { changeActiveBank, getEndPointData } from "../../actions/bankActions.js";
+import { connect } from "react-redux";
+import { changeActiveBank, getBankData } from "../../actions/bankActions.js";
 
 @connect()
 export default class BankButton extends React.Component {
@@ -10,7 +10,7 @@ export default class BankButton extends React.Component {
     
     setActiveBank() {
         this.props.dispatch(changeActiveBank(this.props.bankId));
-        this.props.dispatch(getEndPointData());
+        this.props.dispatch(getBankData(this.props.bank));
     }
     
     render() {

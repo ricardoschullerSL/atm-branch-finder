@@ -16,16 +16,20 @@ export function setActiveEndPoint(endPoint) {
     }
 }
 
-export function getEndPointData(endPoint) {    
+export function getBankData(bank) {
     return (dispatch) => {
-        if (!endPoint) {
-            endPoint = store.getState().bankWindow.activeEndPoint;
+        for (var endPoint in bank.uris) {
+            dispatch(getEndPointData(endPoint, bank))
         }
-        const bank = store.getState().bankWindow.banks[store.getState().bankWindow.activeBankId];
+    }
+}
+export function getEndPointData(endPoint, bank) {    
+    return (dispatch) => {
         const endPoint_uri = bank.uris[endPoint];
         if (!bank[endPoint]) {
             axios.get(endPoint_uri)
             .then((result) => {
+                console.log(result);
                 console.log("Got endpoint data from bank API.")
                 dispatch(setEndPointData(endPoint, result.data.data));
                 dispatch(filterEndPointData(endPoint, result.data.data, "TownName", "Bristol"));
@@ -49,6 +53,12 @@ export function setEndPointData(endPoint, payload) {
         case "branches" : {
             return {type:"SET_ACTIVE_BANK_BRANCH_DATA", payload: payload};
         }
+        case "pca" : {
+            return {type:"SET_ACTIVE_BANK_PCA_DATA", payload: payload};
+        }
+        default : {
+            return {type:"NO_ACTION"}
+        }
     }
     console.log("setEndPointData called"); 
 }
@@ -60,50 +70,55 @@ export function filterEndPointData(endPoint, data, key, value) {
     const state = store.getState();
     switch(endPoint) {
         case "atms" : {
-            const filteredData = data.filter((item) => {
-                return (item.Address[key] && value) ? 
-                        item.Address[key].toUpperCase() === value.toUpperCase() : false;
-            });
-            
-            const filteredInfoObjects = filteredData.map((atm) => {
-                atm.infoViewItems = [
-                    {key:"ATM ID", value:atm.ATMID},
-                    {key:"Currency", value: atm.Currency[0]},
-                    {key:"City", value: atm.Address.TownName},
-                    {key:"Post Code", value: atm.Address.StreetName}
-                ]
-                return atm
-            });
-            
-            
-            return {
-                type:"SET_FILTERED_INFO_OBJECTS",
-                payload: filteredInfoObjects
-            };
+            return filterATMData(data, key, value);
         }
         case "branches": {
-            const filteredData = data.filter((item) => {
-                return (item.Address[key] && value) ?
-                    item.Address[key].toUpperCase() === value.toUpperCase() : false;
-            });
-            
-            const filteredInfoObjects = filteredData.map((branch) => {
-                branch.infoViewItems = [
-                    {key:"Branch Name", value: branch.BranchName},
-                    {key:"Post Code", value: branch.Address.PostCode},
-                    {key:"Street Name", value: branch.Address.StreetName},
-                    {key:"Town/City", value: branch.Address.TownName},
-                ];
-                return branch
-            })
-            return {
-                type:"SET_FILTERED_INFO_OBJECTS",
-                payload: filteredInfoObjects
-            }
+            return filterBranchData(data, key, value);
         }
         default : {
-            console.log("Something went wrong, didn't filter the data");
+            return {type:"NO_ACTION", payload:"No filter applied"}
         }
     }    
 }
 
+function filterATMData(data, key, value) {
+    const filteredData = data.filter((item) => {
+        return (item.Address[key] && value) ? 
+                item.Address[key].toUpperCase() === value.toUpperCase() : false;
+    });
+    
+    const filteredInfoObjects = filteredData.map((atm) => {
+        atm.infoViewItems = [
+            {key:"ATM ID", value:atm.ATMID},
+            {key:"Currency", value: atm.Currency[0]},
+            {key:"City", value: atm.Address.TownName},
+            {key:"Post Code", value: atm.Address.StreetName}
+        ]
+        return atm
+    });
+    return {
+        type:"SET_FILTERED_INFO_OBJECTS",
+        payload: filteredInfoObjects
+    };
+}
+
+function filterBranchData(data, key, value) {
+    const filteredData = data.filter((item) => {
+        return (item.Address[key] && value) ?
+            item.Address[key].toUpperCase() === value.toUpperCase() : false;
+    });
+    
+    const filteredInfoObjects = filteredData.map((branch) => {
+        branch.infoViewItems = [
+            {key:"Branch Name", value: branch.BranchName},
+            {key:"Post Code", value: branch.Address.PostCode},
+            {key:"Street Name", value: branch.Address.StreetName},
+            {key:"Town/City", value: branch.Address.TownName},
+        ];
+        return branch
+    })
+    return {
+        type:"SET_FILTERED_INFO_OBJECTS",
+        payload: filteredInfoObjects
+    }
+}
