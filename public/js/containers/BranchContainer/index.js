@@ -1,9 +1,8 @@
-import React from "react":
-import BranchWindow from "../components/BranchWindow/";
+import React from "react";
+import { connect } from "react-redux";
+import BranchWindow from "../../components/BranchWindow/";
 
-@connect(state = {
-    
-})
+@connect()
 export default class BranchContainer extends React.Component {
     constructor(props) {
         super(props)

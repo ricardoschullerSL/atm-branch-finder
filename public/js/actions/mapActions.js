@@ -4,25 +4,30 @@ export function setATMLocation() {
     const atm = store.getState().infoWindow.filteredATMS[
         store.getState().infoWindow.activeATMIndex
     ];
-    setLocation(atm.GeographicLocation.Latitude, atm.GeographicLocation.Longitude);
+    setMapCoordinates(atm.GeographicLocation);
 }
 
-export function setInfoObjectLocation(infoObject) {
-    if (!infoObject) {
-        const infoObject = store.getState().infoWindow.filteredInfoObjects[store.getState().infoWindow.infoId];
+export function setInfoObjectLocation() {
+    const infoObject = store.getState().infoWindow.filteredInfoObjects[store.getState().infoWindow.infoId]
+    if (infoObject) {
+        if (infoObject.GeographicLocation) {
+            return (dispatch) => dispatch(setMapCoordinates(infoObject.GeographicLocation))
+        } 
     }
-    if (infoObject.GeographicLocation) {
-        return (dispatch) => {dispatch(setMapCoordinates(infoObject.GeographicLocation))}
-    } else {
+    else {
         return {type:"NO_ACTION"};
     }
 }
 
 export function setMapCoordinates(geographicLocation) {
-    return (dispatch) => {
-            dispatch(setLatitude(geographicLocation.Latitude));
-            dispatch(setLongitude(geographicLocation.Longitude));
+    if (geographicLocation) {
+        return (dispatch) => {
+                dispatch(setLatitude(geographicLocation.Latitude));
+                dispatch(setLongitude(geographicLocation.Longitude));
         }
+    } else {
+        return {type:"ADD_ERROR_TO_LOG", payload:"No geographicLocation object given when setting map coordinates."}
+    }
 }
 
 export function setLatitude(latitude) {

@@ -1,0 +1,9 @@
+.selector {
+    height: 20px;
+    width: 80px;
+    border-width:thin;
+    border-color: #000000;
+    background-color: #305DAB; 
+    text-align:center;
+    color:white;
+}
