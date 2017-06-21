@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
+    "report-coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
     "test": "nyc mocha --compilers js:babel-register --require ignore-styles --require ./test/helpers.js --recursive",
     "dev": "SET NODE_ENV=development & webpack-dev-server --content-base public --inline --hot"
   },
