@@ -26,4 +26,20 @@ describe("MapActions", () => {
             expect(mapActions.setLongitude(longitude)).to.deep.equal({type:"SET_INFO_OBJECT_LONGITUDE", payload: longitude});
         });
     });
+    describe("setMapCoordinates", () => {
+        it("should set map coordinates", () => {
+            const initialState = {};
+            const store = mockStore(initialState);
+            const geographicLocation = {Latitude:"5.1", Longitude:"5.2"};
+            store.dispatch(mapActions.setMapCoordinates(geographicLocation));
+            expect(store.getActions()).to.deep.equal([{type:"SET_INFO_OBJECT_LATITUDE", payload:geographicLocation.Latitude}, 
+            {type:"SET_INFO_OBJECT_LONGITUDE", payload:geographicLocation.Longitude}]);
+        });
+        it("should add error to log when no location is provided", () => {
+            const initialState = {};
+            const store = mockStore(initialState);
+            store.dispatch(mapActions.setMapCoordinates());
+            expect(store.getActions()).to.deep.equal([{type:"ADD_ERROR_TO_LOG", payload:"No geographicLocation object given when setting map coordinates."}])
+        })
+    });
 });

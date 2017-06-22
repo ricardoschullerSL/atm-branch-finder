@@ -9,9 +9,9 @@ export default class EndPointSelector extends React.Component {
     render() {
         return (<div>
             Endpoint selector
-            <button className={"selector"} onClick={() => {this.props.dispatch({type:"SET_ACTIVE_ENDPOINT", payload:"atms"})}}>ATM</button>
-            <button className={"selector"} onClick={() => {this.props.dispatch({type:"SET_ACTIVE_ENDPOINT", payload:"branches"})}}>Branches</button>
-            <button className={"selector"} onClick={() => {this.props.dispatch({type:"SET_ACTIVE_ENDPOINT", payload:"pca"})}}>PCA</button>
+            <button className={"selector"} id={"atmSelector"} onClick={() => {this.props.dispatch({type:"SET_ACTIVE_ENDPOINT", payload:"atms"})}}>ATM</button>
+            <button className={"selector"} id={"branchSelector"} onClick={() => {this.props.dispatch({type:"SET_ACTIVE_ENDPOINT", payload:"branches"})}}>Branches</button>
+            <button className={"selector"} id={"pcaSelector"} onClick={() => {this.props.dispatch({type:"SET_ACTIVE_ENDPOINT", payload:"pca"})}}>PCA</button>
         </div>)
     }
 }

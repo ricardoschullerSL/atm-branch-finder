@@ -1,14 +1,6 @@
 import store from "../store";
 
-export function setATMLocation() {
-    const atm = store.getState().infoWindow.filteredATMS[
-        store.getState().infoWindow.activeATMIndex
-    ];
-    setMapCoordinates(atm.GeographicLocation);
-}
-
-export function setInfoObjectLocation() {
-    const infoObject = store.getState().infoWindow.filteredInfoObjects[store.getState().infoWindow.infoId]
+export function setInfoObjectLocation(infoObject) {
     if (infoObject) {
         if (infoObject.GeographicLocation) {
             return (dispatch) => dispatch(setMapCoordinates(infoObject.GeographicLocation))

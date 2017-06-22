@@ -76,9 +76,43 @@ describe("Bank Actions", () => {
         it("should return NO_ACTION by default", () => {
             const initialState= {bankWindow: {activeEndPoint:""}};
             const store = mockStore(initialState);
-            const data = ["Something"]
+            const data = [{Address:{TownName:"Bristol"}}, {Address:{TownName:"Bristol"}}];
             store.dispatch(bankActions.filterEndPointData(null, data, "TownName","Bristol"));
             expect(store.getActions()).to.deep.equal([{type:"NO_ACTION", payload:"No filter applied"}]);
+        });
+        it("should filter ATM data", () => {
+            const initialState= {bankWindow: {activeEndPoint:""}};
+            const store = mockStore(initialState);
+            const data = [
+                {
+                    ATMID:"TestATM1",
+                    Address:{TownName:"London", StreetName:"25 Buckingham Palace"},
+                    Currency:["GBP"],
+                    
+                },
+                {
+                    ATMID:"TestATM2",
+                    Address:{TownName:"Bristol", StreetName:"25 King Street"},
+                    Currency:["GBP"],
+                    
+                }];
+            store.dispatch(bankActions.filterEndPointData("atms", data, "TownName", "Bristol"));
+            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload:  [data[1]]}])
+        });
+        it("should filter Branch data", () => {
+            const initialState= {bankWindow: {activeEndPoint:"branches"}};
+            const store = mockStore(initialState);
+            const data = [
+                {
+                    BranchName:"Test Branch 1",
+                    Address:{TownName:"London", StreetName:"25 Buckingham Palace", PostCode:"LB121212"},                
+                },
+                {
+                    BranchName:"Test Branch 2",
+                    Address:{TownName:"Bristol", StreetName:"25 King Street", PostCode:"BS151515"},
+                }];
+            store.dispatch(bankActions.filterEndPointData("branches", data, "TownName", "Bristol"));
+            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload: [data[1]]}])
         });
     });
 })

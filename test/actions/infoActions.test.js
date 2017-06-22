@@ -17,28 +17,6 @@ describe("Info Actions", () => {
             expect(infoActions.setInfoIndex(id)).to.deep.equal(expectedAction);
         });
     });
-    describe("decreaseInfoIndex", () => {
-        it("should decrease info index", () => {
-            // This test needs to be fixed.
-            // It only works because standard value is 0
-            const expectedAction = {
-                type:"SET_INFO_ID",
-                payload: -1
-            }
-            expect(infoActions.decreaseInfoIndex()).to.deep.equal(expectedAction);
-        });
-    });
-    describe("increaseInfoIndex", () => {
-        it("should increase info index", () => {
-            // This test needs to be fixed.
-            // It only works because standard value is 0
-            const expectedAction = {
-                type:"SET_INFO_ID",
-                payload: 1
-            }
-            expect(infoActions.increaseInfoIndex()).to.deep.equal(expectedAction);
-        });
-    });
     describe("setInfoObjects", ()=> {
         it("should set info objects", () => {
             const infoObjects = [{key:"Something", value:"else"}];

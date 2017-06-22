@@ -1,5 +1,6 @@
 import PCAContainer from "../public/js/containers/PCAContainer";
 import PCAWindow from "../public/js/components/PCAWindow";
+import PCAView from "../public/js/components/PCAView";
 import {BANKDATA} from "../public/js/staticdata/bankData.js"; 
 // Setting up Mock Store
 import configureStore from "redux-mock-store";
@@ -45,6 +46,20 @@ describe("PCAWindow", () => {
             }];
             const wrapper = shallow(<PCAWindow banks={testBank} activeBankId={0} />)
             expect(wrapper.hasClass('pcaWindow')).to.equal(true);
+        });
+    });
+});
+
+describe("PCAView", () => {
+    describe("renders", () => {
+        it("a pcaPropertyList", () => {
+            const testpca =  {
+                ProductName: "testPCA",
+                ProductDescription:"PCA to test with",
+                CardWithdrawalLimit:"a bazillion schmeckles"
+            };
+            const wrapper = shallow(<PCAView pca={testpca} />);
+            expect(wrapper.find("ul")).to.have.length(1);
         });
     });
 });

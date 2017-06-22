@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">37.5% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>6/16</span>
+        <span class='fraction'>13/13</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">16.67% </span>
+        <span class="strong">83.33% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>1/6</span>
+        <span class='fraction'>5/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">42.86% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>3/7</span>
+        <span class='fraction'>6/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">40% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>6/15</span>
+        <span class='fraction'>12/12</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -79,28 +79,12 @@
 34
 35
 36
-37
-38
-39
-40
-41
-42
-43
-44
-45</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+37</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -109,15 +93,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -125,26 +104,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import store from "../store";
 &nbsp;
-export f</span>unction <span class="fstat-no" title="function not covered" >setATMLocation() {
-    c</span>onst atm = <span class="cstat-no" title="statement not covered" >store.getState().infoWindow.filteredATMS[
-        store.getState().infoWindow.activeATMIndex
-    ];
-<span class="cstat-no" title="statement not covered" >    setMapCoordinates(atm.GeographicLocation);</span>
-}
-&nbsp;
-export function setInfoObjectLocation() {
-    const infoObject = store.getState().infoWindow.filteredInfoObjects[store.getState().infoWindow.infoId]
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (infoObject) {
-<span class="cstat-no" title="statement not covered" >        if (infoObject.GeographicLocation) {</span>
-<span class="cstat-no" title="statement not covered" >            return <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>dispatch) =&gt; dispatch(setMapCoordinates(infoObject.GeographicLocation))</span></span>
+export function setInfoObjectLocation(infoObject) {
+    if (infoObject) {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (infoObject.GeographicLocation) {
+            return (dispatch) =&gt; dispatch(setMapCoordinates(infoObject.GeographicLocation))
         } 
     }
     else {
@@ -152,14 +128,14 @@ export function setInfoObjectLocation() {
     }
 }
 &nbsp;
-export f</span>unction <span class="fstat-no" title="function not covered" >setMapCoordinates(geographicLocation) {
-<span class="cstat-no" title="statement not covered" >    if (geographicLocation) {</span>
-<span class="cstat-no" title="statement not covered" >        return <span class="fstat-no" title="function not covered" >(</span>dispatch) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                dispatch(setLatitude(geographicLocation.Latitude));</span>
-<span class="cstat-no" title="statement not covered" >                dispatch(setLongitude(geographicLocation.Longitude));</span>
+export function setMapCoordinates(geographicLocation) {
+    if (geographicLocation) {
+        return (dispatch) =&gt; {
+                dispatch(setLatitude(geographicLocation.Latitude));
+                dispatch(setLongitude(geographicLocation.Longitude));
         }
     } else {
-<span class="cstat-no" title="statement not covered" >        return {type:"ADD_ERROR_TO_LOG", payload:"No geographicLocation object given when setting map coordinates."}</span>
+        return {type:"ADD_ERROR_TO_LOG", payload:"No geographicLocation object given when setting map coordinates."}
     }
 }
 &nbsp;
@@ -181,7 +157,7 @@ export function setLongitude(longitude) {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Jun 21 2017 16:36:30 GMT+0100 (GMT Summer Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jun 22 2017 10:38:47 GMT+0100 (GMT Summer Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

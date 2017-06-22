@@ -3,6 +3,7 @@ import { BANKDATA } from "../public/js/staticdata/bankData.js"
 import BankContainer from "../public/js/containers/BankContainer/";
 import BankWindow from "../public/js/components/BankWindow/";
 import BankButton from "../public/js/components/BankButton/";
+import EndPointSelector from "../public/js/components/EndPointSelector/";
 
 // Setting up Mock Store
 import configureStore from "redux-mock-store";
@@ -73,4 +74,33 @@ describe("BankButton", () => {
             expect(wrapper.find("div").hasClass("bankButton")).to.equal(true);
         });
     });
+});
+
+describe("EndPointSelector", () => {
+    describe("renders", () => {
+        it("selector buttons", () => {
+            const wrapper = shallow(<EndPointSelector dispatch={store.dispatch} />);
+            expect(wrapper.find(".selector")).to.have.length(3);
+        });
+    });
+    describe("dispatches actions when you", () => {
+        it("click the ATM button", () => {
+            const store = mockStore(initialState);
+            const wrapper = shallow(<EndPointSelector dispatch={store.dispatch} />);
+            wrapper.find("#atmSelector").simulate("click");
+            expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_ENDPOINT",payload:"atms"}])
+        });
+        it("click the Branch button", () => {
+            const store = mockStore(initialState);
+            const wrapper = shallow(<EndPointSelector dispatch={store.dispatch} />);
+            wrapper.find("#branchSelector").simulate("click");
+            expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_ENDPOINT",payload:"branches"}])
+        });
+        it("click the PCA button", () => {
+            const store = mockStore(initialState);
+            const wrapper = shallow(<EndPointSelector dispatch={store.dispatch} />);
+            wrapper.find("#pcaSelector").simulate("click");
+            expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_ENDPOINT",payload:"pca"}])
+        });
+    })
 });

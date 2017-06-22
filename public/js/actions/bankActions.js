@@ -41,7 +41,7 @@ export function getEndPointData(endPoint, bank) {
     }
 }
 
-export function setEndPointData(endPoint, payload) {
+export function setEndPointData(endPoint, payload) { 
     switch(endPoint) {
         case "atms" : {
             return {type:"SET_ACTIVE_BANK_ATM_DATA", payload: payload};
@@ -56,7 +56,6 @@ export function setEndPointData(endPoint, payload) {
             return {type:"NO_ACTION"}
         }
     }
-    console.log("setEndPointData called"); 
 }
 
 export function filterEndPointData(endPoint, data, key, value) {

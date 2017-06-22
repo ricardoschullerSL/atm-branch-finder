@@ -6,7 +6,7 @@ import { connect } from "react-redux";
     return {
         infoViewItems: store.infoWindow.infoViewItems,
         infoId: store.infoWindow.infoId,
-        infoObjects: store.infoWindow.InfoObjects,
+        infoObjects: store.infoWindow.infoObjects,
         filteredInfoObjects: store.infoWindow.filteredInfoObjects
     }
 })

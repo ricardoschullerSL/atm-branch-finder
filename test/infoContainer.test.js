@@ -1,45 +1,58 @@
 import React from "react";
-import store from "../public/js/store";
+
 import InfoContainer from "../public/js/containers/InfoContainer/";
 import InfoWindow from "../public/js/components/InfoWindow/";
 import InfoView from "../public/js/components/InfoView/";
 import InfoViewSelector from "../public/js/components/InfoViewSelector/";
 
 
-beforeEach(() => {
-    const testATMS = [
-            {
-                ATMID:"TestATM 1",
-                Currency:["GBP"],
-                Address: {
-                    TownName:"Narnia",
-                    PostCode:"BSBSBS",
-                    StreetName:"Narnia Street",
-                
-                },
-                GeographicLocation: {
-                    Longitude: "1.1",
-                    Latitude: "1.1"
-                }
+import configureStore from "redux-mock-store";
+import thunk from "redux-thunk";
+
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
+
+const testATMS = [
+        {
+            ATMID:"TestATM 1",
+            Currency:["GBP"],
+            Address: {
+                TownName:"Narnia",
+                PostCode:"BSBSBS",
+                StreetName:"Narnia Street",
+            
             },
-            {
-                ATMID:"TestATM 2",
-                Currency:["GBP"],
-                Address: {
-                    TownName:"Hogwarts",
-                    PostCode:"HGHGHG",
-                    StreetName:"Hogwarts Street",            
-                },
-                GeographicLocation: {
-                    Longitude: "1.1",
-                    Latitude: "1.1"
-                }
+            GeographicLocation: {
+                Longitude: "1.1",
+                Latitude: "1.1"
             }
-        ];
-});
+        },
+        {
+            ATMID:"TestATM 2",
+            Currency:["GBP"],
+            Address: {
+                TownName:"Hogwarts",
+                PostCode:"HGHGHG",
+                StreetName:"Hogwarts Street",            
+            },
+            GeographicLocation: {
+                Longitude: "2.2",
+                Latitude: "2.2"
+            }
+        }
+];
+
 describe("InfoContainer", () => {
     describe("renders", () => {
         it("an InfoWindow", () => {
+            const initialState = {infoWindow: {
+                                    infoViewItems: [{key:"Info1", value:"Test1"}],
+                                    infoId: 0,
+                                    infoObjects: testATMS,
+                                    filteredInfoObjects: testATMS
+                                } 
+                                };
+            const store = mockStore(initialState);
             const wrapper = shallow(<InfoContainer store={store} />).shallow();
             expect(wrapper.find("InfoWindow")).to.have.length(1);
         })
@@ -98,4 +111,24 @@ describe("InfoViewSelector", () => {
             expect(wrapper.find("div").hasClass("infoViewSelector")).to.equal(true);
         });
     });
+    describe("dispatches actions when you ", () => {
+        it("click the previous button", () => {
+            const initialState = {};
+            const store = mockStore(initialState);
+            const wrapper = shallow(<InfoViewSelector dispatch={store.dispatch} filteredInfoObjects={testATMS} infoId={1} />);
+            wrapper.find(".previousButton").simulate("click");
+            expect(store.getActions()).to.deep.equal([{type:"SET_INFO_ID",payload:0},
+                                                        {type:"SET_INFO_OBJECT_LATITUDE",payload:"1.1"},
+                                                        {type:"SET_INFO_OBJECT_LONGITUDE", payload:"1.1"}])
+        });
+        it("click the next button", () => {
+            const initialState = {};
+            const store = mockStore(initialState);
+            const wrapper = shallow(<InfoViewSelector dispatch={store.dispatch} filteredInfoObjects={testATMS} infoId={0} />);
+            wrapper.find(".nextButton").simulate("click");
+            expect(store.getActions()).to.deep.equal([{type:"SET_INFO_ID",payload:1},
+                                                        {type:"SET_INFO_OBJECT_LATITUDE",payload:"2.2"},
+                                                        {type:"SET_INFO_OBJECT_LONGITUDE", payload:"2.2"}])
+        });
+    })
 });
