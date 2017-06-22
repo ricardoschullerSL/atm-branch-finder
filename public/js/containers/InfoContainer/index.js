@@ -11,10 +11,7 @@ import { connect } from "react-redux";
     }
 })
 export default class InfoContainer extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    
+        
     render() {
         return (<InfoWindow {...this.props}/>)
     }
