@@ -33,9 +33,16 @@ describe("PCAWindow", () => {
                     {id:"testPCA"}
                 ]
             }];
-            const wrapper = shallow(<PCAWindow banks={testBank} activeBankId={0}/>)
+            const wrapper = shallow(<PCAWindow banks={testBank} activeBankId={0}/>);
             expect(wrapper.find(".pcaList")).to.have.length(1);
         });
+        it("nothing when pcaList is null", () => {
+            const testBank = [{ 
+                pca:null
+            }];
+            const wrapper = shallow(<PCAWindow banks={testBank} activeBankId={0} />);
+            expect(wrapper.find(".pcaList")).to.have.length(0);
+        })
     });
     describe("has property", () => {
         it("className 'pcaWindow'", () => {

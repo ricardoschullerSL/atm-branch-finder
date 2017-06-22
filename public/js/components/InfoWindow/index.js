@@ -6,10 +6,6 @@ import InfoView from "../InfoView";
 
 
 export default class InfoWindow extends React.Component{
-    constructor(props) {
-        super(props);
-        
-    }
     
     render() {
         

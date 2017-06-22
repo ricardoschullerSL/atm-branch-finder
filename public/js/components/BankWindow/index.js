@@ -5,10 +5,7 @@ import EndPointSelector from "../EndPointSelector";
 
 
 export default class BankWindow extends React.Component{
-    constructor(props) {
-        super(props)
-    }
-    
+
     render() {
         return (
             <div className="bankWindow">

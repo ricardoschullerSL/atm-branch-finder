@@ -3,9 +3,6 @@ import styles from "./mapwindow.css";
 
 
 export default class MapWindow extends React.Component {
-    constructor(props) {
-        super(props)
-    }
     
     render () {
         const mapSrc = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCoqvtBOBRsDVQBSOdGZik-ABuVWg_xeZ4&q=" + this.props.latitude + ", " + this.props.longitude;

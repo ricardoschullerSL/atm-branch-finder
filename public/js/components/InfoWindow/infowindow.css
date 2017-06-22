@@ -9,3 +9,26 @@
     list-style-type:none;
     padding-left: 0;
 }
+.selectorButton {
+	-moz-box-shadow:inset 0px 34px 0px -15px #dcecfb;
+	-webkit-box-shadow:inset 0px 34px 0px -15px #dcecfb;
+	box-shadow:inset 0px 34px 0px -15px #dcecfb;
+	background-color:#bddbfa;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	cursor:pointer;
+	color:#7d87c9;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:7px 24px;
+	text-decoration:none;
+	
+}
+.selectorButton:hover {
+	background-color:#a3c9f0;
+}
+.selectorButton:active {
+	position:relative;
+	top:1px;
+}

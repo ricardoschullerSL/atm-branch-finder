@@ -10,9 +10,6 @@ import PCAContainer from "../PCAContainer";
     }
 })
 export default class MainWindow extends React.Component {
-    constructor(props) {
-        super(props) 
-    }
     
     render() {
         return (

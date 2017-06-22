@@ -10,9 +10,7 @@ import MapWindow from "../../components/MapWindow";
         }
 })
 export default class MapContainer extends React.Component {
-    constructor(props) {
-        super(props)
-    }
+
     
     render() {
         return (<MapWindow {...this.props} />)

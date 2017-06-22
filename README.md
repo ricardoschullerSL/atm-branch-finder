@@ -13,17 +13,30 @@ git clone https://github.com/ricardoschullerSL/atm-branch-finder.git
 npm install
 ```
 
-To run a server locally: 
+To run hot loading webpack-dev-server: 
 ```bash
 npm run dev
 ```
 
+To run regular server:
+```bash
+webpack
+node server
+```
+
 Then open localhost:8080
+
+
 
 To run the tests:
 ```bash
 npm run test
 ```
+To update code coverage files:
+```bash
+nyc report --reporter=lcov > coverage.lcov
+```
+
 Still in early stages of development. 
 
 ### License

@@ -99,6 +99,26 @@ describe("Bank Actions", () => {
             store.dispatch(bankActions.filterEndPointData("atms", data, "TownName", "Bristol"));
             expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload:  [data[1]]}])
         });
+        it("should not filter ATM data is no value is given", () => {
+            const initialState= {bankWindow: {activeEndPoint:""}};
+            const store = mockStore(initialState);
+            const data = [
+                {
+                    ATMID:"TestATM1",
+                    Address:{TownName:"London", StreetName:"25 Buckingham Palace"},
+                    Currency:["GBP"],
+                    
+                },
+                {
+                    ATMID:"TestATM2",
+                    Address:{TownName:"Bristol", StreetName:"25 King Street"},
+                    Currency:["GBP"],
+                    
+                }];
+            store.dispatch(bankActions.filterEndPointData("atms", data, "TownName", null));
+            console.log(store.getActions());
+            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload:[]}])
+        });
         it("should filter Branch data", () => {
             const initialState= {bankWindow: {activeEndPoint:"branches"}};
             const store = mockStore(initialState);

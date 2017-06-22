@@ -4,9 +4,6 @@ import { setInfoIndex } from "../../actions/infoActions.js";
 
 
 export default class InfoViewSelector extends React.Component {
-    constructor(props) {
-        super(props)
-    }
     
     previous() {
         const newCounter = this.props.infoId === 0 ? 
@@ -27,10 +24,10 @@ export default class InfoViewSelector extends React.Component {
         return (
             <div className="infoViewSelector">
                 Info Selector goes here
-                <button className="previousButton" 
+                <button className="selectorButton"  id="previous"
                     onClick={this.previous.bind(this)}>Previous</button>
                 {this.props.infoId}
-                <button className="nextButton" 
+                <button className="selectorButton"  id="next"
                     onClick={this.next.bind(this)}>Next</button>
             </div>
         )

@@ -9,10 +9,7 @@ import PCAWindow from "../../components/PCAWindow";
     }
 })
 export default class PCAContainer extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    
+
     render() {
         return (<PCAWindow {...this.props}  />)
     }

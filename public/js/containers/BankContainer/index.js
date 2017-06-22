@@ -9,9 +9,6 @@ import { connect } from "react-redux";
     }
 })
 export default class BankContainer extends React.Component {
-    constructor(props) {
-        super(props)
-    }
     
     render() {
         return (<BankWindow {...this.props}/>)

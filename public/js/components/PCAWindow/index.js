@@ -3,9 +3,7 @@ import styles from "./pcawindow.css";
 import PCAView from "../PCAView";
 
 export default class PCAWindow extends React.Component {
-    constructor(props) {
-        super(props) 
-    }
+
     
     render() {
         

@@ -73,9 +73,14 @@ describe("InfoWindow", () => {
                 <InfoWindow filteredInfoObjects={[[{key:"Something", value:"else"}]]}
                         infoId={0} />);
             expect(wrapper.find("InfoViewSelector")).to.have.length(1);
-        }) 
-    })
-})
+        });
+        it("nothing when filteredInfoObjects is null", () => {
+            const wrapper = shallow (
+                <InfoWindow infoId={0} />);
+            expect(wrapper.find("InfoView")).to.have.length(0);
+        });
+    });
+});
 
 describe("InfoView", () => {        
     describe("renders", () => {
@@ -83,6 +88,12 @@ describe("InfoView", () => {
             const wrapper = shallow(
                 <InfoView infoObject={{infoViewItems:[{key:"Info1", value:"Test1"}]}}  />);
             expect(wrapper.find("ul")).to.have.length(1);
+        });
+        it("nothing when infoObject is null", () => {
+            const wrapper = shallow(
+                <InfoView />
+            );
+            expect(wrapper.find("ul")).to.have.length(0);
         });
     });
     describe("has property", () => {
@@ -98,11 +109,11 @@ describe("InfoViewSelector", () => {
     describe("renders", () => {
         it("a previous button", () => {
             const wrapper = shallow(<InfoViewSelector />)
-            expect(wrapper.find(".previousButton")).to.have.length(1);
+            expect(wrapper.find("#previous")).to.have.length(1);
         });
         it("a next button", () => {
             const wrapper = shallow(<InfoViewSelector />)
-            expect(wrapper.find(".nextButton")).to.have.length(1);
+            expect(wrapper.find("#next")).to.have.length(1);
         });
     });
     describe("has property", () => {
@@ -116,7 +127,7 @@ describe("InfoViewSelector", () => {
             const initialState = {};
             const store = mockStore(initialState);
             const wrapper = shallow(<InfoViewSelector dispatch={store.dispatch} filteredInfoObjects={testATMS} infoId={1} />);
-            wrapper.find(".previousButton").simulate("click");
+            wrapper.find("#previous").simulate("click");
             expect(store.getActions()).to.deep.equal([{type:"SET_INFO_ID",payload:0},
                                                         {type:"SET_INFO_OBJECT_LATITUDE",payload:"1.1"},
                                                         {type:"SET_INFO_OBJECT_LONGITUDE", payload:"1.1"}])
@@ -125,7 +136,7 @@ describe("InfoViewSelector", () => {
             const initialState = {};
             const store = mockStore(initialState);
             const wrapper = shallow(<InfoViewSelector dispatch={store.dispatch} filteredInfoObjects={testATMS} infoId={0} />);
-            wrapper.find(".nextButton").simulate("click");
+            wrapper.find("#next").simulate("click");
             expect(store.getActions()).to.deep.equal([{type:"SET_INFO_ID",payload:1},
                                                         {type:"SET_INFO_OBJECT_LATITUDE",payload:"2.2"},
                                                         {type:"SET_INFO_OBJECT_LONGITUDE", payload:"2.2"}])
