@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for test/actions/bankActions.test.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\index.html">All files</a> / <a href="index.html">test/actions</a> bankActions.test.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>80/80</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>19/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>79/79</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as bankActions from "../../public/js/actions/bankActions.js";
+import configureStore from "redux-mock-store";
+import thunk from "redux-thunk";
+&nbsp;
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
+&nbsp;
+const addBank = () =&gt; ({type: "ADD_BANK"})
+&nbsp;
+&nbsp;
+describe("Testing mock store", () =&gt; {
+    it("should dispatch an action", () =&gt; {
+        const initialState = {};
+        const store = mockStore(initialState)
+        
+        store.dispatch(addBank());
+        
+        const actions = store.getActions();
+        const expectedPayload = {type:"ADD_BANK"};
+        expect(actions).to.deep.equal([expectedPayload]);
+    });
+});
+describe("Bank Actions", () =&gt; {
+    describe("changeActiveBank", () =&gt; {
+        it("should change activeBankId", () =&gt; {
+            const initialState = {bankWindow: {activeBankId:0}};
+            const store = mockStore(initialState);
+            
+            store.dispatch(bankActions.changeActiveBank(1))
+            expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_BANK_ID", payload:1}])
+        });
+    });
+    describe("setActiveEndPoint", () =&gt; {
+        it("should change activeEndPoint", () =&gt; {
+            const initialState = {bankWindow: {activeEndPoint:"atms"}};
+            const store = mockStore(initialState);
+            store.dispatch(bankActions.setActiveEndPoint("branches"));
+            expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_ENDPOINT", payload:"branches"}])
+        });
+    });
+    describe("getBankData", () =&gt; {
+        
+        
+    });
+    describe("setEndPointData", () =&gt; {
+        it("should set ATM data", () =&gt; {
+            const initialState= {bankWindow: {activeEndPoint:"atms"}};
+            const store = mockStore(initialState);
+            const data = ["Something"]
+            store.dispatch(bankActions.setEndPointData("atms", data));
+            expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_BANK_ATM_DATA", payload:data}]);
+        });
+        it("should set Branch data", () =&gt; {
+            const initialState= {bankWindow: {activeEndPoint:"branches"}};
+            const store = mockStore(initialState);
+            const data = ["Something"]
+            store.dispatch(bankActions.setEndPointData("branches", data));
+            expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_BANK_BRANCH_DATA", payload:data}]);
+        });
+        it("should set PCA data", () =&gt; {
+            const initialState= {bankWindow: {activeEndPoint:"pca"}};
+            const store = mockStore(initialState);
+            const data = ["Something"]
+            store.dispatch(bankActions.setEndPointData("pca", data));
+            expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_BANK_PCA_DATA", payload:data}]);
+        });
+        it("should return NO_ACTION by default", () =&gt; {
+            const initialState= {bankWindow: {activeEndPoint:""}};
+            const store = mockStore(initialState);
+            const data = ["Something"]
+            store.dispatch(bankActions.setEndPointData(null, data));
+            expect(store.getActions()).to.deep.equal([{type:"NO_ACTION"}]);
+        });
+    });
+    describe("filterEndPointData", () =&gt; {
+        it("should return NO_ACTION by default", () =&gt; {
+            const initialState= {bankWindow: {activeEndPoint:""}};
+            const store = mockStore(initialState);
+            const data = [{Address:{TownName:"Bristol"}}, {Address:{TownName:"Bristol"}}];
+            store.dispatch(bankActions.filterEndPointData(null, data, "TownName","Bristol"));
+            expect(store.getActions()).to.deep.equal([{type:"NO_ACTION", payload:"No filter applied"}]);
+        });
+        it("should filter ATM data", () =&gt; {
+            const initialState= {bankWindow: {activeEndPoint:""}};
+            const store = mockStore(initialState);
+            const data = [
+                {
+                    ATMID:"TestATM1",
+                    Address:{TownName:"London", StreetName:"25 Buckingham Palace"},
+                    Currency:["GBP"],
+                    
+                },
+                {
+                    ATMID:"TestATM2",
+                    Address:{TownName:"Bristol", StreetName:"25 King Street"},
+                    Currency:["GBP"],
+                    
+                }];
+            store.dispatch(bankActions.filterEndPointData("atms", data, "TownName", "Bristol"));
+            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload:  [data[1]]}])
+        });
+        it("should not filter ATM data is no value is given", () =&gt; {
+            const initialState= {bankWindow: {activeEndPoint:""}};
+            const store = mockStore(initialState);
+            const data = [
+                {
+                    ATMID:"TestATM1",
+                    Address:{TownName:"London", StreetName:"25 Buckingham Palace"},
+                    Currency:["GBP"],
+                    
+                },
+                {
+                    ATMID:"TestATM2",
+                    Address:{TownName:"Bristol", StreetName:"25 King Street"},
+                    Currency:["GBP"],
+                    
+                }];
+            store.dispatch(bankActions.filterEndPointData("atms", data, "TownName", null));
+            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload:[]}])
+        });
+        it("should filter Branch data", () =&gt; {
+            const initialState= {bankWindow: {activeEndPoint:"branches"}};
+            const store = mockStore(initialState);
+            const data = [
+                {
+                    BranchName:"Test Branch 1",
+                    Address:{TownName:"London", StreetName:"25 Buckingham Palace", PostCode:"LB121212"},                
+                },
+                {
+                    BranchName:"Test Branch 2",
+                    Address:{TownName:"Bristol", StreetName:"25 King Street", PostCode:"BS151515"},
+                }];
+            store.dispatch(bankActions.filterEndPointData("branches", data, "TownName", "Bristol"));
+            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload: [data[1]]}])
+        });
+    });
+})</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jun 23 2017 08:19:08 GMT+0100 (GMT Summer Time)
+</div>
+</div>
+<script src="..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for test/infoContainer.test.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\prettify.css" />
+    <link rel="stylesheet" href="..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\index.html">All files</a> / <a href="index.html">test</a> infoContainer.test.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>69/69</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>24/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>69/69</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
+&nbsp;
+import InfoContainer from "../public/js/containers/InfoContainer/";
+import InfoWindow from "../public/js/components/InfoWindow/";
+import InfoView from "../public/js/components/InfoView/";
+import InfoViewSelector from "../public/js/components/InfoViewSelector/";
+&nbsp;
+&nbsp;
+import configureStore from "redux-mock-store";
+import thunk from "redux-thunk";
+&nbsp;
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
+&nbsp;
+const testATMS = [
+        {
+            ATMID:"TestATM 1",
+            Currency:["GBP"],
+            Address: {
+                TownName:"Narnia",
+                PostCode:"BSBSBS",
+                StreetName:"Narnia Street",
+            
+            },
+            GeographicLocation: {
+                Longitude: "1.1",
+                Latitude: "1.1"
+            }
+        },
+        {
+            ATMID:"TestATM 2",
+            Currency:["GBP"],
+            Address: {
+                TownName:"Hogwarts",
+                PostCode:"HGHGHG",
+                StreetName:"Hogwarts Street",            
+            },
+            GeographicLocation: {
+                Longitude: "2.2",
+                Latitude: "2.2"
+            }
+        }
+];
+&nbsp;
+describe("InfoContainer", () =&gt; {
+    describe("renders", () =&gt; {
+        it("an InfoWindow", () =&gt; {
+            const initialState = {infoWindow: {
+                                    infoViewItems: [{key:"Info1", value:"Test1"}],
+                                    infoId: 0,
+                                    infoObjects: testATMS,
+                                    filteredInfoObjects: testATMS
+                                } 
+                                };
+            const store = mockStore(initialState);
+            const wrapper = shallow(&lt;InfoContainer store={store} /&gt;).shallow();
+            expect(wrapper.find("InfoWindow")).to.have.length(1);
+        })
+    })
+})
+&nbsp;
+describe("InfoWindow", () =&gt; {
+    describe("renders", () =&gt; {
+        it("an InfoView", () =&gt; {
+            const wrapper = shallow(
+                &lt;InfoWindow filteredInfoObjects={[[{key:"Something", value:"else"}]]}
+                        infoId={0} /&gt;);
+            expect(wrapper.find("InfoView")).to.have.length(1);
+            
+        });
+        it("an InfoViewSelector", function() {
+            const wrapper = shallow(
+                &lt;InfoWindow filteredInfoObjects={[[{key:"Something", value:"else"}]]}
+                        infoId={0} /&gt;);
+            expect(wrapper.find("InfoViewSelector")).to.have.length(1);
+        });
+        it("nothing when filteredInfoObjects is null", () =&gt; {
+            const wrapper = shallow (
+                &lt;InfoWindow infoId={0} /&gt;);
+            expect(wrapper.find("InfoView")).to.have.length(0);
+        });
+    });
+});
+&nbsp;
+describe("InfoView", () =&gt; {        
+    describe("renders", () =&gt; {
+        it("an infoItemList", () =&gt; {
+            const wrapper = shallow(
+                &lt;InfoView infoObject={{infoViewItems:[{key:"Info1", value:"Test1"}]}}  /&gt;);
+            expect(wrapper.find("ul")).to.have.length(1);
+        });
+        it("nothing when infoObject is null", () =&gt; {
+            const wrapper = shallow(
+                &lt;InfoView /&gt;
+            );
+            expect(wrapper.find("ul")).to.have.length(0);
+        });
+        it("opening times when available", () =&gt; {
+            const infoObject = {
+                infoViewItems:[{key:"Info1", value:"Test1"}],
+                OpeningTimes: [{OpeningDay:"Monday", OpeningTime:"09:00.00", ClosingTime:"17:00:00"}]
+            }
+            const wrapper = shallow(&lt;InfoView infoObject={infoObject} /&gt;);
+            expect(wrapper.find(".openingTimes")).to.have.length(1);
+        });
+    });
+    describe("has property", () =&gt; {
+        it("class name 'infoItemList'", () =&gt; {
+            const wrapper = shallow(
+                &lt;InfoView infoObject={{infoViewItems:[{key:"Info1", value:"Test1"}]}} /&gt;);
+            expect(wrapper.find("ul").hasClass("infoItemList")).to.equal(true);
+        });
+    });
+});
+&nbsp;
+describe("InfoViewSelector", () =&gt; {
+    describe("renders", () =&gt; {
+        it("a previous button", () =&gt; {
+            const wrapper = shallow(&lt;InfoViewSelector /&gt;)
+            expect(wrapper.find("#previous")).to.have.length(1);
+        });
+        it("a next button", () =&gt; {
+            const wrapper = shallow(&lt;InfoViewSelector /&gt;)
+            expect(wrapper.find("#next")).to.have.length(1);
+        });
+    });
+    describe("has property", () =&gt; {
+        it("class name 'infoViewSelector'", () =&gt; {
+            const wrapper = shallow(&lt;InfoViewSelector /&gt;);
+            expect(wrapper.find("div").hasClass("infoViewSelector")).to.equal(true);
+        });
+    });
+    describe("dispatches actions when you ", () =&gt; {
+        it("click the previous button", () =&gt; {
+            const initialState = {};
+            const store = mockStore(initialState);
+            const wrapper = shallow(&lt;InfoViewSelector dispatch={store.dispatch} filteredInfoObjects={testATMS} infoId={1} /&gt;);
+            wrapper.find("#previous").simulate("click");
+            expect(store.getActions()).to.deep.equal([{type:"SET_INFO_ID",payload:0},
+                                                        {type:"SET_INFO_OBJECT_LATITUDE",payload:"1.1"},
+                                                        {type:"SET_INFO_OBJECT_LONGITUDE", payload:"1.1"}])
+        });
+        it("click the next button", () =&gt; {
+            const initialState = {};
+            const store = mockStore(initialState);
+            const wrapper = shallow(&lt;InfoViewSelector dispatch={store.dispatch} filteredInfoObjects={testATMS} infoId={0} /&gt;);
+            wrapper.find("#next").simulate("click");
+            expect(store.getActions()).to.deep.equal([{type:"SET_INFO_ID",payload:1},
+                                                        {type:"SET_INFO_OBJECT_LATITUDE",payload:"2.2"},
+                                                        {type:"SET_INFO_OBJECT_LONGITUDE", payload:"2.2"}])
+        });
+    })
+});</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jun 23 2017 08:19:08 GMT+0100 (GMT Summer Time)
+</div>
+</div>
+<script src="..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\sorter.js"></script>
+</body>
+</html>

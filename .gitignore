@@ -2,4 +2,3 @@ node_modules/
 build_artifacts/
 .tmp/
 .nyc_output/
-coverage/
