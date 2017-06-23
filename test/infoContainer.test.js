@@ -4,6 +4,7 @@ import InfoContainer from "../public/js/containers/InfoContainer/";
 import InfoWindow from "../public/js/components/InfoWindow/";
 import InfoView from "../public/js/components/InfoView/";
 import InfoViewSelector from "../public/js/components/InfoViewSelector/";
+import FilterWindow from "../public/js/components/FilterWindow/";
 
 
 import configureStore from "redux-mock-store";
@@ -149,5 +150,50 @@ describe("InfoViewSelector", () => {
                                                         {type:"SET_INFO_OBJECT_LATITUDE",payload:"2.2"},
                                                         {type:"SET_INFO_OBJECT_LONGITUDE", payload:"2.2"}])
         });
-    })
+    });
+});
+
+describe("FilterWindow", () => {
+    describe("renders", () => {
+        it("a form", () => {
+            const initialState = {bankWindow:{
+                banks: {},
+                activeEndPoint: "atms",
+                activeBankId: 0
+            }
+            }
+            const store = mockStore(initialState);
+            const wrapper = shallow(<FilterWindow store={store} />).shallow()
+            expect(wrapper.find("form")).to.have.length(1);
+        });
+    });
+    describe("dispatches", () => {
+        it("filterEndPointData when you submit", () => {
+            const initialState = {bankWindow:{
+                banks: [{atms:testATMS}],
+                activeEndPoint: "atms",
+                activeBankId: 0
+            }
+            }
+            const store = mockStore(initialState);
+            const wrapper = shallow(<FilterWindow store={store} />).shallow()
+            const event = {}
+            event.preventDefault = () => {};
+            wrapper.find("form").simulate("submit", event)
+            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload: []}])
+        });
+        it("changes state when OnChange is called", () => {
+            const initialState = {bankWindow:{
+                banks: [{atms:testATMS}],
+                activeEndPoint: "atms",
+                activeBankId: 0
+            }
+            }
+            const store = mockStore(initialState);
+            const wrapper = shallow(<FilterWindow store={store} />).shallow()
+            const event = {target:{value:"test"}}
+            wrapper.find(".inputBox").simulate("change", event)
+            expect(wrapper.state().value).to.equal("test")
+        });
+    });
 });

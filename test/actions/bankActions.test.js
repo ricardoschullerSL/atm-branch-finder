@@ -1,9 +1,10 @@
 import * as bankActions from "../../public/js/actions/bankActions.js";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
+import reducer from "../../public/js/reducers/";
 
 const middlewares = [thunk];
-const mockStore = configureStore(middlewares);
+const mockStore = configureStore(reducer,middlewares);
 
 const addBank = () => ({type: "ADD_BANK"})
 

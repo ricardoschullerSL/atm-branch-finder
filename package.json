@@ -1,6 +1,6 @@
 {
   "name": "atm-branch-finder",
-  "version": "1.0.0",
+  "version": "0.0.1-alpha.1",
   "description": "Find an ATM near you using Open Banking API",
   "main": "server.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "url": "git+https://github.com/ricardoschullerSL/atm-branch-finder.git"
   },
   "author": "Ricardo Schuller",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ricardoschullerSL/atm-branch-finder/issues"
   },

@@ -10,8 +10,24 @@ describe("MapActions", () => {
         
     });
     describe("setInfoObjectLocation", () => {
-        it("should return no action if no GeographicLocation", () => {
+        it("should return NO ACTION if no InfoObject is given", () => {
+            expect(mapActions.setInfoObjectLocation({something:"else"})).to.deep.equal({type:"NO_ACTION"});
+        })
+        it("should return NO ACTION if no GeographicLocation", () => {
             expect(mapActions.setInfoObjectLocation()).to.deep.equal({type:"NO_ACTION"});
+        });
+        it("should set latitude and longitude if GeographicLocation is given", () => {
+            const infoObject = {
+                GeographicLocation : {
+                    Latitude: "1.1",
+                    Longitude: "2.2"
+                }
+            }
+            const store = mockStore();
+            store.dispatch(mapActions.setInfoObjectLocation(infoObject));
+            expect(store.getActions())
+                .to.deep.equal([{type:"SET_INFO_OBJECT_LATITUDE", payload:"1.1"},
+                                {type:"SET_INFO_OBJECT_LONGITUDE", payload:"2.2"}])
         });
     });
     describe("setLatitude", () => {

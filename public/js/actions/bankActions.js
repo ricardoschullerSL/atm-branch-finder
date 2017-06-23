@@ -31,7 +31,6 @@ export function getEndPointData(endPoint, bank) {
             .then((result) => {
                 console.log("Got endpoint data from bank API.")
                 dispatch(setEndPointData(endPoint, result.data.data));
-                dispatch(filterEndPointData(endPoint, result.data.data, "TownName", "Bristol"));
                 dispatch({type:"SET_INFO_ID", payload:0});
             });
         } else {

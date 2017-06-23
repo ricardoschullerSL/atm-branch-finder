@@ -6,9 +6,7 @@ export function setInfoObjectLocation(infoObject) {
             return (dispatch) => dispatch(setMapCoordinates(infoObject.GeographicLocation))
         } 
     }
-    else {
-        return {type:"NO_ACTION"};
-    }
+    return {type:"NO_ACTION"};
 }
 
 export function setMapCoordinates(geographicLocation) {
