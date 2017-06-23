@@ -10,7 +10,7 @@
     "dev": "SET NODE_ENV=development & webpack-dev-server --content-base public --inline --hot"
   }, 
   "nyc" : {
-    "exclude": "public/js/reducers"  
+    "exclude": ["public/js/reducers","test"]  
   },
   "repository": {
     "type": "git",

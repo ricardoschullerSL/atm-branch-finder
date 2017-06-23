@@ -116,7 +116,6 @@ describe("Bank Actions", () => {
                     
                 }];
             store.dispatch(bankActions.filterEndPointData("atms", data, "TownName", null));
-            console.log(store.getActions());
             expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload:[]}])
         });
         it("should filter Branch data", () => {

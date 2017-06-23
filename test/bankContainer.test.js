@@ -47,6 +47,10 @@ describe("BankWindow", () => {
                             activeBankId={state.bankWindow.activeBankId}/>);
             expect(wrapper.find("table")).to.have.length(1);
         });
+        it("nothing if no banks are found", () => {
+            const wrapper = shallow(<BankWindow activeBankId={0} />);
+            expect(wrapper.find("td")).to.have.length(0);
+        })
     });
     describe("has property", () => {
         it("class name 'bankWindow'", () => {
@@ -74,6 +78,14 @@ describe("BankButton", () => {
             expect(wrapper.find("div").hasClass("bankButton")).to.equal(true);
         });
     });
+    describe("dispatches", () => {
+        it("setActiveBank", () => {
+            const store = mockStore(initialState);
+            const wrapper = shallow(<BankButton store={store} bank={testBank} bankId={0} />).shallow();
+            wrapper.find(".bankButton").simulate("click");
+            expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_BANK_ID", payload: 0}])
+        })
+    })
 });
 
 describe("EndPointSelector", () => {

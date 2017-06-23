@@ -8,7 +8,7 @@ const mockStore = configureStore(middlewares);
 
 describe("MainContainer", () => {
     describe("renders", () => {
-        it("MapContainer by default", () => {
+        it("MapContainer when activeEndPoint is 'atms'", () => {
             const initialState = {bankWindow:{
                 activeEndPoint:"atms"
             }};
@@ -37,6 +37,16 @@ describe("MainContainer", () => {
                 <MainContainer store={store} />
             ).shallow();
             expect(wrapper.find("Connect(PCAContainer)")).to.have.length(1);
+        });
+        it("MapContainer by default when activeEndpoint is null", () => {
+            const initialState = {bankWindow:{
+                activeEndPoint:null
+            }};
+            const store = mockStore(initialState);
+            const wrapper = shallow(
+                <MainContainer store={store} />
+            ).shallow()
+            expect(wrapper.find("Connect(MapContainer)")).to.have.length(1);
         });    
     });
     describe("has property", () => {

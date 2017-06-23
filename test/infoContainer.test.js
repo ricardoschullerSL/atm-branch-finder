@@ -95,6 +95,14 @@ describe("InfoView", () => {
             );
             expect(wrapper.find("ul")).to.have.length(0);
         });
+        it("opening times when available", () => {
+            const infoObject = {
+                infoViewItems:[{key:"Info1", value:"Test1"}],
+                OpeningTimes: [{OpeningDay:"Monday", OpeningTime:"09:00.00", ClosingTime:"17:00:00"}]
+            }
+            const wrapper = shallow(<InfoView infoObject={infoObject} />);
+            expect(wrapper.find(".openingTimes")).to.have.length(1);
+        });
     });
     describe("has property", () => {
         it("class name 'infoItemList'", () => {

@@ -4,9 +4,6 @@ import { changeActiveBank, getBankData } from "../../actions/bankActions.js";
 
 @connect()
 export default class BankButton extends React.Component {
-    constructor(props) {
-        super(props)
-    }
     
     setActiveBank() {
         this.props.dispatch(changeActiveBank(this.props.bankId));
