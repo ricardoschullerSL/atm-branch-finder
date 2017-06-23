@@ -9,6 +9,9 @@
     "test": "nyc mocha --compilers js:babel-register --require ignore-styles --require ./test/helpers.js --recursive",
     "dev": "SET NODE_ENV=development & webpack-dev-server --content-base public --inline --hot"
   }, 
+  "nyc" : {
+    "exclude": "public/js/reducers"  
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ricardoschullerSL/atm-branch-finder.git"
