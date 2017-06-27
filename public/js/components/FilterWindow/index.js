@@ -26,6 +26,7 @@ export default class FilterWindow extends React.Component {
         event.preventDefault();
         const bank = this.props.banks[this.props.activeBankId];
         this.props.dispatch(filterEndPointData(this.props.activeEndPoint, bank[this.props.activeEndPoint], "TownName", this.state.value));
+        this.props.dispatch({type:"SET_INFO_ID", payload: 0});
     }
     
     render() {

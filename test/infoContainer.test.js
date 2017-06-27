@@ -180,7 +180,7 @@ describe("FilterWindow", () => {
             const event = {}
             event.preventDefault = () => {};
             wrapper.find("form").simulate("submit", event)
-            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload: []}])
+            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload: []}, {type:"SET_INFO_ID", payload: 0}])
         });
         it("changes state when OnChange is called", () => {
             const initialState = {bankWindow:{

@@ -7259,8 +7259,9 @@ function getBankData(bank) {
 function getEndPointData(endPoint, bank) {
     return function (dispatch) {
         var endPoint_uri = bank.uris[endPoint];
-        if (!bank[endPoint]) {
-            _axios2.default.get(endPoint_uri).then(function (result) {
+        var body = { params: { uri: endPoint_uri } };
+        if (!bank[endPoint].length) {
+            _axios2.default.get("/bankdata", body).then(function (result) {
                 console.log("Got endpoint data from bank API.");
                 dispatch(setEndPointData(endPoint, result.data.data));
                 dispatch({ type: "SET_INFO_ID", payload: 0 });
@@ -7288,25 +7289,29 @@ function setEndPointData(endPoint, payload) {
             }
         default:
             {
-                return { type: "NO_ACTION" };
+                return { type: "NO_ACTION", payload: "No endpoint found" };
             }
     }
 }
 
 function filterEndPointData(endPoint, data, key, value) {
-    switch (endPoint) {
-        case "atms":
-            {
-                return filterATMData(data, key, value);
-            }
-        case "branches":
-            {
-                return filterBranchData(data, key, value);
-            }
-        default:
-            {
-                return { type: "NO_ACTION", payload: "No filter applied" };
-            }
+    if (data.length) {
+        switch (endPoint) {
+            case "atms":
+                {
+                    return filterATMData(data, key, value);
+                }
+            case "branches":
+                {
+                    return filterBranchData(data, key, value);
+                }
+            default:
+                {
+                    return { type: "NO_ACTION", payload: "No filter applied" };
+                }
+        }
+    } else {
+        return { type: "NO_ACTION", payload: "No data found" };
     }
 }
 
@@ -16927,6 +16932,7 @@ var FilterWindow = (_dec = (0, _reactRedux.connect)(function (state) {
             event.preventDefault();
             var bank = this.props.banks[this.props.activeBankId];
             this.props.dispatch((0, _bankActions.filterEndPointData)(this.props.activeEndPoint, bank[this.props.activeEndPoint], "TownName", this.state.value));
+            this.props.dispatch({ type: "SET_INFO_ID", payload: 0 });
         }
     }, {
         key: "render",
@@ -18112,35 +18118,51 @@ var BANKDATA = exports.BANKDATA = [{
         atms: "https://api.halifax.co.uk/open-banking/v1.2/atms",
         branches: "https://api.halifax.co.uk/open-banking/v1.2/branches",
         pca: "https://api.halifax.co.uk/open-banking/v1.2/personal-current-accounts"
-    }
+    },
+    atms: [],
+    branches: [],
+    pca: []
+
 }, {
     id: "Barclays",
     uris: {
         atms: "https://atlas.api.barclays/open-banking/v1.3/atms",
         branches: "https://atlas.api.barclays/open-banking/v1.3/branches",
         pca: "https://atlas.api.barclays/open-banking/v1.3/personal-current-accounts"
-    }
+    },
+    atms: [],
+    branches: [],
+    pca: []
 }, {
     id: "RBS",
     uris: {
         atms: "https://openapi.rbs.co.uk/open-banking/v1.2/atms",
         branches: "https://openapi.rbs.co.uk/open-banking/v1.2/branches",
         pca: "https://openapi.rbs.co.uk/open-banking/v1.2/personal-current-accounts"
-    }
+    },
+    atms: [],
+    branches: [],
+    pca: []
 }, {
     id: "Danske Bank",
     uris: {
         atms: "https://obp-api.danskebank.com/open-banking/v1.2/atms",
         branches: "https://obp-api.danskebank.com/open-banking/v1.2/branches",
         pca: "https://obp-api.danskebank.com/open-banking/v1.2/personal-current-accounts"
-    }
+    },
+    atms: [],
+    branches: [],
+    pca: []
 }, {
     id: "NatWest",
     uris: {
         atms: "https://openapi.natwest.com/open-banking/v1.2/atms",
         branches: "https://openapi.natwest.com/open-banking/v1.2/atms",
         pca: "https://openapi.natwest.com/open-banking/v1.2/personal-current-accounts"
-    }
+    },
+    atms: [],
+    branches: [],
+    pca: []
 }];
 
 /***/ }),

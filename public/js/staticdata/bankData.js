@@ -6,6 +6,10 @@ export const BANKDATA = [
             branches:"https://api.halifax.co.uk/open-banking/v1.2/branches",
             pca:"https://api.halifax.co.uk/open-banking/v1.2/personal-current-accounts"
         },
+        atms: [],
+        branches: [],
+        pca: []
+        
     },
     {
         id:"Barclays", 
@@ -14,6 +18,9 @@ export const BANKDATA = [
             branches:"https://atlas.api.barclays/open-banking/v1.3/branches",
             pca:"https://atlas.api.barclays/open-banking/v1.3/personal-current-accounts"
         },
+        atms: [],
+        branches: [],
+        pca: [],
     },
     {
         id:"RBS", 
@@ -22,6 +29,9 @@ export const BANKDATA = [
             branches:"https://openapi.rbs.co.uk/open-banking/v1.2/branches",
             pca:"https://openapi.rbs.co.uk/open-banking/v1.2/personal-current-accounts"
         },
+        atms: [],
+        branches: [],
+        pca: [],
     },
     {
         id:"Danske Bank",
@@ -30,6 +40,9 @@ export const BANKDATA = [
             branches:"https://obp-api.danskebank.com/open-banking/v1.2/branches",
             pca:"https://obp-api.danskebank.com/open-banking/v1.2/personal-current-accounts"
         },
+        atms: [],
+        branches: [],
+        pca: [],
     },
     {
         id:"NatWest",
@@ -38,5 +51,8 @@ export const BANKDATA = [
             branches:"https://openapi.natwest.com/open-banking/v1.2/atms",
             pca:"https://openapi.natwest.com/open-banking/v1.2/personal-current-accounts"
         },
+        atms: [],
+        branches: [],
+        pca: [],
     }
 ];

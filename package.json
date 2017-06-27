@@ -8,9 +8,12 @@
     "report-coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
     "test": "nyc mocha --compilers js:babel-register --require ignore-styles --require ./test/helpers.js --recursive",
     "dev": "SET NODE_ENV=development & webpack-dev-server --content-base public --inline --hot"
-  }, 
-  "nyc" : {
-    "exclude": ["public/js/reducers","test"]  
+  },
+  "nyc": {
+    "exclude": [
+      "public/js/reducers",
+      "test"
+    ]
   },
   "repository": {
     "type": "git",
@@ -26,12 +29,14 @@
     "axios": "^0.16.1",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "fs": "0.0.1-security",
     "react": "^15.5.4",
     "react-redux": "^5.0.5",
     "redux": "^3.6.0",
     "redux-axios-middleware": "^4.0.0",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "ssl-root-cas": "^1.2.3"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

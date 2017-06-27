@@ -26,8 +26,9 @@ export function getBankData(bank) {
 export function getEndPointData(endPoint, bank) {    
     return (dispatch) => {
         const endPoint_uri = bank.uris[endPoint];
-        if (!bank[endPoint]) {
-            axios.get(endPoint_uri)
+        const body = {params: {uri : endPoint_uri}};
+        if (!bank[endPoint].length) {
+            axios.get("/bankdata", body)
             .then((result) => {
                 console.log("Got endpoint data from bank API.")
                 dispatch(setEndPointData(endPoint, result.data.data));
@@ -52,22 +53,26 @@ export function setEndPointData(endPoint, payload) {
             return {type:"SET_ACTIVE_BANK_PCA_DATA", payload: payload};
         }
         default : {
-            return {type:"NO_ACTION"}
+            return {type:"NO_ACTION", payload:"No endpoint found"}
         }
     }
 }
 
 export function filterEndPointData(endPoint, data, key, value) {
-    switch(endPoint) {
-        case "atms" : {
-            return filterATMData(data, key, value);
+    if (data.length) {
+        switch(endPoint) {
+            case "atms" : {
+                return filterATMData(data, key, value);
+            }
+            case "branches": {
+                return filterBranchData(data, key, value);
+            }
+            default : {
+                return {type:"NO_ACTION", payload:"No filter applied"}
+            }
         }
-        case "branches": {
-            return filterBranchData(data, key, value);
-        }
-        default : {
-            return {type:"NO_ACTION", payload:"No filter applied"}
-        }
+    } else {
+        return {type:"NO_ACTION", payload:"No data found"}
     }    
 }
 
