@@ -1,10 +1,15 @@
-var sslrootcas = require("ssl-root-cas").inject();
+'use strict';
+var rootCas = require('ssl-root-cas/latest').create();
+var fs = require("fs");
+var https = require('https');
 var express = require("express");
 var bodyParser = require("body-parser");
 var request = require("request");
-var BANKDATA = require("./bankData.js").banks;
+var banks = require("./bankData");
 
+https.globalAgent.options.ca = rootCas;
 
+//setting up bank data 
 
 module.exports = function(port, middleware, callback) {
     var app = express();
@@ -16,7 +21,12 @@ module.exports = function(port, middleware, callback) {
     app.use(bodyParser.json());
     
     app.get("/bankdata", (req, res) => {
-        request({uri:req.query.uri, "rejectUnauthorized":false}).pipe(res)
+        request({uri:req.query.uri})
+        .on("error", (e) => {
+            console.log("Error occured during request:", e);
+            res.send(e);
+        })
+        .pipe(res);
     });
     
     var server = app.listen(port, callback);
