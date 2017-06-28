@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">90.91% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>8/8</span>
+        <span class='fraction'>10/11</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>1/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">90.91% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>8/8</span>
+        <span class='fraction'>10/11</span>
       </div>
     </div>
   </div>
@@ -79,10 +79,31 @@
 34
 35
 36
-37</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+37
+38
+39</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -98,66 +119,51 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
 import styles from "./bankwindow.css";
 import BankButton from "../BankButton/";
 import EndPointSelector from "../EndPointSelector";
-&nbsp;
+import { getAllBankData } from "../../actions/bankActions.js";
 &nbsp;
 export default class BankWindow extends React.Component{
+    
+    ListBanks(banks) {
+        const listBanks = (
+            &lt;table className="bankTable"&gt;
+                &lt;tbody&gt;
+                &lt;tr&gt;
+                {banks.map((bank, key) =&gt;
+                &lt;td key={key}&gt;&lt;BankButton bank={bank} bankId={key} /&gt;&lt;/td&gt;)}
+                &lt;/tr&gt;
+                &lt;/tbody&gt;
+            &lt;/table&gt;
+        )
+        return (
+            &lt;div&gt;
+                {listBanks}
+                &lt;button onClick={<span class="fstat-no" title="function not covered" >()=&gt; </span>{<span class="cstat-no" title="statement not covered" >this.props.dispatch(getAllBankData())}}&gt;Get All Banks&lt;/button&gt;</span>
+            &lt;/div&gt;
+        )
+    }
 &nbsp;
     render() {
         return (
             &lt;div className="bankWindow"&gt;
                 This is where the banks go.
-                {(this.props.banks) ? ListBanks(this.props.banks) : "No Banks Found"}
+                {(this.props.banks) ? this.ListBanks(this.props.banks) : "No Banks Found"}
                 &lt;br /&gt;
                 &lt;EndPointSelector dispatch={this.props.dispatch} /&gt;
             &lt;/div&gt;
         )
     }
 };
-&nbsp;
-function ListBanks(banks) {
-    const listBanks = (
-        &lt;table className="bankTable"&gt;
-            &lt;tbody&gt;
-            &lt;tr&gt;
-            {banks.map((bank, key) =&gt;
-            &lt;td key={key}&gt;&lt;BankButton bank={bank} bankId={key} /&gt;&lt;/td&gt;)}
-            &lt;/tr&gt;
-            &lt;/tbody&gt;
-        &lt;/table&gt;
-    )
-    return (
-        &lt;div&gt;
-            {listBanks}
-        &lt;/div&gt;
-    )
-}</pre></td></tr>
+&nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jun 23 2017 16:43:17 GMT+0100 (GMT Summer Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Jun 28 2017 16:21:46 GMT+0100 (GMT Summer Time)
 </div>
 </div>
 <script src="..\..\..\prettify.js"></script>

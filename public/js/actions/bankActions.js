@@ -15,7 +15,15 @@ export function setActiveEndPoint(endPoint) {
         payload: endPoint 
     }
 }
-
+export function getAllBankData() {
+    return (dispatch) => {
+        axios.get("/banks")
+        .then((result) => {
+            console.log(result);
+            dispatch({type:"SET_ALL_BANK_DATA", payload: result.data})
+        });
+    }
+}
 export function getBankData(bank) {
     return (dispatch) => {
         for (var endPoint in bank.uris) {

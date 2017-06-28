@@ -5,11 +5,33 @@ var https = require('https');
 var express = require("express");
 var bodyParser = require("body-parser");
 var request = require("request");
-var banks = require("./bankData");
+var banks = require("./bankData").banks;
 
 https.globalAgent.options.ca = rootCas;
 
 //setting up bank data 
+
+
+
+function getBankData() {
+    banks.map((bank) => {
+        for (let uri in bank.uris) {
+            request({uri: bank.uris[uri]}, (err, res, body) => {
+                if (body) {
+                    var data = JSON.parse(body).data;
+                }
+                bank[uri] = data
+            })
+            .on("error", (e) => {
+                console.log("Error during bank data retrieval:", e);
+            });
+            
+        }
+    })
+};
+
+getBankData();
+
 
 module.exports = function(port, middleware, callback) {
     var app = express();
@@ -19,6 +41,10 @@ module.exports = function(port, middleware, callback) {
     }
     app.use(express.static("public"));
     app.use(bodyParser.json());
+    
+    app.get("/banks", (req, res) => {
+        res.send(JSON.stringify(banks));
+    })
     
     app.get("/bankdata", (req, res) => {
         request({uri:req.query.uri})

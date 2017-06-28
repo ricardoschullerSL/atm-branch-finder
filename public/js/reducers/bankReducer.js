@@ -90,6 +90,12 @@ export default function (state= {
                 activeEndPoint: action.payload
             }
         }
+        case "SET_ALL_BANK_DATA" : {
+            return {
+                ...state,
+                banks: action.payload
+            }
+        }
     }
     return state;
 }
