@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./pcawindow.css";
+
 import PCAView from "../PCAView";
 
 export default class PCAWindow extends React.Component {

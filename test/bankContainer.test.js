@@ -68,22 +68,27 @@ describe("BankButton", () => {
     
     describe("renders", () => {
         it("the bank ID", () => {
-            const wrapper = shallow(<BankButton store={store} bank={testBank} bankId={0} />).shallow();
+            const wrapper = shallow(<BankButton bank={testBank} />);
             expect(wrapper.contains("Halifax")).to.equal(true);
         });
     });
     describe("has property", () => {
         it("class name 'bankButton'", () => {
-            const wrapper = shallow(<BankButton store={store} bank={testBank} bankId={0}/>).shallow();
+            const wrapper = shallow(<BankButton bank={testBank} />);
             expect(wrapper.find("div").hasClass("bankButton")).to.equal(true);
+        });
+        it("onClick", () => {
+            const store = mockStore(initialState);
+            const wrapper = mount(<BankWindow store={store} banks={[testBank]}/>)
+            expect(wrapper.find(".bankButton").props().onClick).not.equal(null);
         });
     });
     describe("dispatches", () => {
-        it("setActiveBank", () => {
-            const store = mockStore(initialState);
-            const wrapper = shallow(<BankButton store={store} bank={testBank} bankId={0} />).shallow();
+        it("some actions when clicked", ()=> {
+            const store = mockStore({bankWindow:{banks:[testBank], activeBankId:0}});
+            const wrapper = mount(<BankContainer store={store} />);
             wrapper.find(".bankButton").simulate("click");
-            expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_BANK_ID", payload: 0}])
+            expect(store.getActions()).to.deep.equal([{ type: 'SET_ACTIVE_BANK_ID', payload: 0 }])
         })
     })
 });

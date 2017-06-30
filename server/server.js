@@ -11,9 +11,7 @@ https.globalAgent.options.ca = rootCas;
 
 //setting up bank data 
 
-
-
-function getBankData() {
+var getBankData = function() {
     banks.map((bank) => {
         for (let uri in bank.uris) {
             request({uri: bank.uris[uri]}, (err, res, body) => {
@@ -31,11 +29,16 @@ function getBankData() {
 };
 
 getBankData();
+setTimeout(()=> {
+    console.log("Getting Bank Data");
+    getBankData()
+}, 86400);
+
 
 
 module.exports = function(port, middleware, callback) {
     var app = express();
-
+    
     if(middleware) {
         app.use(middleware);
     }

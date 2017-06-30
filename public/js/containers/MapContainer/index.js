@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import MapWindow from "../../components/MapWindow";
-
+import styles from "./mapwindow.css";
 
 @connect((store) => {
         return {

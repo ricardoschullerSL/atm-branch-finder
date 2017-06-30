@@ -19,7 +19,6 @@ export function getAllBankData() {
     return (dispatch) => {
         axios.get("/banks")
         .then((result) => {
-            console.log(result);
             dispatch({type:"SET_ALL_BANK_DATA", payload: result.data})
         });
     }

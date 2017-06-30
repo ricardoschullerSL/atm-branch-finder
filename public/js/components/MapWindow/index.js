@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./mapwindow.css";
+
 
 
 export default class MapWindow extends React.Component {

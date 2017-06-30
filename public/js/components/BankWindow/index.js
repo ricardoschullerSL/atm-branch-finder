@@ -1,8 +1,9 @@
 import React from "react";
-import styles from "./bankwindow.css";
+
 import BankButton from "../BankButton/";
 import EndPointSelector from "../EndPointSelector";
 import { getAllBankData } from "../../actions/bankActions.js";
+import { changeActiveBank, getBankData } from "../../actions/bankActions.js";
 
 export default class BankWindow extends React.Component{
     
@@ -12,7 +13,12 @@ export default class BankWindow extends React.Component{
                 <tbody>
                 <tr>
                 {banks.map((bank, key) =>
-                <td key={key}><BankButton bank={bank} bankId={key} /></td>)}
+                <td key={key}><BankButton bank={bank} bankIndex={key} onClick={
+                    () => {
+                        this.props.dispatch(changeActiveBank(key));
+                        this.props.dispatch(getBankData(bank));
+                    }
+                }/></td>)}
                 </tr>
                 </tbody>
             </table>

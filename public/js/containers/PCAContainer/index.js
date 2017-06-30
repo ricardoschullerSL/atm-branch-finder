@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import PCAWindow from "../../components/PCAWindow";
+import styles from "./pcawindow.css";
 
 @connect((store) => {
     return {

@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./infowindow.css";
 import { getEndPointData } from "../../actions/bankActions";
 import InfoViewSelector from "../InfoViewSelector/";
 import InfoView from "../InfoView";

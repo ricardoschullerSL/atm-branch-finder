@@ -1,6 +1,7 @@
 import React from "react";
 import InfoWindow from "../../components/InfoWindow";
 import { connect } from "react-redux";
+import styles from "./infowindow.css";
 
 @connect((store) => {
     return {
