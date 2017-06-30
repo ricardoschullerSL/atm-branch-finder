@@ -1,5 +1,4 @@
 import React from "react";
-
 import BankButton from "../BankButton/";
 import EndPointSelector from "../EndPointSelector";
 import { getAllBankData } from "../../actions/bankActions.js";

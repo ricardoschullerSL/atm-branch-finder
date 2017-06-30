@@ -2,6 +2,7 @@ import React from "react";
 import InfoContainer from "./containers/InfoContainer/";
 import MainContainer from "./containers/MainContainer/";
 import BankContainer from "./containers/BankContainer/";
+import FilterWindow from "./components/FilterWindow";
 
 export default class Layout extends React.Component {
     
@@ -12,6 +13,7 @@ export default class Layout extends React.Component {
         </div>
         <div>
             <BankContainer />
+            <FilterWindow />
             <div>
                 <InfoContainer />
                 <MainContainer />
