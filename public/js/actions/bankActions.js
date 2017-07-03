@@ -94,7 +94,8 @@ function filterATMData(data, key, value) {
             {key:"ATM ID", value:atm.ATMID},
             {key:"Currency", value: atm.Currency[0]},
             {key:"City", value: atm.Address.TownName},
-            {key:"Post Code", value: atm.Address.StreetName}
+            {key:"Street Name", value: atm.Address.StreetName},
+            {key:"Post Code", value: atm.Address.PostCode}
         ]
         return atm
     });

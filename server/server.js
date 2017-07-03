@@ -29,10 +29,10 @@ var getBankData = function() {
 };
 
 getBankData();
-setTimeout(()=> {
+setInterval(()=> {
     console.log("Getting Bank Data");
     getBankData()
-}, 86400);
+}, 86400000);
 
 
 
