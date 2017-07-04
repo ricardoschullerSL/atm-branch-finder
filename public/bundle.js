@@ -17026,7 +17026,8 @@ var DropDownMenu = function (_React$Component) {
                 this.props.options.map(function (item, index) {
                     return _react2.default.createElement(
                         "option",
-                        { key: index, value: item.value },
+                        { key: index,
+                            value: item.value },
                         item.label
                     );
                 })
