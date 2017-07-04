@@ -5,6 +5,7 @@ import InfoWindow from "../public/js/components/InfoWindow/";
 import InfoView from "../public/js/components/InfoView/";
 import InfoViewSelector from "../public/js/components/InfoViewSelector/";
 import FilterWindow from "../public/js/components/FilterWindow/";
+import DropDownMenu from "../public/js/components/DropDownMenu/";
 
 
 import configureStore from "redux-mock-store";
@@ -195,5 +196,43 @@ describe("FilterWindow", () => {
             wrapper.find(".inputBox").simulate("change", event)
             expect(wrapper.state().value).to.equal("test")
         });
+        it("changes state when you select an option in DropDownMenu", () => {
+            const initialState = {bankWindow:{
+                banks:[{atms:testATMS}],
+                activeEndPoint:"atms",
+                activeBankId:0
+            }}
+            const store = mockStore(initialState);
+            const wrapper = mount(<FilterWindow store={store} />);
+            wrapper.find("DropDownMenu").simulate("change",{target:{value:"TownName"}});
+            expect(wrapper.find("DropDownMenu").props().value).to.equal("TownName");
+        })
     });
 });
+
+describe("DropDownMenu", () => {
+    describe("renders", () => {
+        it("drop down options", () => {
+            const options = [{value:"option1", label:"Option 1"}, {value:"option2", label:"Option2"}]
+            const wrapper = shallow(<DropDownMenu options={options} value={options[0]} />)
+            expect(wrapper.find("option").length).to.equal(2);
+        });
+        it("a select div", () => {
+            const options = [{value:"option1", label:"Option 1"}, {value:"option2", label:"Option2"}]
+            const wrapper = shallow(<DropDownMenu name="testDropDown" options={options}/>);
+            expect(wrapper.find("select").length).to.equal(1);
+        });
+    });
+    describe("handles", () => {
+        it("onChange", () => {
+            const options = [{value:"option1", label:"Option 1"}, {value:""}]
+            var option = "";
+            function setOption (event) {
+                option = event;
+            } 
+            const wrapper = shallow(<DropDownMenu options={options} value={options[0]} sendOption={setOption} />);
+            wrapper.simulate('change', {target:{value:'test'}});
+            expect(option).to.equal('test');
+        })
+    })
+})

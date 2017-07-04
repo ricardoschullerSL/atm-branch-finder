@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for js/containers/InfoContainer/index.js</title>
+    <title>Code coverage report for js/components/DropDownMenu/index.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="..\..\..\prettify.css" />
     <link rel="stylesheet" href="..\..\..\base.css" />
@@ -16,7 +16,7 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="..\..\..\index.html">All files</a> / <a href="index.html">js/containers/InfoContainer</a> index.js
+      <a href="..\..\..\index.html">All files</a> / <a href="index.html">js/components/DropDownMenu</a> index.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
@@ -25,14 +25,14 @@
         <span class='fraction'>6/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/0</span>
+        <span class='fraction'>1/2</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>1/1</span>
+        <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -61,41 +61,47 @@
 16
 17
 18
-19</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+19
+20
+21</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
-import InfoWindow from "../../components/InfoWindow";
-import { connect } from "react-redux";
-import styles from "./infowindow.css";
 &nbsp;
-@connect((store) =&gt; {
-    return {
-        infoViewItems: store.infoWindow.infoViewItems,
-        infoId: store.infoWindow.infoId,
-        infoObjects: store.infoWindow.infoObjects,
-        filteredInfoObjects: store.infoWindow.filteredInfoObjects
+export default class DropDownMenu extends React.Component {
+    constructor(props) <span class="branch-1 cbranch-no" title="branch not covered" >{</span>
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
     }
-})
-export default class InfoContainer extends React.Component {
-        
+    
+    handleChange(e) {
+        this.props.sendOption(e.target.value)
+    }
+    
     render() {
-        return (&lt;InfoWindow {...this.props}/&gt;)
+        return (
+            &lt;select id={this.props.name} onChange={this.handleChange}&gt;
+                {this.props.options.map((item, index) =&gt; &lt;option key={index} 
+                    value={item.value}&gt;{item.label}&lt;/option&gt;)}
+            &lt;/select&gt;
+        )
     }
 }</pre></td></tr>
 </table></pre>

@@ -13,7 +13,8 @@ export default class DropDownMenu extends React.Component {
     render() {
         return (
             <select id={this.props.name} onChange={this.handleChange}>
-                {this.props.options.map((item, index) => <option key={index} value={item.value}>{item.label}</option>)}
+                {this.props.options.map((item, index) => <option key={index} 
+                    value={item.value}>{item.label}</option>)}
             </select>
         )
     }
