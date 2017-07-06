@@ -6,7 +6,7 @@ import reducer from "./reducers";
 
 var middleWare = {};
 
-if (process.title === "browser") {
+if (process.env.NODE_ENV !== "production") {
     middleWare = applyMiddleware(thunk, createLogger());
 } else {
     middleWare= applyMiddleware(thunk);

@@ -83,12 +83,16 @@ export function filterEndPointData(endPoint, data, key, value) {
     }    
 }
 
-function filterATMData(data, key, value) {
+export function filterATMData(data, key, value) {
     const filteredData = data.filter((item) => {
         return (item.Address[key] && value) ? 
                 item.Address[key].toUpperCase() === value.toUpperCase() : false;
     });
     
+    return setFilteredATMs(filteredData);
+}
+
+export function setFilteredATMs(filteredData) {
     const filteredInfoObjects = filteredData.map((atm) => {
         atm.infoViewItems = [
             {key:"ATM ID", value:atm.ATMID},
@@ -105,7 +109,7 @@ function filterATMData(data, key, value) {
     };
 }
 
-function filterBranchData(data, key, value) {
+export function filterBranchData(data, key, value) {
     const filteredData = data.filter((item) => {
         return (item.Address[key] && value) ?
             item.Address[key].toUpperCase() === value.toUpperCase() : false;
@@ -124,4 +128,14 @@ function filterBranchData(data, key, value) {
         type:"SET_FILTERED_INFO_OBJECTS",
         payload: filteredInfoObjects
     }
+}
+
+export function filterATMsByUserPosition(data, userLocation, maxDistance) {
+    console.log(data);
+    const filteredData = data.filter((item) => {
+        return (Math.abs(item.GeographicLocation.Longitude - userLocation.Longitude) < maxDistance &&
+                Math.abs(item.GeographicLocation.Latitude - userLocation.Latitude) < maxDistance)
+    });
+    console.log(filteredData);
+    return setFilteredATMs(filteredData);
 }

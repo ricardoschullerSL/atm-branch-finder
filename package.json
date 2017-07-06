@@ -10,6 +10,9 @@
     "cov": "nyc report --reporter=lcov > coverage.lcov",
     "dev": "SET NODE_ENV=development & webpack-dev-server --content-base public --inline --hot"
   },
+  "engines":{
+      "node":"6.9.5"
+  },
   "nyc": {
     "exclude": [
       "public/js/reducers",
