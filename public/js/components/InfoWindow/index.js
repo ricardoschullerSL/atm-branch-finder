@@ -1,7 +1,9 @@
 import React from "react";
-import { getEndPointData } from "../../actions/bankActions";
+import { getEndPointData, filterATMsByUserPosition } from "../../actions/bankActions.js";
+import { getUserGeoLocation } from "../../actions/mapActions.js"
 import InfoViewSelector from "../InfoViewSelector/";
 import InfoView from "../InfoView";
+
 
 
 export default class InfoWindow extends React.Component{
@@ -13,13 +15,16 @@ export default class InfoWindow extends React.Component{
                 <div className="infoWindow">This is the InfoWindow <br></br>
                 <InfoViewSelector {...this.props} />
                 <InfoView infoObject={this.props.filteredInfoObjects[this.props.infoId]} />
+                <button onClick={() => {this.props.dispatch(getUserGeoLocation())}} >Get User Location </button>
+                <button onClick={() => {this.props.dispatch(filterATMsByUserPosition(this.props.filteredInfoObjects, this.props.userGeoLocation, 0.016))}}>Find Local ATMS </button>
                 </div>
             )
         }
         else {
             return (
                 <div className="infoWindow">
-                    No Info Yet</div>
+                    No Info Yet
+                </div>
             )
         }    
     }

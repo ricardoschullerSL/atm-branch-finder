@@ -22,22 +22,22 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>13/13</span>
+        <span class='fraction'>23/23</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>6/6</span>
+        <span class='fraction'>8/8</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>6/6</span>
+        <span class='fraction'>13/13</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>12/12</span>
+        <span class='fraction'>22/22</span>
       </div>
     </div>
   </div>
@@ -77,9 +77,33 @@
 32
 33
 34
-35</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -111,9 +135,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import store from "../store";
-&nbsp;
-export function setInfoObjectLocation(infoObject) {
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export function setInfoObjectLocation(infoObject) {
     if (infoObject) {
         if (infoObject.GeographicLocation) {
             return (dispatch) =&gt; dispatch(setMapCoordinates(infoObject.GeographicLocation))
@@ -125,33 +175,61 @@ export function setInfoObjectLocation(infoObject) {
 export function setMapCoordinates(geographicLocation) {
     if (geographicLocation) {
         return (dispatch) =&gt; {
-                dispatch(setLatitude(geographicLocation.Latitude));
-                dispatch(setLongitude(geographicLocation.Longitude));
+                dispatch(setMapLatitude(geographicLocation.Latitude));
+                dispatch(setMapLongitude(geographicLocation.Longitude));
         }
     } else {
         return {type:"ADD_ERROR_TO_LOG", payload:"No geographicLocation object given when setting map coordinates."}
     }
 }
 &nbsp;
-export function setLatitude(latitude) {
+export function setMapLatitude(latitude) {
     return {
         type:"SET_INFO_OBJECT_LATITUDE",
         payload: latitude
     };
 }
 &nbsp;
-export function setLongitude(longitude) {
+export function setMapLongitude(longitude) {
     return {
         type:"SET_INFO_OBJECT_LONGITUDE",
         payload: longitude
     }
+}
+&nbsp;
+export function getUserGeoLocation() {
+    if ("geolocation" in navigator) {
+        return (dispatch) =&gt; {
+            navigator.geolocation.getCurrentPosition((position) =&gt; {
+                const geographicLocation = {Latitude: position.coords.latitude, Longitude:position.coords.longitude};
+                dispatch(setUserCoordinates(geographicLocation));
+            });
+        }
+    } else {
+        return {type:"ADD_ERROR_TO_LOG", payload:"No browser geographic location available."}
+    }
+}
+&nbsp;
+export function setUserCoordinates(geographicLocation) {
+    return (dispatch) =&gt; {
+        dispatch(setUserLatitude(geographicLocation.Latitude));
+        dispatch(setUserLongitude(geographicLocation.Longitude));
+    }
+}
+&nbsp;
+export function setUserLatitude(latitude) {
+    return {type:"SET_USER_LATITUDE", payload: latitude}
+}
+&nbsp;
+export function setUserLongitude(longitude) {
+    return {type:"SET_USER_LONGITUDE", payload: longitude}
 }</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jul 04 2017 10:46:40 GMT+0100 (GMT Summer Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jul 06 2017 08:30:08 GMT+0100 (GMT Summer Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

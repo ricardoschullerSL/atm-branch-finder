@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">68.18% </span>
+        <span class="strong">62% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>30/44</span>
+        <span class='fraction'>31/50</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">84.21% </span>
+        <span class="strong">76.19% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>16/19</span>
+        <span class='fraction'>16/21</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">66.67% </span>
+        <span class="strong">61.9% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>12/18</span>
+        <span class='fraction'>13/21</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">68.18% </span>
+        <span class="strong">62% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>30/44</span>
+        <span class='fraction'>31/50</span>
       </div>
     </div>
   </div>
@@ -169,7 +169,22 @@
 124
 125
 126
-127</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -261,6 +276,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -294,6 +313,17 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios from "axios";
 import store from "../store.js";
@@ -380,12 +410,16 @@ export function filterEndPointData(endPoint, data, key, value) {
     }    
 }
 &nbsp;
-function filterATMData(data, key, value) {
+export function filterATMData(data, key, value) {
     const filteredData = data.filter((item) =&gt; {
         return (item.Address[key] &amp;&amp; value) ? 
                 item.Address[key].toUpperCase() === value.toUpperCase() : false;
     });
     
+    return setFilteredATMs(filteredData);
+}
+&nbsp;
+export function setFilteredATMs(filteredData) {
     const filteredInfoObjects = filteredData.map((atm) =&gt; {
         atm.infoViewItems = [
             {key:"ATM ID", value:atm.ATMID},
@@ -402,7 +436,7 @@ function filterATMData(data, key, value) {
     };
 }
 &nbsp;
-function filterBranchData(data, key, value) {
+export function filterBranchData(data, key, value) {
     const filteredData = data.filter((item) =&gt; {
         return (item.Address[key] &amp;&amp; value) ?
             item.Address[key].toUpperCase() === value.toUpperCase() : <span class="branch-1 cbranch-no" title="branch not covered" >false;</span>
@@ -421,13 +455,24 @@ function filterBranchData(data, key, value) {
         type:"SET_FILTERED_INFO_OBJECTS",
         payload: filteredInfoObjects
     }
-}</pre></td></tr>
+}
+&nbsp;
+export f</span>unction <span class="fstat-no" title="function not covered" >filterATMsByUserPosition(data, userLocation, maxDistance) {
+<span class="cstat-no" title="statement not covered" >    console.log(data);</span>
+    c</span>onst filteredData = <span class="cstat-no" title="statement not covered" >data.filter(<span class="fstat-no" title="function not covered" >(</span>item) =&gt; {
+<span class="cstat-no" title="statement not covered" >        return (Math.abs(item.GeographicLocation.Longitude - userLocation.Longitude) &lt; maxDistance &amp;&amp;</span>
+                Math.abs(item.GeographicLocation.Latitude - userLocation.Latitude) &lt; maxDistance)
+    });
+<span class="cstat-no" title="statement not covered" >    console.log(filteredData);</span>
+<span class="cstat-no" title="statement not covered" >    return setFilteredATMs(filteredData);</span>
+}
+&nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jul 04 2017 10:46:40 GMT+0100 (GMT Summer Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jul 06 2017 08:30:08 GMT+0100 (GMT Summer Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

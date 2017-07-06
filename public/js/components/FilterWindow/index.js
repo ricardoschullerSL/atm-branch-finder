@@ -1,7 +1,7 @@
 import React from "react";
 import DropDownMenu from "../DropDownMenu/";
-import {connect} from "react-redux";
-import {filterEndPointData} from "../../actions/bankActions.js";
+import { connect } from "react-redux";
+import { filterEndPointData } from "../../actions/bankActions.js";
 
 @connect((state) => {
     return {

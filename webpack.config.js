@@ -1,4 +1,3 @@
-var debug = process.env.NODE_ENV !== "production";
 var webpack = require("webpack");
 var path = require("path");
 
@@ -9,7 +8,7 @@ module.exports = {
         loaders: [
             {
                 test:/\.js?$/,
-                exclude: /(node_modules)/,
+                exclude: /node_modules/,
                 loader: "babel-loader",
                 query: {
                     presets: ["react", "es2015", "stage-0"],

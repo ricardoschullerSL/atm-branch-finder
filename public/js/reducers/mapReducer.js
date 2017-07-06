@@ -1,6 +1,8 @@
 export default function(state = {
     latitude:"",
-    longitude:""
+    longitude:"",
+    userLatitude: "",
+    userLongitude: "",
 }, action) {
     switch(action.type) {
         case "SET_INFO_OBJECT_LATITUDE" : {
@@ -15,6 +17,18 @@ export default function(state = {
                 longitude: action.payload
             }
         }
+        case "SET_USER_LATITUDE" : {
+            return {
+                ...state,
+                userLatitude: action.payload
+            }
+        }
+        case "SET_USER_LONGITUDE" : {
+            return {
+                ...state,
+                userLongitude: action.payload
+            }
+        }        
     }
     return state;
 }

@@ -11,12 +11,17 @@ function copyProps(src, target) {
     .map(prop => Object.getOwnPropertyDescriptor(src, prop));
   Object.defineProperties(target, props);
 }
-
+const getCurrentPosition = (callback) => {
+    callback({coords:{latitude:"1.1", longitude:"2.2"}})
+}
 global.window = window;
 global.document = window.document;
 global.navigator = {
-  userAgent: 'node.js'
-};
+  userAgent: 'node.js',
+  geolocation: {
+      getCurrentPosition:getCurrentPosition
+  }
+}
 copyProps(window, global);
 
 

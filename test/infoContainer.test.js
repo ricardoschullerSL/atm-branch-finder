@@ -51,7 +51,12 @@ describe("InfoContainer", () => {
                                     infoViewItems: [{key:"Info1", value:"Test1"}],
                                     infoId: 0,
                                     infoObjects: testATMS,
-                                    filteredInfoObjects: testATMS
+                                    filteredInfoObjects: testATMS,
+                                    
+                                },
+                                mapWindow:{
+                                    userLatitude: "1.1",
+                                    userLongitude: "2.2"
                                 } 
                                 };
             const store = mockStore(initialState);
