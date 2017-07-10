@@ -62,9 +62,9 @@ describe("InfoContainer", () => {
             const store = mockStore(initialState);
             const wrapper = shallow(<InfoContainer store={store} />).shallow();
             expect(wrapper.find("InfoWindow")).to.have.length(1);
-        })
-    })
-})
+        });
+    });
+});
 
 describe("InfoWindow", () => {
     describe("renders", () => {
@@ -211,7 +211,7 @@ describe("FilterWindow", () => {
             const wrapper = mount(<FilterWindow store={store} />);
             wrapper.find("DropDownMenu").simulate("change",{target:{value:"TownName"}});
             expect(wrapper.find("DropDownMenu").props().value).to.equal("TownName");
-        })
+        });
     });
 });
 
@@ -238,6 +238,6 @@ describe("DropDownMenu", () => {
             const wrapper = shallow(<DropDownMenu options={options} value={options[0]} sendOption={setOption} />);
             wrapper.simulate('change', {target:{value:'test'}});
             expect(option).to.equal('test');
-        })
-    })
-})
+        });
+    });
+});

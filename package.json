@@ -10,8 +10,8 @@
     "cov": "nyc report --reporter=lcov > coverage.lcov",
     "dev": "SET NODE_ENV=development & webpack-dev-server --content-base public --inline --hot"
   },
-  "engines":{
-      "node":"6.9.5"
+  "engines": {
+    "node": "6.9.5"
   },
   "nyc": {
     "exclude": [
@@ -32,10 +32,15 @@
   "dependencies": {
     "axios": "^0.16.1",
     "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "fs": "0.0.1-security",
+    "history": "^4.6.3",
     "react": "^15.5.4",
+    "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
+    "react-router": "^4.1.1",
+    "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.6.0",
     "redux-axios-middleware": "^4.0.0",
     "redux-logger": "^3.0.6",
@@ -63,7 +68,6 @@
     "mocha-webpack": "^0.7.0",
     "nyc": "^11.0.2",
     "react-addons-test-utils": "^15.5.1",
-    "react-dom": "^15.5.4",
     "react-test-renderer": "^15.5.4",
     "redux-mock-store": "^1.2.3",
     "style-loader": "^0.18.1",

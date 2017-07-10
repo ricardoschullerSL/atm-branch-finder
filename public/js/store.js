@@ -1,19 +1,20 @@
 import { applyMiddleware, createStore, compose } from "redux";
 import { createLogger } from "redux-logger";
+import { routerMiddleware, push } from "react-router-redux";
 import thunk from "redux-thunk";
+import createHistory from "history/createBrowserHistory";
 
 import reducer from "./reducers";
 
-var middleWare = {};
+export const history = createHistory();
+
+var middleWare = {}
 
 if (process.env.NODE_ENV !== "production") {
-    middleWare = applyMiddleware(thunk, createLogger());
+    middleWare = applyMiddleware(thunk, createLogger(), routerMiddleware(history));
 } else {
-    middleWare= applyMiddleware(thunk);
+    middleWare= applyMiddleware(thunk, routerMiddleware(history));
 }
 
 const composeEnhancers = compose;
-const store = createStore(reducer, middleWare);
-
-
-export default store
+export const store = createStore(reducer, middleWare);
