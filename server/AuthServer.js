@@ -1,11 +1,15 @@
 var express = require("express");
 var request = require("request");
+var bodyParser = require("body-parser");
 var crypto = require("crypto");
 var cookieParser = require("cookie-parser");
 var path = require("path");
 
 var resourceServerUrl = "http://localhost:9091";
-var aispUrl = "https://mockserver.com:8080"
+var aispUrl = "https://mockserver.com:8080";
+var aispId = "ATM Branch Finder";
+var aispPassword = "ATMBranchPassword";
+var aispCreds = "Basic " + new Buffer(aispId + ":" + aispPassword).toString("base64");
 var authCodes = [];
 
 
@@ -32,6 +36,17 @@ module.exports = function(port, middleware, callback) {
         app.use(middleware);
     }
     app.use(cookieParser());
+    app.use(bodyParser.json())
+    
+    app.use("/ar_access_token/", (req, res, next) => {
+        if (req.get("Authorization") === aispCreds) {
+            console.log("AISP server provided correct credentials to Auth Server.")
+            next();
+        }
+        else {
+            res.status(403).send("AISP server creds are wrong.")
+        }
+    })
     
     app.post("/ar_access_token", (req, res) => {
         console.log("Account request access token requested.")
@@ -61,12 +76,25 @@ module.exports = function(port, middleware, callback) {
     });
     
     app.get("/authenticate/account_info/:accountRequestId", (req, res) => {
-        res.sendFile(path.join(__dirname, "authenticate.html"));
+        console.log("Client got redirected to account info page. Looking for accountRequestId from Resource Server: ", req.params.accountRequestId);        
+        request.delete({
+            uri: resourceServerUrl + "/authserver/accountRequestId/" + req.params.accountRequestId,
+            headers: {
+                'Authorization': auth,
+                'User-Agent': 'request',
+                'Content-Type':'application/json'
+            }
+        }, (err, response, body) => {
+            if (response.statusCode === 200) {
+                res.sendFile(path.join(__dirname, "authenticate.html"));
+            } else {
+                res.status(400).send("Something went wrong. Try again.")
+            }
+        });
     });
     
     app.get("/authenticate/account_info/:accountRequestId/:isAccepted", (req, res) => {
-        console.log(req.params);
-        if (req.params.isAccepted) {
+        if (parseInt(req.params.isAccepted) === 1) {
             console.log("Redirecting PSU to AISP again.")
             var authObject = newAuthorizationCode(req.params.accountRequestId)
             res.redirect(aispUrl + "/authorizationcode/" + authObject.authCode);
@@ -74,19 +102,19 @@ module.exports = function(port, middleware, callback) {
             console.log("PSU didn't accept. Stopping OAuth")
             res.status(500).send();
         }
-    })
+    });
     
     app.get("/exchange/:code", (req, res) => {
         let codeIndex = authCodes.findIndex((item) => item.authCode === req.params.code)
         if (codeIndex > -1) {
             console.log("Account request access token requested.")
-            var access_token = newAccessToken();
+            var token = newAccessToken();
             authCodes.pop(codeIndex);
             var reqbody = {
-                access_token:access_token
+                access_token: token
             };
             request.post({   
-                url: resourceServerUrl+"/authserver/access_token",
+                uri: resourceServerUrl+"/authserver/access_token",
                 headers: {
                     'Authorization': auth,
                     'User-Agent': 'request',
@@ -98,7 +126,7 @@ module.exports = function(port, middleware, callback) {
             }, (err, response, body) => {
                 if (response.statusCode === 201) {
                     console.log("Auth server got response from Resource server that access token is created")
-                    res.status(201).send({access_token: access_token});
+                    res.status(201).send({access_token: token});
                 } else {
                     console.log("Resource server couldn't create access_token.")
                     res.status(500).send();
@@ -108,8 +136,6 @@ module.exports = function(port, middleware, callback) {
             res.status(500).send("Authorization code not found");
         }
     })
-    
-    
     
     
     var server = app.listen(9090, callback);

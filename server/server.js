@@ -16,8 +16,11 @@ var options = {
 
 var authServerUrl = "http://localhost:9090";
 var resourceServerUrl = "http://localhost:9091";
+var aispId = "ATM Branch Finder";
+var aispPassword = "ATMBranchPassword";
+var aispCreds = new Buffer(aispId + ":" + aispPassword).toString("base64"); 
 
-//setting up bank data 
+//Retrieving static bank data like ATMs, Branches and PCAs. 
 
 var getBankData = function() {
     banks.map((bank) => {
@@ -35,7 +38,7 @@ var getBankData = function() {
         }
     })
 };
-
+// Do this every 24 hours.
 getBankData();
 setInterval(()=> {
     console.log("Getting Bank Data");
@@ -55,24 +58,42 @@ module.exports = function(port, middleware, callback) {
     
     app.get("/account_info", (req, res) => {
         // START OF OAUTH2 PROTOCOL
-        // FIRST STEP: GET ACCESS TOKEN FROM AUTH SERVER
-        request.post({uri:authServerUrl+"/ar_access_token"}, (authE, authR, authBody) => {
-            if (!authE) {
-                var access_token = JSON.parse(authBody);
+        // FIRST STEP: PREPARE ACCOUNT REQUEST AND GET ACCESS TOKEN FROM AUTH SERVER
+        let today = new Date(Date.now());
+        let ExpirationDateTime = new Date(new Date(today).setMonth(today.getHours() + 1));
+        let TransactionFromDateTime = new Date(new Date(today).setMonth(today.getMonth() - 1));
+        let TransactionToDateTime = today;
+        let account_request = {
+            Permissions: ['ReadAccountsBasic', 'ReadTransactionsBasic'],
+            ExpirationDateTime: ExpirationDateTime,
+            TransactionFromDateTime: TransactionFromDateTime,
+            TransactionToDateTime: TransactionToDateTime,
+        };
+        
+        request.post({
+            uri:authServerUrl+"/ar_access_token",
+            headers: {
+                'x-fapi-financial-id':'RicardoBank',
+                'Authorization': "Basic " + aispCreds,
+            },
+        }, (authE, authR, authBody) => {
+            if (authR.statusCode >= 200 & authR.statusCode < 300) {
+                var access_token = JSON.parse(authBody).access_token;
                 console.log("Server got access token from AuthServer.", access_token);
                 
                 // SECOND STEP: POST ACCOUNT REQUEST ON RESOURCE SERVER
                 request.post({
                     uri:resourceServerUrl + "/account-requests", 
-                    body: access_token, 
+                    body: {access_token: access_token, account_request: account_request}, 
                     json: true
                 }, (resourceErr, resourceRes, resourceBody) => {
-                    // FINALLY REDIRECT CLIENT TO BANK AUTHENTICATION PAGE
+                    // REDIRECT CLIENT TO BANK AUTHENTICATION PAGE
+                    let accountRequestId = resourceBody;
                     res.redirect(authServerUrl + "/authenticate/account_info/" 
-                    + resourceBody.accountRequestId);
+                    + accountRequestId);
                 })
             } else {
-                console.log(authE);
+                res.status(400).send(authE)
             }
         })
     })
@@ -98,9 +119,8 @@ module.exports = function(port, middleware, callback) {
             } else {
                 res.status(500).send(authE);
             }
-            
-        })
-    })
+        });
+    });
     
     app.get("/banks", (req, res) => {
         res.send(JSON.stringify(banks));
