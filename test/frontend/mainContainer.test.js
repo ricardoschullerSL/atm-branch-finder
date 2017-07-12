@@ -1,4 +1,4 @@
-import MainContainer from "../public/js/containers/MainContainer";
+import MainContainer from "../../public/js/containers/MainContainer";
 // Setting up Mock Store
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";

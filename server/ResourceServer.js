@@ -96,7 +96,21 @@ module.exports = function(port, middleware, callback) {
     app.get("/accounts/:accountId/accountInfo", (req, res) => {
         let account = accounts.find((account) => account.id.toString() === req.params.accountId);
         if (account) {
-            res.status(200).send(account);
+            let responseBody = {
+                "Data":{
+                    accountInfo:account 
+                },
+                "Risk":{
+                    
+                },
+                "Links":[
+                    
+                ],
+                "Meta":{
+                    
+                }
+            }
+            res.status(200).send(JSON.stringify(responseBody));
         } else {
             console.log("Account not found?");
             res.status(500).send();

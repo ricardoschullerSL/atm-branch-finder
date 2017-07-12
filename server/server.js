@@ -21,7 +21,6 @@ var aispPassword = "ATMBranchPassword";
 var aispCreds = new Buffer(aispId + ":" + aispPassword).toString("base64"); 
 
 //Retrieving static bank data like ATMs, Branches and PCAs. 
-
 var getBankData = function() {
     banks.map((bank) => {
         for (let uri in bank.uris) {
@@ -38,6 +37,7 @@ var getBankData = function() {
         }
     })
 };
+
 // Do this every 24 hours.
 getBankData();
 setInterval(()=> {
@@ -46,7 +46,7 @@ setInterval(()=> {
 }, 86400000);
 
 
-
+// Server Code
 module.exports = function(port, middleware, callback) {
     var app = express();
     
@@ -77,7 +77,7 @@ module.exports = function(port, middleware, callback) {
                 'Authorization': "Basic " + aispCreds,
             },
         }, (authE, authR, authBody) => {
-            if (authR.statusCode >= 200 & authR.statusCode < 300) {
+            if (authR.statusCode >= 200 && authR.statusCode < 300) {
                 var access_token = JSON.parse(authBody).access_token;
                 console.log("Server got access token from AuthServer.", access_token);
                 
@@ -101,7 +101,7 @@ module.exports = function(port, middleware, callback) {
     app.get("/authorizationcode/:code", (req, res) => {
         // THIRD STEP: GOT AUTHORIZATION CODE, EXCHANGE IT FOR ACCESS TOKEN TO RESOURCE
         request.get({uri:authServerUrl+"/exchange/"+req.params.code}, (authE, authR, authBody) => {
-            if (authR.statusCode >= 200 & authR.statusCode < 300) {
+            if (authR.statusCode >= 200 && authR.statusCode < 300) {
                 console.log("Exchanged auth code for access token: ", authBody);
                 let access_token = JSON.parse(authBody);
                 // FINAL STEP: USE ACCESS TOKEN TO GET ACCOUNT INFO FROM RESOURCE SERVER

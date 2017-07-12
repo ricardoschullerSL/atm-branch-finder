@@ -1,32 +1,20 @@
 import * as bankActions from "../../public/js/actions/bankActions.js";
+import axios from "axios";
+
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import reducer from "../../public/js/reducers/";
-
 const middlewares = [thunk];
-const mockStore = configureStore(reducer,middlewares);
+const mockStore = configureStore(middlewares);
 
-const addBank = () => ({type: "ADD_BANK"})
+let sandbox;
 
-
-describe("Testing mock store", () => {
-    it("should dispatch an action", () => {
-        const initialState = {};
-        const store = mockStore(initialState)
-        
-        store.dispatch(addBank());
-        
-        const actions = store.getActions();
-        const expectedPayload = {type:"ADD_BANK"};
-        expect(actions).to.deep.equal([expectedPayload]);
-    });
-});
 describe("Bank Actions", () => {
+    beforeEach(() => sandbox = sinon.sandbox.create());
+    afterEach(() => sandbox.restore());
     describe("changeActiveBank", () => {
         it("should change activeBankId", () => {
             const initialState = {bankWindow: {activeBankId:0}};
             const store = mockStore(initialState);
-            
             store.dispatch(bankActions.changeActiveBank(1))
             expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_BANK_ID", payload:1}])
         });
@@ -39,9 +27,34 @@ describe("Bank Actions", () => {
             expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_ENDPOINT", payload:"branches"}])
         });
     });
+    describe("getAllBankData", () => {
+        it("should return all bank data in a single action.", //() => {
+            // const store = mockStore({});
+            // const resolved = new Promise((r) => r({ data: ["testBanks"] }));
+            // sandbox.stub(axios, 'get').returns(resolved);
+            // store.dispatch(bankActions.getAllBankData());
+            // expect(store.getActions()).to.deep.equal([{type:"SET_ALL_BANK_DATA", payload:["testBanks"]}]);
+        //}
+    );
+    });
     describe("getBankData", () => {
-        
-        
+        it("should call getEndPointData for every bank uri", //() => {
+            // const store = mockStore({});
+            // const resolved = new Promise((r) => r({ data: {data:["testBanks"]}}));
+            // sandbox.stub(axios, 'get').returns(resolved);
+            // const testBank = {
+            //     id:"testBank",
+            //     uris: {
+            //         atms:"testlink",
+            //         pca:"testlink2"
+            //     },
+            //     atms:[],
+            //     pca:[]
+            // };
+            // store.dispatch(bankActions.getBankData(testBank));
+            // expect(store.getActions().length).to.equal(2);
+        //}
+    );
     });
     describe("setEndPointData", () => {
         it("should set ATM data", () => {
@@ -124,7 +137,7 @@ describe("Bank Actions", () => {
                     
                 }];
             store.dispatch(bankActions.filterEndPointData("atms", data, "TownName", null));
-            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload:[]}])
+            expect(store.getActions()).to.deep.equal([{"payload": "No ATMs found.","type": "NO_ACTION"}])
         });
         it("should filter Branch data", () => {
             const initialState= {bankWindow: {activeEndPoint:"branches"}};
@@ -142,4 +155,66 @@ describe("Bank Actions", () => {
             expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload: [data[1]]}])
         });
     });
-})
+    describe("filterATMsByUserPosition", () => {
+        it("should filter ATM by user location and max distance", () => {
+            const store = mockStore({});
+            const testData = [
+                {
+                    ATMID:"TestATM1",
+                    Currency:["GBP"],
+                    Address: {
+                        TownName:"Bristol",
+                        StreetName:"King Street",
+                        PostCode:"BS151515"
+                    },
+                    GeographicLocation: {
+                        Longitude:"2.2",
+                        Latitude:"0.1"
+                    }
+                },
+                {
+                    ATMID:"TestATM2",
+                    Currency:["GBP"],
+                    Address: {
+                        TownName:"Bristol",
+                        StreetName:"Queen Park",
+                        PostCode:"BS111111"
+                    },
+                    GeographicLocation: {
+                        Longitude:"10",
+                        Latitude:"10"
+                    }
+                }
+            ];
+            const userLocation = {
+                Longitude: "0.0",
+                Latitude: "1.1"
+            };
+            store.dispatch(bankActions.filterATMsByUserPosition(testData, userLocation, 5))
+            expect(store.getActions()).to.deep.equal([{
+                type:"SET_FILTERED_INFO_OBJECTS",
+                payload: [ {
+                    ATMID:"TestATM1",
+                    Address: {
+                        PostCode:"BS151515",
+                        StreetName:"King Street",
+                        TownName:"Bristol"
+                    },
+                    Currency: ["GBP"],
+                    GeographicLocation: {
+                        Longitude:"2.2",
+                        Latitude:"0.1"
+                    },
+                    infoViewItems: [
+                        {key:"ATM ID", value:"TestATM1"},
+                        {key:"Currency", value:"GBP"},
+                        {key:"City", value:"Bristol"},
+                        {key:"Street Name", value:"King Street"},
+                        {key:"Post Code", value:"BS151515"}
+                    ]
+                }]
+            }])
+        });
+        // it("")
+    });
+});

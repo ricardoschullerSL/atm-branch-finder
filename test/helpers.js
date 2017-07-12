@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { mount, render, shallow } from 'enzyme';
 
 const { JSDOM } = require('jsdom');
+const sinon = require('sinon');
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
 const { window } = jsdom;
 
@@ -29,4 +30,5 @@ global.expect = expect;
 global.mount = mount;
 global.render = render;
 global.shallow = shallow;
+global.sinon = sinon;
 

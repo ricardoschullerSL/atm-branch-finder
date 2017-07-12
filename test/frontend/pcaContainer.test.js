@@ -1,7 +1,7 @@
-import PCAContainer from "../public/js/containers/PCAContainer";
-import PCAWindow from "../public/js/components/PCAWindow";
-import PCAView from "../public/js/components/PCAView";
-import {BANKDATA} from "../public/js/staticdata/bankData.js"; 
+import PCAContainer from "../../public/js/containers/PCAContainer";
+import PCAWindow from "../../public/js/components/PCAWindow";
+import PCAView from "../../public/js/components/PCAView";
+import {BANKDATA} from "../../public/js/staticdata/bankData.js"; 
 // Setting up Mock Store
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
