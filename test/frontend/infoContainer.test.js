@@ -157,6 +157,20 @@ describe("InfoContainer", () => {
                                                             {type:"SET_INFO_OBJECT_LATITUDE",payload:"2.2"},
                                                             {type:"SET_INFO_OBJECT_LONGITUDE", payload:"2.2"}])
             });
+            it("click past the last item", () => {
+                const wrapper = shallow(<InfoViewSelector dispatch={store.dispatch} filteredInfoObjects={testATMS} infoId={1} />);
+                wrapper.find("#next").simulate("click");
+                expect(store.getActions()).to.deep.equal([{type:"SET_INFO_ID",payload:0},
+                                                            {type:"SET_INFO_OBJECT_LATITUDE",payload:"1.1"},
+                                                            {type:"SET_INFO_OBJECT_LONGITUDE", payload:"1.1"}])
+            });
+            it("click past the first item", () => {
+                const wrapper = shallow(<InfoViewSelector dispatch={store.dispatch} filteredInfoObjects={testATMS} infoId={0} />);
+                wrapper.find("#previous").simulate("click");
+                expect(store.getActions()).to.deep.equal([{type:"SET_INFO_ID",payload:1},
+                                                            {type:"SET_INFO_OBJECT_LATITUDE",payload:"2.2"},
+                                                            {type:"SET_INFO_OBJECT_LONGITUDE", payload:"2.2"}])
+            });
         });
     });
 

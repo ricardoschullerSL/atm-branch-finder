@@ -28,33 +28,65 @@ describe("Bank Actions", () => {
         });
     });
     describe("getAllBankData", () => {
-        it("should return all bank data in a single action.", //() => {
-            // const store = mockStore({});
-            // const resolved = new Promise((r) => r({ data: ["testBanks"] }));
-            // sandbox.stub(axios, 'get').returns(resolved);
-            // store.dispatch(bankActions.getAllBankData());
-            // expect(store.getActions()).to.deep.equal([{type:"SET_ALL_BANK_DATA", payload:["testBanks"]}]);
-        //}
-    );
+        it("should return all bank data in a single action.", (done) => {
+            const store = mockStore({});
+            const fakeAxios = new Promise((r) => r({ data: ["testBanks"] }));
+            sandbox.stub(axios, 'get').returns(fakeAxios);
+            const waitForActions = new Promise((resolve) => {
+                resolve(store.dispatch(bankActions.getAllBankData()));
+            })
+            waitForActions
+            .then((result)=> {
+                expect(store.getActions()).to.deep.equal([{type:"SET_ALL_BANK_DATA", payload:["testBanks"]}]);
+            })
+            .then(done,done);
+        });
     });
     describe("getBankData", () => {
-        it("should call getEndPointData for every bank uri", //() => {
-            // const store = mockStore({});
-            // const resolved = new Promise((r) => r({ data: {data:["testBanks"]}}));
-            // sandbox.stub(axios, 'get').returns(resolved);
-            // const testBank = {
-            //     id:"testBank",
-            //     uris: {
-            //         atms:"testlink",
-            //         pca:"testlink2"
-            //     },
-            //     atms:[],
-            //     pca:[]
-            // };
-            // store.dispatch(bankActions.getBankData(testBank));
-            // expect(store.getActions().length).to.equal(2);
-        //}
-    );
+        it("should call getEndPointData for every bank uri", (done) => {
+            const store = mockStore({});
+            const fakeAxios = new Promise((r) => r({ data: {data:["testBanks"]}}));
+            sandbox.stub(axios, 'get').returns(fakeAxios);
+            const testBank = {
+                id:"testBank",
+                uris: {
+                    atms:"testlink",
+                    pca:"testlink2"
+                },
+                atms:[],
+                pca:[]
+            };
+            const waitForActions = new Promise((resolve) => {
+                resolve(store.dispatch(bankActions.getBankData(testBank)))
+            });
+            waitForActions
+            .then((result) => {
+                expect(store.getActions().length).to.equal(4);
+            })
+            .then(done,done);
+        });
+        it("should not retrieve data when it's already there.", (done) => {
+            const store = mockStore({});
+            const fakeAxios = new Promise((r) => r({ data: {data:["testBanks"]}}));
+            sandbox.stub(axios, 'get').returns(fakeAxios);
+            const testBank = {
+                id:"testBank",
+                uris: {
+                    atms:"testlink",
+                    pca:"testlink2"
+                },
+                atms:["Fake Data"],
+                pca:["Fake Data"]
+            };
+            const waitForActions = new Promise((resolve) => {
+                resolve(store.dispatch(bankActions.getBankData(testBank)))
+            });
+            waitForActions
+            .then((result) => {
+                expect(store.getActions().length).to.equal(2);
+            })
+            .then(done,done);
+        });
     });
     describe("setEndPointData", () => {
         it("should set ATM data", () => {
@@ -154,6 +186,21 @@ describe("Bank Actions", () => {
             store.dispatch(bankActions.filterEndPointData("branches", data, "TownName", "Bristol"));
             expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload: [data[1]]}])
         });
+        it("should not filter Branch data when no value is given", () => {
+            const initialState= {bankWindow: {activeEndPoint:"branches"}};
+            const store = mockStore(initialState);
+            const data = [
+                {
+                    BranchName:"Test Branch 1",
+                    Address:{TownName:"London", StreetName:"25 Buckingham Palace", PostCode:"LB121212"},                
+                },
+                {
+                    BranchName:"Test Branch 2",
+                    Address:{TownName:"Bristol", StreetName:"25 King Street", PostCode:"BS151515"},
+                }];
+            store.dispatch(bankActions.filterEndPointData("branches", data, "TownName", null));
+            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload: []}])
+        });
     });
     describe("filterATMsByUserPosition", () => {
         it("should filter ATM by user location and max distance", () => {
@@ -215,6 +262,5 @@ describe("Bank Actions", () => {
                 }]
             }])
         });
-        // it("")
     });
 });

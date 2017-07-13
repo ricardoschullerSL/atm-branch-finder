@@ -18,7 +18,6 @@ export function getAllBankData() {
     return (dispatch) => {
         axios.get("/banks")
         .then((result) => {
-            console.log(result);
             dispatch({type:"SET_ALL_BANK_DATA", payload: result.data})
         });
     }
@@ -37,13 +36,10 @@ export function getEndPointData(endPoint, bank) {
         if (!bank[endPoint].length) {
             axios.get("/bankdata", body)
             .then((result) => {
-                console.log(result);
-                console.log("Got endpoint data from bank API.")
                 dispatch(setEndPointData(endPoint, result.data.data));
                 dispatch({type:"SET_INFO_ID", payload:0});
             });
         } else {
-            console.log("Endpoint data already there.")
             dispatch({type:"SET_INFO_ID", payload:0});
         }
     }
