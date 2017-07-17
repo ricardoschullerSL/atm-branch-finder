@@ -12,7 +12,7 @@ export default class InfoWindow extends React.Component{
         
         if (this.props.filteredInfoObjects) {
             return (
-                <div className="infoWindow">This is the InfoWindow <br></br>
+                <div className="infoWindow">
                 <InfoViewSelector {...this.props} />
                 <InfoView infoObject={this.props.filteredInfoObjects[this.props.infoId]} />
                 <button onClick={() => {this.props.dispatch(getUserGeoLocation())}} >Get User Location </button>

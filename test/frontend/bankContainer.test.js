@@ -1,4 +1,5 @@
 import React from "react";
+import { Provider } from "react-redux";
 import { BANKDATA } from "../../public/js/staticdata/bankData.js"
 import BankContainer from "../../public/js/containers/BankContainer/";
 import BankWindow from "../../public/js/components/BankWindow/";
@@ -82,19 +83,16 @@ describe("BankContainer", () => {
         });
         describe("has property", () => {
             it("class name 'bankButton'", () => {
-                const wrapper = shallow(<BankButton bank={testBank} />);
+                const wrapper = shallow(<BankButton bank={testBank} className={"bankButton"}/>);
                 expect(wrapper.find("div").hasClass("bankButton")).to.equal(true);
             });
-            it("onClick", () => {
-                const wrapper = mount(<BankWindow store={store} banks={initialState.bankWindow.banks}/>)
-                expect(wrapper.find(".bankButton").first().props().onClick).not.equal(null);
-            });
+            it("onClick");
         });
         describe("dispatches", () => {
             it("some actions when clicked", ()=> {
                 const wrapper = mount(<BankContainer store={store} />);
                 wrapper.find(".bankButton").first().simulate("click");
-                expect(store.getActions()).to.deep.equal([{ type: 'SET_ACTIVE_BANK_ID', payload: 0 }])
+                expect(store.getActions()).to.deep.equal([{ type: 'SET_ACTIVE_BANK_ID', payload: 1 }])
             })
         })
     });

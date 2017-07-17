@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>18/18</span>
+        <span class='fraction'>23/23</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">50% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>3/3</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>18/18</span>
+        <span class='fraction'>23/23</span>
       </div>
     </div>
   </div>
@@ -98,7 +98,11 @@
 53
 54
 55
-56</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+56
+57
+58</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -125,6 +129,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -132,21 +137,20 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -155,20 +159,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
 import DropDownMenu from "../DropDownMenu/";
+import store from "../../store.js";
 import { connect } from "react-redux";
 import { filterEndPointData } from "../../actions/bankActions.js";
+import styles from "./filterwindow.css";
 &nbsp;
-@connect((state) =&gt; {
+@connect((store) =&gt; {
     return {
-    activeEndPoint: state.bankWindow.activeEndPoint,
-    banks: state.bankWindow.banks,
-    activeBankId: state.bankWindow.activeBankId,
+    activeEndPoint: store.bankWindow.activeEndPoint,
+    banks: store.bankWindow.banks,
+    activeBankId: store.bankWindow.activeBankId,
 }
 })
 export default class FilterWindow extends React.Component {
     constructor(props) <span class="branch-1 cbranch-no" title="branch not covered" >{</span>
         super(props);
-        this.state = {value: '', option:''};
+        this.state = {value: '', option:"TownName"};
         this.handleSelect = this.handleSelect.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -179,6 +185,7 @@ export default class FilterWindow extends React.Component {
     }
     
     handleSelect(option) {
+        console.log(option);
         this.setState({option: option});
     }
     
@@ -190,20 +197,19 @@ export default class FilterWindow extends React.Component {
     }
     
     render() {
-        const options = [{value:"", label:""},
-                        {value:"TownName", label:"Town"},
-                        {value:"PostCode", label:"Post Code"}];
+        const options = [
+            {value:"TownName", label:"City"},
+            {value:"PostCode", label:"Post Code"},
+            {value:"", label:""},
+        ];
         return (        
-            &lt;div&gt;
-                This is the filter window.&lt;br&gt;&lt;/br&gt;
-                
-            &lt;form onSubmit={this.handleSubmit}&gt;
-                
+            &lt;div className="filterWindow"&gt;                
+            &lt;form onSubmit={this.handleSubmit} className="filterForm"&gt;
                 &lt;label&gt;
-                    Filter by &lt;DropDownMenu name="filterDropDown" options={options} value={this.state.option} sendOption={this.handleSelect} /&gt;
-                &lt;input type="text" className="inputBox" placeholder="Type in filter value" value={this.state.value} onChange={this.handleChange} /&gt;
+                    &lt;DropDownMenu name="filterDropDown" options={options} value={this.state.option} sendOption={this.handleSelect} /&gt;
+                &lt;input type="text" className="inputBox" placeholder={"Filter by " + options.find((option)=&gt; option.value === this.state.option).label} value={this.state.value} onChange={this.handleChange} /&gt;
                 &lt;/label&gt;
-                &lt;input type="submit" value="Submit" /&gt;
+                &lt;input className="button filterButton" type="submit" value="Filter" /&gt;
             &lt;/form&gt;
             &lt;/div&gt;
         )
@@ -214,7 +220,7 @@ export default class FilterWindow extends React.Component {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jul 13 2017 08:41:54 GMT+0100 (GMT Summer Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jul 17 2017 11:59:11 GMT+0100 (GMT Summer Time)
 </div>
 </div>
 <script src="..\..\..\prettify.js"></script>

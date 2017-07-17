@@ -1,18 +1,24 @@
 .infoWindow {
     background-color: #A1D490;
     height: 600px;
-    width: 20%;
+    min-width: 200px;
+    width: 25%;
     float: left;
+}
+
+.infoViewSelector {
+    min-width: 300px;
 }
 
 .infoItemList {
     list-style-type:none;
-    padding-left: 0;
+    padding: 5px 5px 5px 5px;
+    
 }
 .selectorButton {
-	-moz-box-shadow:inset 0px 34px 0px -15px #dcecfb;
+	/*-moz-box-shadow:inset 0px 34px 0px -15px #dcecfb;
 	-webkit-box-shadow:inset 0px 34px 0px -15px #dcecfb;
-	box-shadow:inset 0px 34px 0px -15px #dcecfb;
+	box-shadow:inset 0px 34px 0px -15px #dcecfb;*/
 	background-color:#bddbfa;
 	border:1px solid #84bbf3;
 	display:inline-block;

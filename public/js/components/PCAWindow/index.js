@@ -4,12 +4,10 @@ import PCAView from "../PCAView";
 
 export default class PCAWindow extends React.Component {
 
-    
     render() {
         
         return (<div className="pcaWindow">
-            This is the Personal Current Account Window.
-            {this.props.banks[this.props.activeBankId].pca ? ListPCA(this.props.banks[this.props.activeBankId].pca) :"No PCAs yet"}
+            {this.props.banks[this.props.activeBankId].pca.length > 0 ? ListPCA(this.props.banks[this.props.activeBankId].pca) :"No Personal Current Accounts found yet."}
         </div>)
     }
 }

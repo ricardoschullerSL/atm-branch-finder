@@ -81,6 +81,9 @@ export function filterEndPointData(endPoint, data, key, value) {
 }
 
 export function filterATMData(data, key, value) {
+    if (!value) {
+        return setFilteredATMs(data);
+    }
     const filteredData = data.filter((item) => {
         return (item.Address[key] && value) ? 
                 item.Address[key].toUpperCase() === value.toUpperCase() : false;
@@ -114,10 +117,11 @@ export function setFilteredATMs(filteredData) {
 }
 
 export function filterBranchData(data, key, value) {
-    const filteredData = data.filter((item) => {
+    
+    const filteredData = (value !== '') ? data.filter((item) => {
         return (item.Address[key] && value) ?
             item.Address[key].toUpperCase() === value.toUpperCase() : false;
-    });
+    }) : data;
     
     const filteredInfoObjects = filteredData.map((branch) => {
         branch.infoViewItems = [

@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">97.96% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>47/47</span>
+        <span class='fraction'>48/49</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">88.89% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>23/23</span>
+        <span class='fraction'>24/27</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>21/21</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">97.96% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>47/47</span>
+        <span class='fraction'>48/49</span>
       </div>
     </div>
   </div>
@@ -186,7 +186,11 @@
 141
 142
 143
-144</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+144
+145
+146
+147
+148</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -270,31 +274,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -412,16 +420,19 @@ export function filterEndPointData(endPoint, data, key, value) {
 }
 &nbsp;
 export function filterATMData(data, key, value) {
+    if (!value) {
+        return setFilteredATMs(data);
+    }
     const filteredData = data.filter((item) =&gt; {
         return (item.Address[key] &amp;&amp; value) ? 
-                item.Address[key].toUpperCase() === value.toUpperCase() : false;
+                item.Address[key].toUpperCase() === value.toUpperCase() : <span class="branch-1 cbranch-no" title="branch not covered" >false;</span>
     });
     
     return setFilteredATMs(filteredData);
 }
 &nbsp;
 export function setFilteredATMs(filteredData) {
-    if (filteredData.length &gt; 0) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (filteredData.length &gt; 0) {
         const filteredInfoObjects = filteredData.map((atm) =&gt; {
             atm.infoViewItems = [
                 {key:"ATM ID", value:atm.ATMID},
@@ -437,7 +448,7 @@ export function setFilteredATMs(filteredData) {
             payload: filteredInfoObjects
         };
     } else {
-        return {
+<span class="cstat-no" title="statement not covered" >        return {</span>
             type:"NO_ACTION",
             payload:"No ATMs found."
         }
@@ -445,10 +456,11 @@ export function setFilteredATMs(filteredData) {
 }
 &nbsp;
 export function filterBranchData(data, key, value) {
-    const filteredData = data.filter((item) =&gt; {
+    
+    const filteredData = (value !== '') ? data.filter((item) =&gt; {
         return (item.Address[key] &amp;&amp; value) ?
             item.Address[key].toUpperCase() === value.toUpperCase() : false;
-    });
+    }) : <span class="branch-1 cbranch-no" title="branch not covered" >data;</span>
     
     const filteredInfoObjects = filteredData.map((branch) =&gt; {
         branch.infoViewItems = [
@@ -478,7 +490,7 @@ export function filterATMsByUserPosition(data, userLocation, maxDistance) {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jul 13 2017 08:41:54 GMT+0100 (GMT Summer Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jul 17 2017 11:59:11 GMT+0100 (GMT Summer Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

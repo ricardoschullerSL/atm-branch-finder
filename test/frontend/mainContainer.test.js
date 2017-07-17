@@ -14,8 +14,8 @@ describe("MainContainer", () => {
             }};
             const store = mockStore(initialState);
             const wrapper = shallow(
-                <MainContainer store={store} />
-            ).shallow()
+                <MainContainer activeEndPoint={initialState.bankWindow.activeEndPoint} />
+            )
             expect(wrapper.find("Connect(MapContainer)")).to.have.length(1);
         });
         it("BranchContainer when activeEndpoint is 'branches'", () => {
@@ -24,8 +24,8 @@ describe("MainContainer", () => {
             }};
             const store = mockStore(initialState);
             const wrapper = shallow(
-                <MainContainer store={store} />
-            ).shallow();
+                <MainContainer activeEndPoint={initialState.bankWindow.activeEndPoint} />
+            )
             expect(wrapper.find("Connect(BranchContainer)")).to.have.length(1);
         });
         it("PCAContainer when activeEndpoint is 'pca'", () => {
@@ -34,8 +34,8 @@ describe("MainContainer", () => {
             }};
             const store = mockStore(initialState);
             const wrapper = shallow(
-                <MainContainer store={store} />
-            ).shallow();
+                <MainContainer activeEndPoint={initialState.bankWindow.activeEndPoint} />
+            )
             expect(wrapper.find("Connect(PCAContainer)")).to.have.length(1);
         });
         it("MapContainer by default when activeEndpoint is null", () => {
@@ -44,8 +44,8 @@ describe("MainContainer", () => {
             }};
             const store = mockStore(initialState);
             const wrapper = shallow(
-                <MainContainer store={store} />
-            ).shallow()
+                <MainContainer activeEndPoint={initialState.bankWindow.activeEndPoint} />
+            )
             expect(wrapper.find("Connect(MapContainer)")).to.have.length(1);
         });    
     });
@@ -56,8 +56,8 @@ describe("MainContainer", () => {
             }};
             const store = mockStore(initialState);
             const wrapper = shallow(
-                <MainContainer store={store} />
-            ).shallow()
+                <MainContainer activeEndPoint={initialState.bankWindow.activeEndPoint} />
+            )
             expect(wrapper.hasClass("mainContainer")).to.equal(true);
         });
     });
