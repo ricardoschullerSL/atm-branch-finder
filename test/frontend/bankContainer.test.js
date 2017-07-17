@@ -101,7 +101,7 @@ describe("BankContainer", () => {
         describe("renders", () => {
             it("selector buttons", () => {
                 const wrapper = shallow(<EndPointSelector dispatch={store.dispatch} />);
-                expect(wrapper.find(".endpointselector")).to.have.length(3);
+                expect(wrapper.find("button")).to.have.length(3);
             });
         });
         describe("dispatches actions when you", () => {

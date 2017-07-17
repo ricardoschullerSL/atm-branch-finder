@@ -22,6 +22,14 @@ export function getAllBankData() {
         });
     }
 }
+export function getSingleBankData(bank) {
+    return (dispatch) => {
+        axios.get("/banks/"+bank.id)
+        .then((result) => {
+            dispatch({type:"SET_SINGLE_BANK_DATA", payload: result.data});
+        });
+    }
+}
 export function getBankData(bank) {
     return (dispatch) => {
         for (var endPoint in bank.uris) {

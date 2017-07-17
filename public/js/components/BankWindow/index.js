@@ -3,7 +3,7 @@ import BankButton from "../BankButton/";
 import EndPointSelector from "../EndPointSelector/";
 
 import { getAllBankData } from "../../actions/bankActions.js";
-import { changeActiveBank, getBankData } from "../../actions/bankActions.js";
+import { changeActiveBank, getSingleBankData } from "../../actions/bankActions.js";
 
 export default class BankWindow extends React.Component{
     constructor(props) {
@@ -23,7 +23,7 @@ export default class BankWindow extends React.Component{
                 <td key={key}><BankButton bank={bank} bankIndex={key} onClick={
                     () => {
                         this.props.dispatch(changeActiveBank(key));
-                        this.props.dispatch(getBankData(bank));
+                        this.props.dispatch(getSingleBankData(bank));
                         if (this.props.activeBankId === key) {
                             this.className = "activeBank"; 
                         } else {

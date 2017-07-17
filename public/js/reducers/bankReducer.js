@@ -96,6 +96,18 @@ export default function (state= {
                 banks: action.payload
             }
         }
+        case "SET_SINGLE_BANK_DATA" : {
+            const newBanks = state.banks.map((bank, i) => {
+                if (bank.id === action.payload.id) {
+                    bank = action.payload;
+                }
+                return bank;
+            });
+            return {
+                ...state,
+                banks: newBanks
+            }
+        }
     }
     return state;
 }

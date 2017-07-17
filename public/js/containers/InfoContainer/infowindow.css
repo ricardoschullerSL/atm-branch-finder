@@ -1,9 +1,5 @@
 .infoWindow {
-    background-color: #A1D490;
-    height: 600px;
-    min-width: 200px;
-    width: 25%;
-    float: left;
+    border: 1px solid #333;
 }
 
 .infoViewSelector {
@@ -15,7 +11,7 @@
     padding: 5px 5px 5px 5px;
     
 }
-.selectorButton {
+.iteratorButton {
 	/*-moz-box-shadow:inset 0px 34px 0px -15px #dcecfb;
 	-webkit-box-shadow:inset 0px 34px 0px -15px #dcecfb;
 	box-shadow:inset 0px 34px 0px -15px #dcecfb;*/
@@ -31,10 +27,10 @@
 	text-decoration:none;
 	
 }
-.selectorButton:hover {
+.iteratorButton:hover {
 	background-color:#a3c9f0;
 }
-.selectorButton:active {
+.iteratorButton:active {
 	position:relative;
 	top:1px;
 }

@@ -1,13 +1,16 @@
 .mapWindow {
-    height: 600px;
-    width: 100%;
-    float: right;
     background-color: #d0d0d0;
-    text-align: center;
+    height: 100%;
 }
 
 .mapView {
-    height: 400px;
+    display: block;
+    height: 100%;
     width: 100%;
     border: 0;
+}
+
+.mapView > iframe {
+    width: 100%;
+    height: 100%;
 }

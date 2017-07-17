@@ -125,6 +125,15 @@ module.exports = function(port, middleware, callback) {
     app.get("/banks", (req, res) => {
         res.send(JSON.stringify(banks));
     })
+    
+    app.get("/banks/:bankId", (req, res) => {
+        let bankIndex = banks.findIndex((bank) => bank.id === req.params.bankId);
+        if (bankIndex > -1) {
+            res.send(banks[bankIndex]);
+        } else {
+            res.status(400).send("Bank not found on server.");
+        }
+    })
         
     app.get("/bankdata", (req, res) => {
         request({uri:req.query.uri})

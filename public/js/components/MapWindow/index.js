@@ -8,9 +8,8 @@ export default class MapWindow extends React.Component {
         const mapSrc = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCoqvtBOBRsDVQBSOdGZik-ABuVWg_xeZ4&q=" + this.props.latitude + ", " + this.props.longitude;
         return (
             <div className="mapWindow">
-                <div>
+                <div className="mapView">
                     <iframe
-                    className="mapView"
                       frameBorder="0" 
                       src={mapSrc} allowFullScreen>
                     </iframe>

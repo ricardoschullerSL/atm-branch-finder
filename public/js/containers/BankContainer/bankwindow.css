@@ -3,10 +3,11 @@
     -moz-transition: background-color 0.5s ease-out;
     -o-transition: background-color 0.5s ease-out;
     transition: background-color 0.5s ease-out;
-    height: 150px;
     width: 100%;
-    float: left;
-    background-color: #738db7;
+    background-color: #B3C3E8;
+    -webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box;   
+    box-sizing: border-box;         
     text-align: center;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -34,7 +35,7 @@
 	text-shadow:0px -1px 0px #7a8eb9;
 }
 .bankButton:hover {
-	background-color:#4D6499;
+	background-color:#314179;
     padding: 9px 30px;
 }
 .bankButton:active {
@@ -42,12 +43,12 @@
 	top:2px;
 }
 .activeBankButton {
-    /*-moz-box-shadow:inset 0px 34px 0px -15px #859BC9;
-	-webkit-box-shadow:inset 0px 34px 0px -15px #859BC9;
-	box-shadow:inset 0px 34px 0px -15px #859BC9;*/
+    -webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
     transition: padding 0.5s;
-	background-color:#5972a7;
-	border:1px solid #ffffff;
+	background-color:#314179;
+	border:1px solid #314179;
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
@@ -59,11 +60,11 @@
 	text-shadow:0px -1px 0px #859BC9;
 }
 .activeBankButton:hover {
+    background-color:#314179;
     padding: 9px 30px;
 }
 
 .bankTable {
     margin-left:auto;
     margin-right:auto;
-    
 }

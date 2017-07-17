@@ -48,7 +48,7 @@ export default class FilterWindow extends React.Component {
             <form onSubmit={this.handleSubmit} className="filterForm">
                 <label>
                     <DropDownMenu name="filterDropDown" options={options} value={this.state.option} sendOption={this.handleSelect} />
-                <input type="text" className="inputBox" placeholder={"Filter by " + options.find((option)=> option.value === this.state.option).label} value={this.state.value} onChange={this.handleChange} />
+                <input type="text" className="inputBox" placeholder={"Filter by " + options.find((option)=> option.value === this.state.option).label.toLowerCase()} value={this.state.value} onChange={this.handleChange} />
                 </label>
                 <input className="button filterButton" type="submit" value="Filter" />
             </form>
