@@ -11,12 +11,7 @@ var banks = require("./bankData").banks;
 var atms = [];
 
 
-https.globalAgent.options.ca = rootCas;
 
-var options = {
-    key: fs.readFileSync("./server/ssl/mockserver.key"),
-    cert: fs.readFileSync("./server/ssl/mockserver.crt")
-}
 
 var authServerUrl = "http://localhost:9090";
 var resourceServerUrl = "http://localhost:9091";
@@ -178,6 +173,11 @@ module.exports = function(port, middleware, callback) {
     
     if (process.env.NODE_ENV !== "production") {
         https.globalAgent.options.ca = rootCas;
+        
+        var options = {
+            key: fs.readFileSync("./server/ssl/mockserver.key"),
+            cert: fs.readFileSync("./server/ssl/mockserver.crt")
+        }
         var server = https.createServer(options, app);
         server.listen(port, callback);
     } else {
