@@ -1,18 +1,20 @@
 .infoWindow {
-    background-color: #A1D490;
-    height: 600px;
-    width: 20%;
-    float: left;
+    border: 1px solid #333;
+}
+
+.infoViewSelector {
+    min-width: 300px;
 }
 
 .infoItemList {
     list-style-type:none;
-    padding-left: 0;
+    padding: 5px 5px 5px 5px;
+    
 }
-.selectorButton {
-	-moz-box-shadow:inset 0px 34px 0px -15px #dcecfb;
+.iteratorButton {
+	/*-moz-box-shadow:inset 0px 34px 0px -15px #dcecfb;
 	-webkit-box-shadow:inset 0px 34px 0px -15px #dcecfb;
-	box-shadow:inset 0px 34px 0px -15px #dcecfb;
+	box-shadow:inset 0px 34px 0px -15px #dcecfb;*/
 	background-color:#bddbfa;
 	border:1px solid #84bbf3;
 	display:inline-block;
@@ -25,10 +27,10 @@
 	text-decoration:none;
 	
 }
-.selectorButton:hover {
+.iteratorButton:hover {
 	background-color:#a3c9f0;
 }
-.selectorButton:active {
+.iteratorButton:active {
 	position:relative;
 	top:1px;
 }

@@ -1,14 +1,15 @@
 .pcaWindow {
     height: 600px;
-    width: 80%;
+    width: 100%;
     overflow-y: auto;
     display:inline-block;
+    background-color: #ffffff;
 }
 
 .pcaView {
     border: 2px solid gray;
-    min-height:100px;
-    max-height:120px;
+    min-height:150px;
+    max-height:200px;
     width: auto;
     overflow-y: auto;
     
@@ -17,6 +18,7 @@
 .pcaList {
     list-style-type:none;
     padding: 0px;
+    margin: 0px;
 }
 
 .pcaPropertyList {

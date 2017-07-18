@@ -31,7 +31,7 @@ export default class InfoView extends React.Component {
         if (this.props.infoObject) {
             return (
                 <div>
-                    <h3>INFO</h3><br></br>
+                    <h3>INFO</h3>
                     {this.listItems(this.props.infoObject.infoViewItems)}
                     {this.props.infoObject.OpeningTimes ? this.listOpeningTimes(this.props.infoObject.OpeningTimes) : null}
                     
@@ -40,7 +40,7 @@ export default class InfoView extends React.Component {
         } else {
             return (
                 <div>
-                    <h3>INFO</h3><br></br>
+                    <h3>INFO</h3>
                     No info items
                 </div>
             )

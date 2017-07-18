@@ -1,5 +1,4 @@
 import axios from "axios";
-import store from "../store.js";
 import { setMapCoordinates } from "./mapActions.js";
 
 export function changeActiveBank(bankId) {
@@ -23,6 +22,14 @@ export function getAllBankData() {
         });
     }
 }
+export function getSingleBankData(bank) {
+    return (dispatch) => {
+        axios.get("/banks/"+bank.id)
+        .then((result) => {
+            dispatch({type:"SET_SINGLE_BANK_DATA", payload: result.data});
+        });
+    }
+}
 export function getBankData(bank) {
     return (dispatch) => {
         for (var endPoint in bank.uris) {
@@ -37,12 +44,10 @@ export function getEndPointData(endPoint, bank) {
         if (!bank[endPoint].length) {
             axios.get("/bankdata", body)
             .then((result) => {
-                console.log("Got endpoint data from bank API.")
                 dispatch(setEndPointData(endPoint, result.data.data));
                 dispatch({type:"SET_INFO_ID", payload:0});
             });
         } else {
-            console.log("Endpoint data already there.")
             dispatch({type:"SET_INFO_ID", payload:0});
         }
     }
@@ -84,6 +89,9 @@ export function filterEndPointData(endPoint, data, key, value) {
 }
 
 export function filterATMData(data, key, value) {
+    if (!value) {
+        return setFilteredATMs(data);
+    }
     const filteredData = data.filter((item) => {
         return (item.Address[key] && value) ? 
                 item.Address[key].toUpperCase() === value.toUpperCase() : false;
@@ -93,27 +101,35 @@ export function filterATMData(data, key, value) {
 }
 
 export function setFilteredATMs(filteredData) {
-    const filteredInfoObjects = filteredData.map((atm) => {
-        atm.infoViewItems = [
-            {key:"ATM ID", value:atm.ATMID},
-            {key:"Currency", value: atm.Currency[0]},
-            {key:"City", value: atm.Address.TownName},
-            {key:"Street Name", value: atm.Address.StreetName},
-            {key:"Post Code", value: atm.Address.PostCode}
-        ]
-        return atm
-    });
-    return {
-        type:"SET_FILTERED_INFO_OBJECTS",
-        payload: filteredInfoObjects
-    };
+    if (filteredData.length > 0) {
+        const filteredInfoObjects = filteredData.map((atm) => {
+            atm.infoViewItems = [
+                {key:"ATM ID", value:atm.ATMID},
+                {key:"Currency", value: atm.Currency[0]},
+                {key:"City", value: atm.Address.TownName},
+                {key:"Street Name", value: atm.Address.StreetName},
+                {key:"Post Code", value: atm.Address.PostCode}
+            ]
+            return atm
+        });
+        return {
+            type:"SET_FILTERED_INFO_OBJECTS",
+            payload: filteredInfoObjects
+        };
+    } else {
+        return {
+            type:"NO_ACTION",
+            payload:"No ATMs found."
+        }
+    }
 }
 
 export function filterBranchData(data, key, value) {
-    const filteredData = data.filter((item) => {
+    
+    const filteredData = (value !== '') ? data.filter((item) => {
         return (item.Address[key] && value) ?
             item.Address[key].toUpperCase() === value.toUpperCase() : false;
-    });
+    }) : data;
     
     const filteredInfoObjects = filteredData.map((branch) => {
         branch.infoViewItems = [
@@ -130,12 +146,12 @@ export function filterBranchData(data, key, value) {
     }
 }
 
-export function filterATMsByUserPosition(data, userLocation, maxDistance) {
-    console.log(data);
-    const filteredData = data.filter((item) => {
-        return (Math.abs(item.GeographicLocation.Longitude - userLocation.Longitude) < maxDistance &&
-                Math.abs(item.GeographicLocation.Latitude - userLocation.Latitude) < maxDistance)
-    });
-    console.log(filteredData);
-    return setFilteredATMs(filteredData);
+export function filterATMsByUserPosition(userLocation, maxDistance) {
+    return (dispatch) => {
+        axios.get("/atms/"+userLocation.Latitude+"/"+userLocation.Longitude+"/"+maxDistance)
+        .then((result) => {
+            console.log(result);
+            dispatch(setFilteredATMs(result.data));
+        })
+    }
 }

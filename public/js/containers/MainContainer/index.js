@@ -1,14 +1,10 @@
 import React from "react";
-import {connect} from "react-redux";
+import styles from "./maincontainer.css";
 import MapContainer from "../MapContainer";
 import BranchContainer from "../BranchContainer";
 import PCAContainer from "../PCAContainer";
 
-@connect((store) => {
-    return {
-        activeEndPoint: store.bankWindow.activeEndPoint
-    }
-})
+
 export default class MainWindow extends React.Component {
     
     render() {

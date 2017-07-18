@@ -6,7 +6,6 @@ export default class BranchWindow extends React.Component {
     
     render() {
         return (<div>
-            This is the BranchWindow.
             <MapContainer />
         </div>)
     }

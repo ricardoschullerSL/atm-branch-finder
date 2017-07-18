@@ -54,5 +54,16 @@ export const BANKDATA = [
         atms: [],
         branches: [],
         pca: [],
+    },
+    {
+        id:"Nationwide",
+        uris: {
+            atms:"https://openapi.nationwide.co.uk/open-banking/v1.2/atms",
+            branches:"https://openapi.nationwide.co.uk/open-banking/v1.2/branches",
+            pca:"https://openapi.nationwide.co.uk/open-banking/v1.2/personal-current-accounts"
+        },
+        atms: [],
+        branches: [],
+        pca: [],
     }
 ];

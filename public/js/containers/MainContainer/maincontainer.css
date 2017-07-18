@@ -1,6 +1,6 @@
-.mainContainer {
+/*.mainContainer {
     height: 600px;
-    width: 80%;
-    float: left;
+    display: inline-block;
+    width: auto;
     background-color: #d0d0d0;
-}
+}*/

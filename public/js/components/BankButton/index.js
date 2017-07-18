@@ -4,7 +4,7 @@ export default class BankButton extends React.Component {
 
     render() {
         return (
-            <div className="bankButton" onClick={this.props.onClick} >
+            <div className={"button " + this.props.className} onClick={this.props.onClick} >
                 {this.props.bank.id}
             </div>
         )

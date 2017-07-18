@@ -1,19 +1,21 @@
 import React from "react";
 import DropDownMenu from "../DropDownMenu/";
+import store from "../../store.js";
 import { connect } from "react-redux";
 import { filterEndPointData } from "../../actions/bankActions.js";
+import styles from "./filterwindow.css";
 
-@connect((state) => {
+@connect((store) => {
     return {
-    activeEndPoint: state.bankWindow.activeEndPoint,
-    banks: state.bankWindow.banks,
-    activeBankId: state.bankWindow.activeBankId,
+    activeEndPoint: store.bankWindow.activeEndPoint,
+    banks: store.bankWindow.banks,
+    activeBankId: store.bankWindow.activeBankId,
 }
 })
 export default class FilterWindow extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: '', option:''};
+        this.state = {value: '', option:"TownName"};
         this.handleSelect = this.handleSelect.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,6 +26,7 @@ export default class FilterWindow extends React.Component {
     }
     
     handleSelect(option) {
+        console.log(option);
         this.setState({option: option});
     }
     
@@ -35,20 +38,19 @@ export default class FilterWindow extends React.Component {
     }
     
     render() {
-        const options = [{value:"", label:""},
-                        {value:"TownName", label:"Town"},
-                        {value:"PostCode", label:"Post Code"}];
+        const options = [
+            {value:"TownName", label:"City"},
+            {value:"PostCode", label:"Post Code"},
+            {value:"", label:""},
+        ];
         return (        
-            <div>
-                This is the filter window.<br></br>
-                
-            <form onSubmit={this.handleSubmit}>
-                
+            <div className="filterWindow">                
+            <form onSubmit={this.handleSubmit} className="filterForm">
                 <label>
-                    Filter by <DropDownMenu name="filterDropDown" options={options} value={this.state.option} sendOption={this.handleSelect} />
-                <input type="text" className="inputBox" placeholder="Type in filter value" value={this.state.value} onChange={this.handleChange} />
+                    <DropDownMenu name="filterDropDown" options={options} value={this.state.option} sendOption={this.handleSelect} />
+                <input type="text" className="inputBox" placeholder={"Filter by " + options.find((option)=> option.value === this.state.option).label.toLowerCase()} value={this.state.value} onChange={this.handleChange} />
                 </label>
-                <input type="submit" value="Submit" />
+                <input className="button filterButton" type="submit" value="Filter" />
             </form>
             </div>
         )

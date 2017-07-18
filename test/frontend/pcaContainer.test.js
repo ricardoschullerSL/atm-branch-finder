@@ -1,7 +1,7 @@
-import PCAContainer from "../public/js/containers/PCAContainer";
-import PCAWindow from "../public/js/components/PCAWindow";
-import PCAView from "../public/js/components/PCAView";
-import {BANKDATA} from "../public/js/staticdata/bankData.js"; 
+import PCAContainer from "../../public/js/containers/PCAContainer";
+import PCAWindow from "../../public/js/components/PCAWindow";
+import PCAView from "../../public/js/components/PCAView";
+import {BANKDATA} from "../../public/js/staticdata/bankData.js"; 
 // Setting up Mock Store
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
@@ -36,9 +36,9 @@ describe("PCAWindow", () => {
             const wrapper = shallow(<PCAWindow banks={testBank} activeBankId={0}/>);
             expect(wrapper.find(".pcaList")).to.have.length(1);
         });
-        it("nothing when pcaList is null", () => {
+        it("nothing when pcaList is empty", () => {
             const testBank = [{ 
-                pca:null
+                pca:[]
             }];
             const wrapper = shallow(<PCAWindow banks={testBank} activeBankId={0} />);
             expect(wrapper.find(".pcaList")).to.have.length(0);
@@ -63,7 +63,8 @@ describe("PCAView", () => {
             const testpca =  {
                 ProductName: "testPCA",
                 ProductDescription:"PCA to test with",
-                CardWithdrawalLimit:"a bazillion schmeckles"
+                CardWithdrawalLimit:"a bazillion schmeckles",
+                ProductURL: ["testUrl"]
             };
             const wrapper = shallow(<PCAView pca={testpca} />);
             expect(wrapper.find("ul")).to.have.length(1);

@@ -1,5 +1,5 @@
-import BranchContainer from "../public/js/containers/BranchContainer";
-import BranchWindow from "../public/js/components/BranchWindow";
+import BranchContainer from "../../public/js/containers/BranchContainer";
+import BranchWindow from "../../public/js/components/BranchWindow";
 // Setting up Mock Store
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
@@ -18,15 +18,16 @@ describe("BranchContainer", () => {
             expect(wrapper.find("BranchWindow")).to.have.length(1);
         });
     });
-});
 
-describe("BranchWindow", () => {
-    describe("renders", () => {
-        it("a div", () => {
-            const wrapper = shallow(
-                <BranchWindow />
-            )
-            expect(wrapper.find("div")).to.have.length(1);
-        })
-    })
-})
+
+    describe("BranchWindow", () => {
+        describe("renders", () => {
+            it("a div", () => {
+                const wrapper = shallow(
+                    <BranchWindow />
+                )
+                expect(wrapper.find("div")).to.have.length(1);
+            });
+        });
+    });
+});
