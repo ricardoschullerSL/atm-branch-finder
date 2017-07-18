@@ -7,11 +7,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var request = require("request");
 var banks = require("./bankData").banks;
-
 var atms = [];
-
-
-
 
 var authServerUrl = "http://localhost:9090";
 var resourceServerUrl = "http://localhost:9091";
