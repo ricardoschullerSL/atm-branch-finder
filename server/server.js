@@ -174,6 +174,10 @@ module.exports = function(port, middleware, callback) {
     });
     
     
-    var server = https.createServer(options, app);
-    server.listen(port, callback);
+    if (process.env.NODE_ENV !== "production") {
+        var server = https.createServer(options, app);
+        server.listen(port, callback);
+    } else {
+        app.listen(port, callback);
+    }
 }
