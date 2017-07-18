@@ -1,3 +1,10 @@
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 .header {
     grid-area: header;
 }
@@ -22,7 +29,7 @@
 .mainPage {
     display: grid;
     text-align: left;
-    max-width: 1024px;
+    max-width: 100%;
     height: 1024px;
     grid-template-columns: 25% auto;
     grid-template-rows: 20% 20% auto;
@@ -35,4 +42,12 @@
 html {
     font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
     background-color: #ffffff;
+}
+
+@media all and (max-width: 600px) {
+    .mainPage {
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: flex-end;
+    }
 }

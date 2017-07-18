@@ -12,6 +12,6 @@ import styles from "./bankwindow.css";
 export default class BankContainer extends React.Component {
     
     render() {
-        return (<div><BankWindow {...this.props}/></div>)
+        return (<BankWindow {...this.props}/>)
     }
 }

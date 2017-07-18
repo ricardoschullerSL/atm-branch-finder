@@ -1,6 +1,5 @@
 .pcaWindow {
-    height: 600px;
-    width: 100%;
+    min-height: 10em;
     overflow-y: auto;
     display:inline-block;
     background-color: #ffffff;

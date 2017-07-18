@@ -48,14 +48,14 @@ describe("BankContainer", () => {
                 const wrapper = shallow(
                     <BankWindow banks={state.bankWindow.banks} 
                                 activeBankId={state.bankWindow.activeBankId}/>);
-                expect(wrapper.find("td"))
+                expect(wrapper.find("BankButton"))
                 .to.have.length(initialState.bankWindow.banks.length);
             });
             it("a table", () => {
                 const wrapper = shallow(
                     <BankWindow banks={state.bankWindow.banks} 
                                 activeBankId={state.bankWindow.activeBankId}/>);
-                expect(wrapper.find("table")).to.have.length(1);
+                expect(wrapper.find(".bankTable")).to.have.length(1);
             });
             it("nothing if no banks are found", () => {
                 const wrapper = shallow(<BankWindow activeBankId={0} />);

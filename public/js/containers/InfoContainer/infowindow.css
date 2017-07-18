@@ -3,7 +3,8 @@
 }
 
 .infoViewSelector {
-    min-width: 300px;
+    display: flex;
+    align-items: center;
 }
 
 .infoItemList {
@@ -17,7 +18,7 @@
 	box-shadow:inset 0px 34px 0px -15px #dcecfb;*/
 	background-color:#bddbfa;
 	border:1px solid #84bbf3;
-	display:inline-block;
+	display:block;
 	cursor:pointer;
 	color:#7d87c9;
 	font-family:Arial;

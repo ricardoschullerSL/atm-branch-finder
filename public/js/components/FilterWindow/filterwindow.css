@@ -12,6 +12,14 @@
     font-size: 1.3em;
 }
 
+@media all and (max-width = 600px) {
+    .inputBox {
+        width: 30%;
+        height: 130%;
+        font-size: 130%;
+    }
+}
+
 #filterDropDown {
     height: 100%;
     font-size: 1.3em;
