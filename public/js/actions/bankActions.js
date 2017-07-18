@@ -146,10 +146,12 @@ export function filterBranchData(data, key, value) {
     }
 }
 
-export function filterATMsByUserPosition(data, userLocation, maxDistance) {
-    const filteredData = data.filter((item) => {
-        return (Math.abs(item.GeographicLocation.Longitude - userLocation.Longitude) < maxDistance &&
-                Math.abs(item.GeographicLocation.Latitude - userLocation.Latitude) < maxDistance)
-    });
-    return setFilteredATMs(filteredData);
+export function filterATMsByUserPosition(userLocation, maxDistance) {
+    return (dispatch) => {
+        axios.get("/atms/"+userLocation.Latitude+"/"+userLocation.Longitude+"/"+maxDistance)
+        .then((result) => {
+            console.log(result);
+            dispatch(setFilteredATMs(result.data));
+        })
+    }
 }

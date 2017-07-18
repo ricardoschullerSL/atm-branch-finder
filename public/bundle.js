@@ -7686,11 +7686,13 @@ function filterBranchData(data, key, value) {
     };
 }
 
-function filterATMsByUserPosition(data, userLocation, maxDistance) {
-    var filteredData = data.filter(function (item) {
-        return Math.abs(item.GeographicLocation.Longitude - userLocation.Longitude) < maxDistance && Math.abs(item.GeographicLocation.Latitude - userLocation.Latitude) < maxDistance;
-    });
-    return setFilteredATMs(filteredData);
+function filterATMsByUserPosition(userLocation, maxDistance) {
+    return function (dispatch) {
+        _axios2.default.get("/atms/" + userLocation.Latitude + "/" + userLocation.Longitude + "/" + maxDistance).then(function (result) {
+            console.log(result);
+            dispatch(setFilteredATMs(result.data));
+        });
+    };
 }
 
 /***/ }),
@@ -18654,7 +18656,7 @@ var InfoWindow = function (_React$Component) {
                     _react2.default.createElement(
                         "button",
                         { onClick: function onClick() {
-                                _this2.props.dispatch((0, _bankActions.filterATMsByUserPosition)(_this2.props.filteredInfoObjects, _this2.props.userGeoLocation, 0.016));
+                                _this2.props.dispatch((0, _bankActions.filterATMsByUserPosition)(_this2.props.userGeoLocation, 0.01));
                             } },
                         "Find Local ATMS "
                     )

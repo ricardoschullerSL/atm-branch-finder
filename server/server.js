@@ -7,6 +7,8 @@ var bodyParser = require("body-parser");
 var request = require("request");
 var banks = require("./bankData").banks;
 
+var atms = [];
+
 https.globalAgent.options.ca = rootCas;
 
 var options = {
@@ -29,20 +31,30 @@ var getBankData = function() {
                     var data = JSON.parse(body).data;
                 }
                 bank[uri] = data
+                if (uri === "atms") {
+                    data.map((item) => {
+                        atms.push(item);
+                    })
+                }
             })
             .on("error", (e) => {
                 console.log("Error during bank data retrieval:", e);
             });
             
         }
-    })
+    });
 };
 
+
+var setupServer = new Promise((resolve, reject) => {
+    
+})
 // Do this every 24 hours.
 getBankData();
 setInterval(()=> {
     console.log("Getting Bank Data");
-    getBankData()
+    getBankData();
+
 }, 86400000);
 
 
@@ -57,8 +69,8 @@ module.exports = function(port, middleware, callback) {
     app.use(bodyParser.json());
     
     app.get("/account_info", (req, res) => {
-        // START OF OAUTH2 PROTOCOL
-        // FIRST STEP: PREPARE ACCOUNT REQUEST AND GET ACCESS TOKEN FROM AUTH SERVER
+        // Start of the OAuth2 protocol.
+        // First step: prepare account request and get access token from authentication server.
         let today = new Date(Date.now());
         let ExpirationDateTime = new Date(new Date(today).setMonth(today.getHours() + 1));
         let TransactionFromDateTime = new Date(new Date(today).setMonth(today.getMonth() - 1));
@@ -80,14 +92,13 @@ module.exports = function(port, middleware, callback) {
             if (authR.statusCode >= 200 && authR.statusCode < 300) {
                 var access_token = JSON.parse(authBody).access_token;
                 console.log("Server got access token from AuthServer.", access_token);
-                
-                // SECOND STEP: POST ACCOUNT REQUEST ON RESOURCE SERVER
+                // Second step: POST account request on resource server.
                 request.post({
                     uri:resourceServerUrl + "/account-requests", 
                     body: {access_token: access_token, account_request: account_request}, 
                     json: true
                 }, (resourceErr, resourceRes, resourceBody) => {
-                    // REDIRECT CLIENT TO BANK AUTHENTICATION PAGE
+                    // Redirect client to bank authentication page.
                     let accountRequestId = resourceBody;
                     res.redirect(authServerUrl + "/authenticate/account_info/" 
                     + accountRequestId);
@@ -99,12 +110,12 @@ module.exports = function(port, middleware, callback) {
     })
     
     app.get("/authorizationcode/:code", (req, res) => {
-        // THIRD STEP: GOT AUTHORIZATION CODE, EXCHANGE IT FOR ACCESS TOKEN TO RESOURCE
+        // Third step: Got authorization code, exchange it for access token to resource.
         request.get({uri:authServerUrl+"/exchange/"+req.params.code}, (authE, authR, authBody) => {
             if (authR.statusCode >= 200 && authR.statusCode < 300) {
                 console.log("Exchanged auth code for access token: ", authBody);
                 let access_token = JSON.parse(authBody);
-                // FINAL STEP: USE ACCESS TOKEN TO GET ACCOUNT INFO FROM RESOURCE SERVER
+                // Final step: use access token to get resource from resource server.
                 request.get({
                     uri:resourceServerUrl+"/accounts/1/accountInfo", 
                     body: access_token, 
@@ -123,6 +134,7 @@ module.exports = function(port, middleware, callback) {
     });
     
     app.get("/banks", (req, res) => {
+        // TODO: Large object. Needs to be trimmed down.
         res.send(JSON.stringify(banks));
     })
     
@@ -134,6 +146,23 @@ module.exports = function(port, middleware, callback) {
             res.status(400).send("Bank not found on server.");
         }
     })
+    
+    app.get("/banks/:bankId/atms", (req, res) => {
+        let bankIndex = banks.findIndex((bank) => bank.id === req.params.bankId);
+        (bankIndex > -1) ? res.send(banks[bankIndex].atms) : res.status(400).send("Bank not found on server.");
+    });
+    
+    app.get("/atms", (req, res) => {
+        res.send(atms);
+    });
+    
+    app.get("/atms/:userLatitude/:userLongitude/:maxDistance", (req, res) => {
+        let closeAtms = atms.filter((atm) => {
+            return (Math.pow(atm.GeographicLocation.Latitude - req.params.userLatitude, 2) 
+            + Math.pow(atm.GeographicLocation.Longitude - req.params.userLongitude, 2) <= Math.pow(req.params.maxDistance, 2))
+        })
+        closeAtms.length > 0 ? res.send(closeAtms) : res.status(204).send("No ATMS found within max Distance");
+    });
         
     app.get("/bankdata", (req, res) => {
         request({uri:req.query.uri})
