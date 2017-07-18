@@ -2,12 +2,14 @@
 var rootCas = require("ssl-root-cas/latest").create();
 var fs = require("fs");
 var https = require("https");
+var http = require("http");
 var express = require("express");
 var bodyParser = require("body-parser");
 var request = require("request");
 var banks = require("./bankData").banks;
 
 var atms = [];
+
 
 https.globalAgent.options.ca = rootCas;
 
@@ -175,9 +177,11 @@ module.exports = function(port, middleware, callback) {
     
     
     if (process.env.NODE_ENV !== "production") {
+        https.globalAgent.options.ca = rootCas;
         var server = https.createServer(options, app);
         server.listen(port, callback);
     } else {
+        http.globalAgent.options.ca = rootCas;
         app.listen(port, callback);
     }
 }
