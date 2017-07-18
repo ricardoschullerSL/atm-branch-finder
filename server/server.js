@@ -182,6 +182,6 @@ module.exports = function(port, middleware, callback) {
         server.listen(port, callback);
     } else {
         http.globalAgent.options.ca = rootCas;
-        app.listen(port, callback);
+        var server = app.listen(port, callback);
     }
 }
