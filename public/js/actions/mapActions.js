@@ -36,7 +36,6 @@ export function getUserGeoLocation() {
     if ("geolocation" in navigator) {
         return (dispatch) => {
             navigator.geolocation.getCurrentPosition((position) => {
-                console.log("Got user location.", position)
                 const geographicLocation = {Latitude: position.coords.latitude, Longitude:position.coords.longitude};
                 dispatch(setUserCoordinates(geographicLocation));
             }, (failure) => {

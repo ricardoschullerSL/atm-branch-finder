@@ -1,7 +1,6 @@
 .pcaWindow {
-    min-height: 20em;
     overflow-y: auto;
-    display: block;
+    height: 100%;
     background-color: #ffffff;
 }
 
@@ -23,11 +22,4 @@
 .pcaPropertyList {
     list-style-type:none;
     padding: 5px;
-}
-
-@media all and (max-width : 600px) {
-    .pcaWindow {
-        min-height: 10em;
-        display: block;
-    }
 }

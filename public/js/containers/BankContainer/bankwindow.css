@@ -12,13 +12,6 @@
 }
 
 .bankButton {
-	/*-moz-box-shadow:inset 0px 34px 0px -15px #7a8eb9;
-	-webkit-box-shadow:inset 0px 34px 0px -15px #7a8eb9;
-	box-shadow:inset 0px 34px 0px -15px #7a8eb9;*/
-    /*-webkit-transition: background-color 0.5s ease-out;
-    -moz-transition: background-color 0.5s ease-out;
-    -o-transition: background-color 0.5s ease-out;
-    transition: background-color 0.5s ease-out;*/
     transition: padding 0.5s;
 	background-color:#637aad;
 	border:1px solid #314179;
@@ -39,9 +32,6 @@
 }
 
 .activeBankButton {
-    /*-webkit-transition: background-color 0.5s ease-out;
-    -moz-transition: background-color 0.5s ease-out;
-    -o-transition: background-color 0.5s ease-out;*/
     transition: padding 0.5s;
 	background-color:#314179;
 	border:1px solid #314179;
@@ -61,6 +51,7 @@
 
 .bankTable {
     display: flex;
+    flex-direction: row wrap;
     align-content: center;
     justify-content: center;
 }

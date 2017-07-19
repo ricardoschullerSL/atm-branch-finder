@@ -20,10 +20,9 @@ export default class Layout extends React.Component {
     accountButton() {
         if (process.env.NODE_ENV !== 'production') {
             return (
-            <div> 
-                <p>Click this super secret button to get your account info!</p>
+                <p>Click this super secret button to get your account info!
                 <a href='/account_info'><button onClick={this.authenticate}>Get Account Info</button></a>
-            </div>
+                </p>
             )
         } else {
             return '';
@@ -32,10 +31,11 @@ export default class Layout extends React.Component {
     
     render() {
         return (<div className="mainPage"><div className="topHeader">
-            <h1><center>ATM Branch Finder</center></h1>
+            <h1><center><b>ATM BRANCH</b> FINDER</center></h1>
             <p>Work in progress</p>
-            <p>Find any ATM or branch nearby. You can also look for a new Personal Current Account!</p>
+            <p>Find any ATM or branch nearby. You can also look for a new Personal Current Account!</p> 
             {this.accountButton()}
+            
         </div>
             <div className="header">
                 <BankContainer />

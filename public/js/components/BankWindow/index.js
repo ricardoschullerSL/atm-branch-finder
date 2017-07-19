@@ -34,7 +34,6 @@ export default class BankWindow extends React.Component{
         return (
             <div>
                 {listBanks}
-                <button onClick={()=> {this.props.dispatch(getAllBankData())}}>Get All Banks</button>
             </div>
         )
     };
