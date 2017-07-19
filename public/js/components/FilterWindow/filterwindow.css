@@ -1,28 +1,31 @@
 .filterWindow {
-    display: inline-block;
-    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     height: 34px;
     padding: 5px;
     width: 100%;
 }
 
 .inputBox {
-    width: 30%;
-    height: 1.3em;
-    font-size: 1.3em;
+    width: 300px;
+    height: 1.2em;
+    font-size: 1.2em;
 }
 
-@media all and (max-width = 600px) {
+@media all and (max-width: 600px) {
+    .filterWindow {
+        flex-direction: column;
+    }
     .inputBox {
         width: 30%;
-        height: 130%;
-        font-size: 130%;
+        height: 1.2em;
+        font-size: 1.2em;
     }
 }
 
 #filterDropDown {
-    height: 100%;
-    font-size: 1.3em;
+    font-size: 1.2em;
 }
 
 .filterButton {
@@ -30,7 +33,6 @@
     -moz-transition: background-color 0.5s ease-out;
     -o-transition: background-color 0.5s ease-out;
     transition: background-color 0.5s ease-out;
-    transition: padding 0.5s;
     background-color:#637aad;
     border:1px solid #314179;
     display:inline-block;
@@ -43,4 +45,8 @@
     font-weight:bold;
     text-decoration:none;
     text-shadow:0px -1px 0px #7a8eb9;
+}
+
+.filterButton:hover {
+    background-color: #314179;
 }

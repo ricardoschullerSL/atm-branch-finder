@@ -1,9 +1,9 @@
-.selector {
-    height: 20px;
-    width: 80px;
+.infoViewSelector {
+    display: flex;
+    align-items: center;
     border-width:thin;
     border-color: #000000;
-    background-color: #305DAB; 
+    background-color: #314179; 
     text-align:center;
     color:white;
 }
