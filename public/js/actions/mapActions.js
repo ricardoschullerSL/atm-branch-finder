@@ -38,6 +38,8 @@ export function getUserGeoLocation() {
             navigator.geolocation.getCurrentPosition((position) => {
                 const geographicLocation = {Latitude: position.coords.latitude, Longitude:position.coords.longitude};
                 dispatch(setUserCoordinates(geographicLocation));
+            }, (failure) => {
+                console.log(failure);
             });
         }
     } else {

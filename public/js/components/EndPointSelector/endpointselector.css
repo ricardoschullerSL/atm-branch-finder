@@ -1,17 +1,14 @@
-.selector {
-    height: 20px;
-    width: 80px;
+.infoViewSelector {
+    display: flex;
+    align-items: center;
     border-width:thin;
     border-color: #000000;
-    background-color: #305DAB; 
+    background-color: #314179; 
     text-align:center;
     color:white;
 }
 
 .selectorButton {
-	/*-moz-box-shadow:inset 0px 34px 0px -15px #b54b3a;
-	-webkit-box-shadow:inset 0px 34px 0px -15px #b54b3a;
-	box-shadow:inset 0px 34px 0px -15px #b54b3a;*/
     -webkit-transition: background-color 0.5s ease-out;
     -moz-transition: background-color 0.5s ease-out;
     -o-transition: background-color 0.5s ease-out;
@@ -32,8 +29,4 @@
 .selectorButton:hover {
     background-color:#8F2A18;
     padding: 9px 30px;
-}
-.selectorButton:active {
-	position:relative;
-	top:1px;
 }

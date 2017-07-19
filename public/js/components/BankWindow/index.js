@@ -16,11 +16,9 @@ export default class BankWindow extends React.Component{
     
     ListBanks(banks) {
         const listBanks = (
-            <table className="bankTable">
-                <tbody>
-                <tr>
+            <div className="bankTable">
                 {banks.map((bank, key) =>
-                <td key={key}><BankButton bank={bank} bankIndex={key} onClick={
+                <div key={key}><BankButton bank={bank} bankIndex={key} onClick={
                     () => {
                         this.props.dispatch(changeActiveBank(key));
                         this.props.dispatch(getSingleBankData(bank));
@@ -29,17 +27,13 @@ export default class BankWindow extends React.Component{
                         } else {
                             this.className = "bankButton"
                         }
-                    }} className = {this.props.activeBankId === key ? "activeBankButton" : "bankButton"} />
-                </td>
+                    }} className = {this.props.activeBankId === key ? "activeBankButton" : "bankButton"} /></div>
                 )}
-                </tr>
-                </tbody>
-            </table>
+            </div>
         )
         return (
             <div>
                 {listBanks}
-                <button onClick={()=> {this.props.dispatch(getAllBankData())}}>Get All Banks</button>
             </div>
         )
     };

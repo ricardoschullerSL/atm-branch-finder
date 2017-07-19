@@ -1,38 +1,37 @@
 .filterWindow {
-    display: inline-block;
-    text-align: center;
-    height: 34px;
-    padding: 5px;
+    min-height: 40px;
     width: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
 }
 
-.inputBox {
-    width: 30%;
-    height: 1.3em;
-    font-size: 1.3em;
+.filterForm {
+    display: flex;
+    width: 100%;
+    font-size: 1.2em;
+}
+
+.filterForm .inputBox {
+    flex: 2;
+}
+
+.filterForm .filterButton {
+    flex: 1;
 }
 
 #filterDropDown {
-    height: 100%;
-    font-size: 1.3em;
+    flex: 1;
 }
 
 .filterButton {
-    -webkit-transition: background-color 0.5s ease-out;
-    -moz-transition: background-color 0.5s ease-out;
-    -o-transition: background-color 0.5s ease-out;
-    transition: background-color 0.5s ease-out;
-    transition: padding 0.5s;
     background-color:#637aad;
-    border:1px solid #314179;
-    display:inline-block;
-    height: 100%;
-    padding: auto;
+    border: 0px;
     cursor:pointer;
     color:#ffffff;
     font-family:Arial;
-    font-size:1.3em;
-    font-weight:bold;
-    text-decoration:none;
-    text-shadow:0px -1px 0px #7a8eb9;
+}
+
+.filterButton:hover {
+    background-color: #314179;
 }
