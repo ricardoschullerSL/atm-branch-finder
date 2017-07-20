@@ -2,37 +2,33 @@
     border: 1px solid #333;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    min-width: 200px;
+    justify-content: center;
     background-color: #314179;
+    color: #fff;
 }
 
 .infoViewSelector {
+    flex: 1;
     display: flex;
-    justify-content: center;
-    padding-top: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
+    align-items: stretch;
+    align-self: center;
 }
 
 .infoItemList {
     list-style-type:none;
     padding: 5px 5px 5px 5px;
-    
 }
 .iteratorButton {
+    flex: 1;
 	background-color:#B3C3E8;
     border: 1px solid #314179;
-	display:block;
 	cursor:pointer;
 	color:#7d87c9;
-	font-family:Arial;
 	font-size:1em;
 	font-weight:bold;
-	padding: 9px 24px;
-	text-decoration:none;
     text-align: center;
-    width: 120px;
+    padding: 9px 0px;
+    width: 130px;
 }
 .iteratorButton:hover {
 	background-color:#a3c9f0;

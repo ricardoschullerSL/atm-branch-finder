@@ -37,6 +37,7 @@ export function getBankData(bank) {
         }
     }
 }
+
 export function getEndPointData(endPoint, bank) {    
     return (dispatch) => {
         const endPoint_uri = bank.uris[endPoint];
@@ -52,6 +53,18 @@ export function getEndPointData(endPoint, bank) {
         }
     }
 }
+
+
+export function getATMsByCity(cityName) {
+    return (dispatch) => {
+        axios.get("/atms/city/" + cityName)
+        .then((result) => {
+            dispatch(setFilteredATMs(result.data));
+        });
+    }
+}
+
+
 
 export function setEndPointData(endPoint, payload) { 
     switch(endPoint) {
@@ -148,7 +161,7 @@ export function filterBranchData(data, key, value) {
 
 export function filterATMsByUserPosition(userLocation, maxDistance) {
     return (dispatch) => {
-        axios.get("/atms/"+userLocation.Latitude+"/"+userLocation.Longitude+"/"+maxDistance)
+        axios.get("/atms/userlocation/"+userLocation.Latitude+"/"+userLocation.Longitude+"/"+maxDistance)
         .then((result) => {
             console.log(result);
             dispatch(setFilteredATMs(result.data));

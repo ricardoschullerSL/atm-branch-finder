@@ -51,12 +51,14 @@
 
 .bankTable {
     display: flex;
-    flex-direction: row wrap;
+    flex-flow: row wrap;
     align-content: center;
     justify-content: center;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-@media all and (max-width: 600px) {
+@media all and (max-width: 550px) {
     .bankTable {
         display: flex;
         flex-flow: column;

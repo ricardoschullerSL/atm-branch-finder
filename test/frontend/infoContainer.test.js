@@ -1,5 +1,5 @@
 import React from "react";
-
+import * as bankActions from "../../public/js/actions/bankActions.js";
 import InfoContainer from "../../public/js/containers/InfoContainer/";
 import InfoWindow from "../../public/js/components/InfoWindow/";
 import InfoView from "../../public/js/components/InfoView/";
@@ -194,6 +194,8 @@ describe("InfoContainer", () => {
         });
         describe("dispatches", () => {
             it("filterEndPointData when you submit", () => {
+                const getATMsByCity = sinon.stub(bankActions,'getATMsByCity');
+                getATMsByCity.returns({"payload": testATMS, "type": "SET_FILTERED_INFO_OBJECTS"});
                 const wrapper = shallow(<FilterWindow store={store} />).shallow()
                 const event = {}
                 event.preventDefault = () => {};

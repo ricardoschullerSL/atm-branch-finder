@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>23/23</span>
+        <span class='fraction'>20/20</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">50% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>3/3</span>
+        <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>23/23</span>
+        <span class='fraction'>20/20</span>
       </div>
     </div>
   </div>
@@ -90,28 +90,11 @@
 45
 46
 47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+48</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -136,7 +119,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
@@ -149,9 +131,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,18 +139,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
 import DropDownMenu from "../DropDownMenu/";
-import store from "../../store.js";
-import { connect } from "react-redux";
-import { filterEndPointData } from "../../actions/bankActions.js";
+import {connect} from "react-redux";
+import { getATMsByCity } from "../../actions/bankActions.js";
 import styles from "./filterwindow.css";
 &nbsp;
-@connect((store) =&gt; {
-    return {
-    activeEndPoint: store.bankWindow.activeEndPoint,
-    banks: store.bankWindow.banks,
-    activeBankId: store.bankWindow.activeBankId,
-}
-})
+@connect()
 export default class FilterWindow extends React.Component {
     constructor(props) <span class="branch-1 cbranch-no" title="branch not covered" >{</span>
         super(props);
@@ -191,25 +164,22 @@ export default class FilterWindow extends React.Component {
     
     handleSubmit(event) {
         event.preventDefault();
-        const bank = this.props.banks[this.props.activeBankId];
-        this.props.dispatch(filterEndPointData(this.props.activeEndPoint, bank[this.props.activeEndPoint], this.state.option, this.state.value));
+        this.props.dispatch(getATMsByCity(this.state.value));
         this.props.dispatch({type:"SET_INFO_ID", payload: 0});
     }
     
     render() {
         const options = [
             {value:"TownName", label:"City"},
-            {value:"PostCode", label:"Post Code"},
+            // {value:"PostCode", label:"Post Code"},
             {value:"", label:""},
         ];
         return (        
             &lt;div className="filterWindow"&gt;                
             &lt;form onSubmit={this.handleSubmit} className="filterForm"&gt;
-                &lt;label&gt;
                     &lt;DropDownMenu name="filterDropDown" options={options} value={this.state.option} sendOption={this.handleSelect} /&gt;
-                &lt;input type="text" className="inputBox" placeholder={"Filter by " + options.find((option)=&gt; option.value === this.state.option).label.toLowerCase()} value={this.state.value} onChange={this.handleChange} /&gt;
-                &lt;/label&gt;
-                &lt;input className="button filterButton" type="submit" value="Filter" /&gt;
+                &lt;input type="text" className="inputBox" placeholder={"Find by " + options.find((option)=&gt; option.value === this.state.option).label.toLowerCase()} value={this.state.value} onChange={this.handleChange} /&gt;
+                &lt;input className="button filterButton" type="submit" value="Find" /&gt;
             &lt;/form&gt;
             &lt;/div&gt;
         )
@@ -220,7 +190,7 @@ export default class FilterWindow extends React.Component {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jul 18 2017 10:36:19 GMT+0100 (GMT Summer Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jul 20 2017 11:30:47 GMT+0100 (GMT Summer Time)
 </div>
 </div>
 <script src="..\..\..\prettify.js"></script>
