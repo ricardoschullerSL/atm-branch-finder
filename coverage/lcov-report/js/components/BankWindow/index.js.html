@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">87.5% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>14/16</span>
+        <span class='fraction'>10/10</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">75% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>6/8</span>
+        <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">75% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>3/4</span>
+        <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">87.5% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>14/16</span>
+        <span class='fraction'>10/10</span>
       </div>
     </div>
   </div>
@@ -81,33 +81,13 @@
 36
 37
 38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+39</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -116,31 +96,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,40 +127,22 @@ import { getAllBankData } from "../../actions/bankActions.js";
 import { changeActiveBank, getSingleBankData } from "../../actions/bankActions.js";
 &nbsp;
 export default class BankWindow extends React.Component{
-    constructor(props) <span class="branch-1 cbranch-no" title="branch not covered" >{</span>
-        super(props)
-    }
+&nbsp;
     // Turns out total bank data is 14 MB. Definitely not suited for mobile
     // componentDidMount() {
     //     this.props.dispatch(getAllBankData());
     // };
     
     ListBanks(banks) {
-        const listBanks = (
-            &lt;table className="bankTable"&gt;
-                &lt;tbody&gt;
-                &lt;tr&gt;
+        return (
+            &lt;div className="bankTable"&gt;
                 {banks.map((bank, key) =&gt;
-                &lt;td key={key}&gt;&lt;BankButton bank={bank} bankIndex={key} onClick={
+                &lt;div key={key}&gt;&lt;BankButton bank={bank} bankIndex={key} onClick={
                     () =&gt; {
                         this.props.dispatch(changeActiveBank(key));
                         this.props.dispatch(getSingleBankData(bank));
-                        <span class="missing-if-branch" title="if path not taken" >I</span>if (this.props.activeBankId === key) {
-<span class="cstat-no" title="statement not covered" >                            this.className = "activeBank"; </span>
-                        } else {
-                            this.className = "bankButton"
-                        }
-                    }} className = {this.props.activeBankId === key ? "activeBankButton" : "bankButton"} /&gt;
-                &lt;/td&gt;
+                    }} className = {this.props.activeBankId === key ? "active bankButton" : "bankButton"} /&gt;&lt;/div&gt;
                 )}
-                &lt;/tr&gt;
-                &lt;/tbody&gt;
-            &lt;/table&gt;
-        )
-        return (
-            &lt;div&gt;
-                {listBanks}
-                &lt;button onClick={<span class="fstat-no" title="function not covered" >()=&gt; </span>{<span class="cstat-no" title="statement not covered" >this.props.dispatch(getAllBankData())}}&gt;Get All Banks&lt;/button&gt;</span>
             &lt;/div&gt;
         )
     };
@@ -206,7 +152,7 @@ export default class BankWindow extends React.Component{
             &lt;div className="bankWindow"&gt;
                 {(this.props.banks) ? this.ListBanks(this.props.banks) : "No Banks Found"}
                 &lt;br /&gt;
-                &lt;EndPointSelector dispatch={this.props.dispatch} /&gt;
+                &lt;EndPointSelector dispatch={this.props.dispatch} endpoints={this.props.endpoints} activeEndPoint={this.props.activeEndPoint}/&gt;
             &lt;/div&gt;
         )
     }
@@ -217,7 +163,7 @@ export default class BankWindow extends React.Component{
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jul 18 2017 10:36:19 GMT+0100 (GMT Summer Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 21 2017 10:34:58 GMT+0100 (GMT Summer Time)
 </div>
 </div>
 <script src="..\..\..\prettify.js"></script>

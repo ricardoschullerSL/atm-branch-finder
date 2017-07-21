@@ -31,32 +31,24 @@
     padding: 9px 30px;
 }
 
-.activeBankButton {
-    transition: padding 0.5s;
+.bankButton.active {
 	background-color:#314179;
-	border:1px solid #314179;
-	display:inline-block;
-    min-width: 7em;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:9px 1em;
 }
-.activeBankButton:hover {
+.bankbutton.active:hover {
     background-color:#314179;
     padding: 9px 30px;
 }
 
 .bankTable {
     display: flex;
-    flex-direction: row wrap;
+    flex-flow: row wrap;
     align-content: center;
     justify-content: center;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-@media all and (max-width: 600px) {
+@media all and (max-width: 550px) {
     .bankTable {
         display: flex;
         flex-flow: column;

@@ -25,7 +25,6 @@ export default class InfoViewSelector extends React.Component {
             <div className="infoViewSelector">
                 <button className="iteratorButton"  id="previous"
                     onClick={this.previous.bind(this)}>Previous</button>
-                {this.props.infoId}
                 <button className="iteratorButton"  id="next"
                     onClick={this.next.bind(this)}>Next</button>
             </div>

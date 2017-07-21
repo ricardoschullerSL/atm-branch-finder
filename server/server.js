@@ -149,13 +149,34 @@ module.exports = function(port, middleware, callback) {
         res.send(atms);
     });
     
-    app.get("/atms/:userLatitude/:userLongitude/:maxDistance", (req, res) => {
+    app.get("/atms/userlocation/:userLatitude/:userLongitude/:maxDistance", (req, res) => {
         let closeAtms = atms.filter((atm) => {
             return (Math.pow(atm.GeographicLocation.Latitude - req.params.userLatitude, 2) 
             + Math.pow(atm.GeographicLocation.Longitude - req.params.userLongitude, 2) <= Math.pow(req.params.maxDistance, 2))
         })
-        closeAtms.length > 0 ? res.send(closeAtms) : res.status(204).send("No ATMS found within max Distance");
+        closeAtms.length > 0 ? res.send(closeAtms) : res.status(204).send("No ATMs found within max Distance");
     });
+    
+    app.get("/atms/city/:cityName", (req, res) => {
+        let filteredAtms = atms.filter((atm) => {
+            return (atm.Address.TownName) ? 
+                    atm.Address.TownName.toUpperCase() === req.params.cityName.toUpperCase() : false;
+        })
+        filteredAtms.length > 0 ? res.send(filteredAtms) : res.status(204).send("No ATMs found in " + req.params.cityName);
+    });
+    
+    app.get("/banks/:bankId/branches/city/:cityName", (req, res) => {
+        let bankIndex = banks.findIndex((bank) => bank.id === req.params.bankId);
+        if (bankIndex > -1) {
+            let branches = banks[bankIndex].branches.filter((branch) => {
+                return (branch.Address.TownName) ?
+                branch.Address.TownName.toUpperCase() === req.params.cityName.toUpperCase() : false;
+            });
+            branches.length > 0 ? res.send(branches) : res.status(204).send("No branches found in " + req.params.cityName);
+        } else {
+            res.status(400).send();
+        }
+    })
         
     app.get("/bankdata", (req, res) => {
         request({uri:req.query.uri})
