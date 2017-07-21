@@ -163,6 +163,19 @@ module.exports = function(port, middleware, callback) {
                     atm.Address.TownName.toUpperCase() === req.params.cityName.toUpperCase() : false;
         })
         filteredAtms.length > 0 ? res.send(filteredAtms) : res.status(204).send("No ATMs found in " + req.params.cityName);
+    });
+    
+    app.get("/banks/:bankId/branches/city/:cityName", (req, res) => {
+        let bankIndex = banks.findIndex((bank) => bank.id === req.params.bankId);
+        if (bankIndex > -1) {
+            let branches = banks[bankIndex].branches.filter((branch) => {
+                return (branch.Address.TownName) ?
+                branch.Address.TownName.toUpperCase() === req.params.cityName.toUpperCase() : false;
+            });
+            branches.length > 0 ? res.send(branches) : res.status(204).send("No branches found in " + req.params.cityName);
+        } else {
+            res.status(400).send();
+        }
     })
         
     app.get("/bankdata", (req, res) => {

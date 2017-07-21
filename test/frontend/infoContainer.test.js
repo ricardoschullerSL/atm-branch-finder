@@ -194,13 +194,14 @@ describe("InfoContainer", () => {
         });
         describe("dispatches", () => {
             it("filterEndPointData when you submit", () => {
-                const getATMsByCity = sinon.stub(bankActions,'getATMsByCity');
-                getATMsByCity.returns({"payload": testATMS, "type": "SET_FILTERED_INFO_OBJECTS"});
-                const wrapper = shallow(<FilterWindow store={store} />).shallow()
+                const stub = sinon.stub(bankActions,'getATMsByCity');
+                stub.returns({"payload": testATMS, "type": "SET_FILTERED_INFO_OBJECTS"});
+                const wrapper = shallow(<FilterWindow activeEndPoint="atms" store={store} />).shallow()
                 const event = {}
                 event.preventDefault = () => {};
                 wrapper.find("form").simulate("submit", event)
-                expect(store.getActions()).to.deep.equal([{"payload": testATMS, "type": "SET_FILTERED_INFO_OBJECTS"}, {type:"SET_INFO_ID", payload: 0}])
+                expect(store.getActions()).to.deep.equal([{"payload": testATMS, "type": "SET_FILTERED_INFO_OBJECTS"}, {type:"SET_INFO_ID", payload: 0}]);
+                stub.restore();
             });
             it("changes state when OnChange is called", () => {
                 const wrapper = shallow(<FilterWindow store={store} />).shallow()

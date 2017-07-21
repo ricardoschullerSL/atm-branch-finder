@@ -31,20 +31,10 @@
     padding: 9px 30px;
 }
 
-.activeBankButton {
-    transition: padding 0.5s;
+.bankButton.active {
 	background-color:#314179;
-	border:1px solid #314179;
-	display:inline-block;
-    min-width: 7em;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:9px 1em;
 }
-.activeBankButton:hover {
+.bankbutton.active:hover {
     background-color:#314179;
     padding: 9px 30px;
 }

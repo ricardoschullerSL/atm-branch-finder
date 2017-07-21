@@ -1,10 +1,16 @@
 import React from "react";
 import DropDownMenu from "../DropDownMenu/";
 import {connect} from "react-redux";
-import { getATMsByCity } from "../../actions/bankActions.js";
+import { getATMsByCity, getBranchesByCity } from "../../actions/bankActions.js";
 import styles from "./filterwindow.css";
 
-@connect()
+@connect((store) => {
+    return {
+        activeEndPoint: store.bankWindow.activeEndPoint,
+        banks: store.bankWindow.banks,
+        activeBankId: store.bankWindow.activeBankId
+    }
+})
 export default class FilterWindow extends React.Component {
     constructor(props) {
         super(props);
@@ -19,13 +25,16 @@ export default class FilterWindow extends React.Component {
     }
     
     handleSelect(option) {
-        console.log(option);
         this.setState({option: option});
     }
     
     handleSubmit(event) {
         event.preventDefault();
-        this.props.dispatch(getATMsByCity(this.state.value));
+        if (this.props.activeEndPoint === 'branches') {
+            this.props.dispatch(getBranchesByCity(this.props.banks[this.props.activeBankId].id, this.state.value));
+        } else {
+            this.props.dispatch(getATMsByCity(this.state.value));
+        }
         this.props.dispatch({type:"SET_INFO_ID", payload: 0});
     }
     

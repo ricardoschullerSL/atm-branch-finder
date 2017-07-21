@@ -1,11 +1,10 @@
-.infoViewSelector {
+
+
+.endPointSelector {
     display: flex;
-    align-items: center;
-    border-width:thin;
-    border-color: #000000;
-    background-color: #314179; 
-    text-align:center;
-    color:white;
+    flex-flow: row wrap;
+    align-content: center;
+    justify-content: center;
 }
 
 .selectorButton {
@@ -29,4 +28,8 @@
 .selectorButton:hover {
     background-color:#8F2A18;
     padding: 9px 30px;
+}
+
+.selectorButton.active {
+    background-color:#8F2A18;
 }

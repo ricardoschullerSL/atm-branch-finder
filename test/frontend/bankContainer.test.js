@@ -5,6 +5,7 @@ import BankContainer from "../../public/js/containers/BankContainer/";
 import BankWindow from "../../public/js/components/BankWindow/";
 import BankButton from "../../public/js/components/BankButton/";
 import EndPointSelector from "../../public/js/components/EndPointSelector/";
+import EndPointButton from "../../public/js/components/EndPointButton/";
 
 // Setting up Mock Store
 import configureStore from "redux-mock-store";
@@ -16,25 +17,36 @@ const mockStore = configureStore(middlewares);
 describe("BankContainer", () => {
     var initialState, store, state;
     beforeEach(() => {
-        initialState = {bankWindow: {
-            banks:BANKDATA,
-            activeBankId: 0,
-            currentAtmId: 0,
-            activeEndPoint: "atms"}
+        initialState = 
+        {
+            bankWindow: {
+                banks:BANKDATA,
+                activeBankId: 0,
+                currentAtmId: 0,
+                activeEndPoint: "atms"
+            },
+            staticInfo: {
+                endpoints:[
+                    {
+                        id:"atms",
+                        buttonText:"ATMS",
+                    },
+                    {
+                        id:"branches",
+                        buttonText:"Branches",
+                    },
+                    {
+                        id:"pca",
+                        buttonText:"PCA"
+                    }
+                ]
+            }
         };
         store = mockStore(initialState);
         state = store.getState();
     });
     describe("renders", () => {
         it("a BankWindow", () => {
-            const initialState = {bankWindow: {
-                banks:BANKDATA,
-                activeBankId: 0,
-                currentAtmId: 0,
-                activeEndPoint: "atms"}
-            };
-            const store = mockStore(initialState);
-            const state = store.getState();
             const wrapper = shallow(
                 <BankContainer store={store} 
                     banks={state.bankWindow.banks} 
@@ -92,34 +104,58 @@ describe("BankContainer", () => {
             it("some actions when clicked", ()=> {
                 const wrapper = mount(<BankContainer store={store} />);
                 wrapper.find(".bankButton").first().simulate("click");
-                expect(store.getActions()).to.deep.equal([{ type: 'SET_ACTIVE_BANK_ID', payload: 1 }])
+                expect(store.getActions()).to.deep.equal([{ type: 'SET_ACTIVE_BANK_ID', payload: 0 }])
             })
         })
     });
 
     describe("EndPointSelector", () => {
+        let endpoints;
+        beforeEach(() => {
+            endpoints= [
+                {
+                    id:"atms",
+                    buttonText:"ATMS",
+                },
+                {
+                    id:"branches",
+                    buttonText:"Branches",
+                },
+                {
+                    id:"pca",
+                    buttonText:"PCA"
+                }
+            ]
+        })
         describe("renders", () => {
             it("selector buttons", () => {
-                const wrapper = shallow(<EndPointSelector dispatch={store.dispatch} />);
-                expect(wrapper.find("button")).to.have.length(3);
+                const wrapper = shallow(<EndPointSelector endpoints={endpoints} dispatch={store.dispatch} />);
+                expect(wrapper.find("EndPointButton")).to.have.length(3);
             });
         });
         describe("dispatches actions when you", () => {
             it("click the ATM button", () => {
-                const wrapper = shallow(<EndPointSelector dispatch={store.dispatch} />);
-                wrapper.find("#atmSelector").simulate("click");
+                const wrapper = mount(<EndPointSelector endpoints={endpoints} dispatch={store.dispatch} />);
+                wrapper.find("#atmsSelector").simulate("click");
                 expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_ENDPOINT",payload:"atms"}])
             });
             it("click the Branch button", () => {
-                const wrapper = shallow(<EndPointSelector dispatch={store.dispatch} />);
-                wrapper.find("#branchSelector").simulate("click");
+                const wrapper = mount(<EndPointSelector endpoints={endpoints} dispatch={store.dispatch} />);
+                wrapper.find("#branchesSelector").simulate("click");
                 expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_ENDPOINT",payload:"branches"}])
             });
             it("click the PCA button", () => {
-                const wrapper = shallow(<EndPointSelector dispatch={store.dispatch} />);
+                const wrapper = mount(<EndPointSelector endpoints={endpoints} dispatch={store.dispatch} />);
                 wrapper.find("#pcaSelector").simulate("click");
                 expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_ENDPOINT",payload:"pca"}])
             });
+        });
+    });
+    describe("EndPointButton", () => {
+        describe("renders", () => {
+            const endpoint = {id:"atms", buttonText:"ATM"};
+            const wrapper = shallow(<EndPointButton endpoint={endpoint} className="selectorButton" />);
+            expect(wrapper.find("div").hasClass("button")).to.equal(true);
         })
     });
 });

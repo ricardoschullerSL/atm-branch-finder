@@ -64,6 +64,14 @@ export function getATMsByCity(cityName) {
     }
 }
 
+export function getBranchesByCity(bankId, cityName) {
+    return (dispatch) => {
+        axios.get("/banks/"+ bankId +"/branches/city/"+cityName)
+        .then((result) => {
+            dispatch(setFilteredBranches(result.data));
+        })
+    }
+}
 
 
 export function setEndPointData(endPoint, payload) { 
@@ -138,24 +146,36 @@ export function setFilteredATMs(filteredData) {
 }
 
 export function filterBranchData(data, key, value) {
-    
-    const filteredData = (value !== '') ? data.filter((item) => {
+    if(!value) {
+        return setFilteredBranches(data);
+    }
+    const filteredData = data.filter((item) => {
         return (item.Address[key] && value) ?
             item.Address[key].toUpperCase() === value.toUpperCase() : false;
-    }) : data;
-    
-    const filteredInfoObjects = filteredData.map((branch) => {
-        branch.infoViewItems = [
-            {key:"Branch Name", value: branch.BranchName},
-            {key:"Post Code", value: branch.Address.PostCode},
-            {key:"Street Name", value: branch.Address.StreetName},
-            {key:"Town/City", value: branch.Address.TownName},
-        ];
-        return branch
-    })
-    return {
-        type:"SET_FILTERED_INFO_OBJECTS",
-        payload: filteredInfoObjects
+    });
+    return setFilteredBranches(filteredData);
+}
+
+export function setFilteredBranches(branches) {
+    if (branches.length > 0) {
+        const filteredInfoObjects = branches.map((branch) => {
+            branch.infoViewItems = [
+                {key:"Branch Name", value: branch.BranchName},
+                {key:"Post Code", value: branch.Address.PostCode},
+                {key:"Street Name", value: branch.Address.StreetName},
+                {key:"Town/City", value: branch.Address.TownName},
+            ];
+            return branch;
+        });
+        return {
+            type:"SET_FILTERED_INFO_OBJECTS",
+            payload: filteredInfoObjects
+        }
+    } else {
+        return {
+            type:"NO_ACTION",
+            payload:"No Branches found."
+        }
     }
 }
 
@@ -163,8 +183,7 @@ export function filterATMsByUserPosition(userLocation, maxDistance) {
     return (dispatch) => {
         axios.get("/atms/userlocation/"+userLocation.Latitude+"/"+userLocation.Longitude+"/"+maxDistance)
         .then((result) => {
-            console.log(result);
             dispatch(setFilteredATMs(result.data));
-        })
+        });
     }
 }

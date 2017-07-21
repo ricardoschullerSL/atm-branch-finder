@@ -9,8 +9,8 @@ const mockStore = configureStore(middlewares);
 let sandbox;
 
 describe("Bank Actions", () => {
-    beforeEach(() => sandbox = sinon.sandbox.create());
-    afterEach(() => sandbox.restore());
+    beforeEach(() => {sandbox = sinon.sandbox.create()});
+    afterEach(() => {sandbox.restore()});
     describe("changeActiveBank", () => {
         it("should change activeBankId", () => {
             const initialState = {bankWindow: {activeBankId:0}};
@@ -199,12 +199,11 @@ describe("Bank Actions", () => {
                     Address:{TownName:"Bristol", StreetName:"25 King Street", PostCode:"BS151515"},
                 }];
             store.dispatch(bankActions.filterEndPointData("branches", data, "TownName", null));
-            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload: []}])
+            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload: data}])
         });
     });
     describe("filterATMsByUserPosition", () => {
-        it("should filter ATM by user location and max distance",/* () => {
-            const store = mockStore({});
+        it("should filter ATM by user location and max distance", (done) => {
             const testData = [
                 {
                     ATMID:"TestATM1",
@@ -237,30 +236,39 @@ describe("Bank Actions", () => {
                 Longitude: "0.0",
                 Latitude: "1.1"
             };
-            store.dispatch(bankActions.filterATMsByUserPosition(testData, userLocation, 5))
-            expect(store.getActions()).to.deep.equal([{
-                type:"SET_FILTERED_INFO_OBJECTS",
-                payload: [ {
-                    ATMID:"TestATM1",
-                    Address: {
-                        PostCode:"BS151515",
-                        StreetName:"King Street",
-                        TownName:"Bristol"
-                    },
-                    Currency: ["GBP"],
-                    GeographicLocation: {
-                        Longitude:"2.2",
-                        Latitude:"0.1"
-                    },
-                    infoViewItems: [
-                        {key:"ATM ID", value:"TestATM1"},
-                        {key:"Currency", value:"GBP"},
-                        {key:"City", value:"Bristol"},
-                        {key:"Street Name", value:"King Street"},
-                        {key:"Post Code", value:"BS151515"}
-                    ]
-                }]
-            }])
-        }*/);
+            const store = mockStore({});
+            const fakeAxios = new Promise((r) => r({ data: testData.slice(0,1)}));
+            sandbox.stub(axios, 'get').returns(fakeAxios);
+            const waitForActions = new Promise((resolve) => {
+                resolve(store.dispatch(bankActions.filterATMsByUserPosition(userLocation, 5)));
+            });
+            waitForActions.then((result) => {
+                console.log(result);
+                expect(store.getActions()).to.deep.equal([{
+                    type:"SET_FILTERED_INFO_OBJECTS",
+                    payload: [ {
+                        ATMID:"TestATM1",
+                        Address: {
+                            PostCode:"BS151515",
+                            StreetName:"King Street",
+                            TownName:"Bristol"
+                        },
+                        Currency: ["GBP"],
+                        GeographicLocation: {
+                            Longitude:"2.2",
+                            Latitude:"0.1"
+                        },
+                        infoViewItems: [
+                            {key:"ATM ID", value:"TestATM1"},
+                            {key:"Currency", value:"GBP"},
+                            {key:"City", value:"Bristol"},
+                            {key:"Street Name", value:"King Street"},
+                            {key:"Post Code", value:"BS151515"}
+                        ]
+                    }]
+                }])
+            })
+            .then(done,done);
+        });
     });
 });
