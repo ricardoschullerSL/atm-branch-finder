@@ -1,17 +1,18 @@
 import React from "react";
 import {connect} from "react-redux";
-import EndPointContainer from "./containers/EndPointContainer";
-
-import MainContainer from "./containers/MainContainer/";
-
-import styles from "./main.css";
+import EndPointContainer from "../../containers/EndPointContainer";
+import InfoContainer from "../../containers/InfoContainer/";
+import MainContainer from "../../containers/MainContainer/";
+import BankContainer from "../../containers/BankContainer/";
+import FilterWindow from "../../components/FilterWindow/";
+import styles from "../../main.css";
 
 @connect((store) => {
     return {
         activeEndPoint: store.bankWindow.activeEndPoint
     }
 })
-export default class Layout extends React.Component {
+export default class ATMLayout extends React.Component {
     
     authenticate() {
         console.log("Authentication button clicked");
@@ -37,6 +38,11 @@ export default class Layout extends React.Component {
             {this.accountButton()}
             <EndPointContainer />
         </div>
+            <div className="header">
+                <BankContainer />
+                <FilterWindow />
+            </div>
+            <InfoContainer />
             <MainContainer activeEndPoint={this.props.activeEndPoint} />
         </div>)
     }

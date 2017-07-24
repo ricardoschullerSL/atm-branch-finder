@@ -1,14 +1,8 @@
 .bankWindow {
     background-color: #B3C3E8;
-    -webkit-box-sizing: border-box; 
-    -moz-box-sizing: border-box;   
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;  
-    overflow: auto;    
-    text-align: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    height:100%; 
+    overflow: auto; 
+    text-align: center;  
 }
 
 .bankButton {
@@ -20,7 +14,7 @@
 	cursor:pointer;
 	color:#ffffff;
 	font-family:Arial;
-	font-size:15px;
+	font-size:18px;
 	font-weight:bold;
 	padding:9px 1em;
 	text-decoration:none;
@@ -44,8 +38,7 @@
     flex-flow: row wrap;
     align-content: center;
     justify-content: center;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 15px 10px;
 }
 
 @media all and (max-width: 550px) {
@@ -53,5 +46,9 @@
         display: flex;
         flex-flow: column;
         align-items: center;
+    }
+    .bankButton {
+        min-width: 10em;
+        font-size: 1.3em;
     }
 }

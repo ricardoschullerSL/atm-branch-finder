@@ -129,7 +129,8 @@ export function setFilteredATMs(filteredData) {
                 {key:"Currency", value: atm.Currency[0]},
                 {key:"City", value: atm.Address.TownName},
                 {key:"Street Name", value: atm.Address.StreetName},
-                {key:"Post Code", value: atm.Address.PostCode}
+                {key:"Post Code", value: atm.Address.PostCode},
+                {key:"Distance", value: atm.distance}
             ]
             return atm
         });
@@ -183,6 +184,9 @@ export function filterATMsByUserPosition(userLocation, maxDistance) {
     return (dispatch) => {
         axios.get("/atms/userlocation/"+userLocation.Latitude+"/"+userLocation.Longitude+"/"+maxDistance)
         .then((result) => {
+            let atms = result.data;
+            atms.map((atm) => atm.distance = Math.sqrt(atm.distanceSquared));
+            atms.sort((a, b) => a.distance - b.distance);
             dispatch(setFilteredATMs(result.data));
         });
     }

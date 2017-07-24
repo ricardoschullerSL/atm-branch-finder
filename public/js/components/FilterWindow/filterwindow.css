@@ -1,5 +1,5 @@
 .filterWindow {
-    min-height: 40px;
+    min-height: 60px;
     width: 100%;
     display: flex;
     align-items: stretch;
@@ -10,6 +10,7 @@
     display: flex;
     width: 100%;
     font-size: 1.2em;
+    margin: 9px 9px;
 }
 
 .filterForm .inputBox {
