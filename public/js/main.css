@@ -7,10 +7,19 @@ body {
 }
 
 .header {
-    grid-area: header;
+    flex: 0.1;
+    display: flex;
+    flex-direction: column;
 }
+
+.main {
+    flex: 3 100%;
+    display: flex;
+    flex-flow: row;
+    align-items: stretch;
+}
+
 .topHeader {
-    grid-area: top;
     background-color: #333;
     color: #ffffff;
     
@@ -27,32 +36,38 @@ body {
 
 .infoContainer {
     background-color: #A8A8A8;
-    grid-area: info;
+    width: auto;
+    height: auto;
+}
+
+.pcaWindow {
+    flex: 1 100%;
+    height: auto;
+}
+.branchWindow {
+    flex: 1 100%;
+    height: auto;
 }
 
 .mainContainer {
-    grid-area: main;
-    height: 100%;
-    min-height: 400px;
+    min-height: 500px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
 }
 
 .mainPage {
-    display: grid;
-    text-align: left;
-    grid-template-columns: 30% auto;
-    grid-template-rows: 20% 20% auto;
-    grid-template-areas:
-        "top top"
-        "header header"
-        "info main"
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    height:100%;
 }
 
 @media all and (max-width: 550px) {
-    .mainPage {
-        display: flex;
+    .main {
         flex-flow: column;
-        justify-content: space-around;
     }
+    
     body {
         height: auto;
     }

@@ -216,7 +216,8 @@ describe("Bank Actions", () => {
                     GeographicLocation: {
                         Longitude:"2.2",
                         Latitude:"0.1"
-                    }
+                    },
+                    distanceSquared: "0.01",
                 },
                 {
                     ATMID:"TestATM2",
@@ -229,7 +230,8 @@ describe("Bank Actions", () => {
                     GeographicLocation: {
                         Longitude:"10",
                         Latitude:"10"
-                    }
+                    },
+                    distanceSquared:"49",
                 }
             ];
             const userLocation = {
@@ -253,6 +255,8 @@ describe("Bank Actions", () => {
                             StreetName:"King Street",
                             TownName:"Bristol"
                         },
+                        distance:0.1,
+                        distanceSquared:"0.01",
                         Currency: ["GBP"],
                         GeographicLocation: {
                             Longitude:"2.2",
@@ -263,7 +267,8 @@ describe("Bank Actions", () => {
                             {key:"Currency", value:"GBP"},
                             {key:"City", value:"Bristol"},
                             {key:"Street Name", value:"King Street"},
-                            {key:"Post Code", value:"BS151515"}
+                            {key:"Post Code", value:"BS151515"},
+                            {key:"Distance", value:0.1}
                         ]
                     }]
                 }])

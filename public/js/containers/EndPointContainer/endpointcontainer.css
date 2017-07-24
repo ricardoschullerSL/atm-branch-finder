@@ -1,10 +1,10 @@
 
-
 .endPointSelector {
     display: flex;
     flex-flow: row wrap;
     align-content: center;
     justify-content: center;
+    margin: 15px 30px;
 }
 
 .selectorButton {
@@ -15,12 +15,15 @@
     transition: padding 0.5s;
 	background-color:#a73f2d;
 	border:1px solid #241d13;
-	display:inline-block;
+    width: 80px;
+    display: flex;
+    justify-content: center;
 	cursor:pointer;
 	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
+    font-family: Helvetica;
+	font-size:24px;
 	font-weight:bold;
+    /*letter-spacing: 1em;*/
 	padding:9px 23px;
 	text-decoration:none;
 	text-shadow:0px -1px 0px #7a2a1d;

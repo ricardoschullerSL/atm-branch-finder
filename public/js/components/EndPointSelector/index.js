@@ -1,6 +1,6 @@
 import React from "react";
 import EndPointButton from "../EndPointButton/";
-import styles from "./endpointselector.css";
+
 
 export default class EndPointSelector extends React.Component {
 
@@ -8,9 +8,9 @@ export default class EndPointSelector extends React.Component {
         return (
             <div className="endPointSelector">
             {this.props.endpoints.map((endpoint, key) => 
-            <div key={key}><EndPointButton endpoint={endpoint} onClick={() => {
+            <EndPointButton endpoint={endpoint} onClick={() => {
                 this.props.dispatch({type:"SET_ACTIVE_ENDPOINT", payload:endpoint.id});
-            }} className={this.props.activeEndPoint === endpoint.id ? "selectorButton active" : "selectorButton" } /></div>
+            }} className={this.props.activeEndPoint === endpoint.id ? "selectorButton active" : "selectorButton" } key={key}/>
         )}
         </div>)
     }

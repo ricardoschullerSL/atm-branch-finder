@@ -30,8 +30,6 @@ export default class BankWindow extends React.Component{
         return (
             <div className="bankWindow">
                 {(this.props.banks) ? this.ListBanks(this.props.banks) : "No Banks Found"}
-                <br />
-                <EndPointSelector dispatch={this.props.dispatch} endpoints={this.props.endpoints} activeEndPoint={this.props.activeEndPoint}/>
             </div>
         )
     }
