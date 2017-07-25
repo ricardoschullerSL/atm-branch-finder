@@ -172,7 +172,7 @@ export function setFilteredATMs(filteredData) {
                 {key:"City", value: atm.Address.TownName},
                 {key:"Street Name", value: atm.Address.StreetName},
                 {key:"Post Code", value: atm.Address.PostCode},
-                {key:"Distance", value: atm.distance}
+                {key:"Distance", value: atm.distance ? (+atm.distance.toFixed(2)*1000).toString() + " meters": null }
             ]
             return atm
         });

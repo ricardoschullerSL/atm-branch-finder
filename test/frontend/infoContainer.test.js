@@ -91,7 +91,7 @@ describe("InfoContainer", () => {
                 stub.returns({"payload": "button was clicked", "type": "SUCCESS"});
                 const wrapper = shallow(<InfoWindow dispatch={store.dispatch} filteredInfoObjects={[]} />);
                 wrapper.find(".findLocalATMs").simulate("click");
-                expect(store.getActions()).to.deep.equal([{type:"SUCCESS", payload:"button was clicked"}]);
+                expect(store.getActions()).to.deep.equal([{type:"SUCCESS", payload:"button was clicked"}, {type:"SET_INFO_ID", payload:0}]);
             });
         });
     });

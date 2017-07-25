@@ -159,12 +159,14 @@ describe("Bank Actions", () => {
                     ATMID:"TestATM1",
                     Address:{TownName:"London", StreetName:"25 Buckingham Palace"},
                     Currency:["GBP"],
+                    distance:1
                     
                 },
                 {
                     ATMID:"TestATM2",
                     Address:{TownName:"Bristol", StreetName:"25 King Street"},
                     Currency:["GBP"],
+                    distance:2
                     
                 }];
             const fakeAxios = new Promise((r) => r({data:data}));
@@ -256,7 +258,7 @@ describe("Bank Actions", () => {
         it("should return NO_ACTION if no endpoint given", () => {
             const initialState= {bankWindow: {activeEndPoint:""}};
             const store = mockStore(initialState);
-            const data = [{Address:{TownName:"Bristol"}}, {Address:{TownName:"Bristol"}}];
+            const data = [{Address:{TownName:"Bristol"},distance:0.1}, {Address:{TownName:"Bristol"},distance:0.2}];
             store.dispatch(bankActions.filterEndPointData(null, data, "TownName","Bristol"));
             expect(store.getActions()).to.deep.equal([{type:"NO_ACTION", payload:"No filter applied"}]);
         });
@@ -294,6 +296,7 @@ describe("Bank Actions", () => {
                     ATMID:"TestATM1",
                     Address:{TownName:"London", StreetName:"25 Buckingham Palace"},
                     Currency:["GBP"],
+                    
                     
                 },
                 {
@@ -465,7 +468,7 @@ describe("Bank Actions", () => {
                                     {key:"City", value:"Bristol"},
                                     {key:"Street Name", value:"King Street"},
                                     {key:"Post Code", value:"BS151515"},
-                                    {key:"Distance", value:0.1}
+                                    {key:"Distance", value:"100 meters"}
                                 ]
                             },{
                                 ATMID:"TestATM2",
@@ -487,7 +490,7 @@ describe("Bank Actions", () => {
                                     {key:"City", value:"Bristol"},
                                     {key:"Street Name", value:"Queen Park"},
                                     {key:"Post Code", value:"BS111111"},
-                                    {key:"Distance", value:7}
+                                    {key:"Distance", value:"7000 meters"}
                                     
                                 ]
                             }
