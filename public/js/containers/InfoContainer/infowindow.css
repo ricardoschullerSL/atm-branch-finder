@@ -10,14 +10,14 @@
 
 .infoViewSelector {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .infoItemList {
     list-style-type:none;
     padding: 5px 5px 5px 5px;
 }
-.userLocationButton, .findATMs, .iteratorButton {
+.iteratorButton {
     flex: 1;
 	background-color:#B3C3E8;
     border: 1px solid #314179;
@@ -32,9 +32,18 @@
 .iteratorButton:hover {
 	background-color:#a3c9f0;
 }
-
-.userLocation {
-    display: flex;
-    flex-flow: row;
-    justify-content: center;
+.findLocalATMs {
+    align-self: center;
+	background-color:#333;
+    border: 1px solid #000;
+	cursor:pointer;
+	color:#fff;
+	font-size:1em;
+	font-weight:bold;
+    text-align: center;
+    padding: 9px 0px;
+    width: 130px;
+}
+.findLocalATMs:hover {
+	background-color:#666;
 }

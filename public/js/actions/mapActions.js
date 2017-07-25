@@ -1,3 +1,5 @@
+import {filterATMsByUserPosition} from "./bankActions.js";
+
 export function setInfoObjectLocation(infoObject) {
     if (infoObject) {
         if (infoObject.GeographicLocation) {
@@ -32,12 +34,13 @@ export function setMapLongitude(longitude) {
     }
 }
 
-export function getUserGeoLocation() {
+export function filterATMsByUserGeoLocation(maxDistance) {
     if ("geolocation" in navigator) {
         return (dispatch) => {
             navigator.geolocation.getCurrentPosition((position) => {
                 const geographicLocation = {Latitude: position.coords.latitude, Longitude:position.coords.longitude};
                 dispatch(setUserCoordinates(geographicLocation));
+                dispatch(filterATMsByUserPosition(geographicLocation, maxDistance));
             }, (failure) => {
                 // console.log(failure);
             });

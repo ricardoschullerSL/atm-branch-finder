@@ -1,5 +1,6 @@
 import React from "react";
 import * as bankActions from "../../public/js/actions/bankActions.js";
+import * as mapActions from "../../public/js/actions/mapActions.js";
 import InfoContainer from "../../public/js/containers/InfoContainer/";
 import InfoWindow from "../../public/js/components/InfoWindow/";
 import InfoView from "../../public/js/components/InfoView/";
@@ -70,21 +71,27 @@ describe("InfoContainer", () => {
         describe("renders", () => {
             it("an InfoView", () => {
                 const wrapper = shallow(
-                    <InfoWindow filteredInfoObjects={[[{key:"Something", value:"else"}]]}
+                    <InfoWindow filteredInfoObjects={[{key:"Something", value:"else"}]}
                             infoId={0} />);
                 expect(wrapper.find("InfoView")).to.have.length(1);
                 
             });
             it("an InfoViewSelector", function() {
                 const wrapper = shallow(
-                    <InfoWindow filteredInfoObjects={[[{key:"Something", value:"else"}]]}
+                    <InfoWindow filteredInfoObjects={[{key:"Something", value:"else"}]}
                             infoId={0} />);
                 expect(wrapper.find("InfoViewSelector")).to.have.length(1);
             });
-            it("nothing when filteredInfoObjects is null", () => {
-                const wrapper = shallow (
-                    <InfoWindow infoId={0} />);
-                expect(wrapper.find("InfoView")).to.have.length(0);
+        });
+        describe("dispatches", () => {
+            it("filterATMsByUserGeoLocation when you click Find Local ATMs button", () => {
+                const initialState = {};
+                const store = mockStore(initialState);
+                const stub = sinon.stub(mapActions,'filterATMsByUserGeoLocation');
+                stub.returns({"payload": "button was clicked", "type": "SUCCESS"});
+                const wrapper = shallow(<InfoWindow dispatch={store.dispatch} filteredInfoObjects={[]} />);
+                wrapper.find(".findLocalATMs").simulate("click");
+                expect(store.getActions()).to.deep.equal([{type:"SUCCESS", payload:"button was clicked"}]);
             });
         });
     });
@@ -188,26 +195,59 @@ describe("InfoContainer", () => {
         });
         describe("renders", () => {
             it("a form", () => {
-                const wrapper = shallow(<FilterWindow store={store} />).shallow()
+                const wrapper = shallow(<FilterWindow store={store} />).shallow();
                 expect(wrapper.find("form")).to.have.length(1);
             });
         });
         describe("dispatches", () => {
-            it("filterEndPointData when you submit", () => {
+            it("getATMsByCity when you submit with ATM endpoint active", () => {
                 const stub = sinon.stub(bankActions,'getATMsByCity');
                 stub.returns({"payload": testATMS, "type": "SET_FILTERED_INFO_OBJECTS"});
-                const wrapper = shallow(<FilterWindow activeEndPoint="atms" store={store} />).shallow()
-                const event = {}
+                const wrapper = shallow(<FilterWindow store={store} />).shallow()
+                const event = {};
+                event.preventDefault = () => {};
+                wrapper.find("form").simulate("submit", event);
+                expect(store.getActions()).to.deep.equal([{"payload": testATMS, "type": "SET_FILTERED_INFO_OBJECTS"}, {type:"SET_INFO_ID", payload: 0}]);
+                stub.restore();
+            });
+            it("getBranchesByCity when you submit with Branch endpoint active", () => {
+                initialState = {
+                    bankWindow:{
+                        banks: [{atms:testATMS}],
+                        activeEndPoint: "branches",
+                        activeBankId: 0
+                    }
+                };
+                store = mockStore(initialState)
+                const stub = sinon.stub(bankActions,'getBranchesByCity');
+                stub.returns({"payload": testATMS, "type": "SET_FILTERED_INFO_OBJECTS"});
+                const wrapper = shallow(<FilterWindow store={store} />).shallow()
+                const event = {};
                 event.preventDefault = () => {};
                 wrapper.find("form").simulate("submit", event)
                 expect(store.getActions()).to.deep.equal([{"payload": testATMS, "type": "SET_FILTERED_INFO_OBJECTS"}, {type:"SET_INFO_ID", payload: 0}]);
                 stub.restore();
             });
+            it("dispatches error action when you submit with invalid endpoint active", () => {
+                initialState = {
+                    bankWindow:{
+                        banks: [{atms:testATMS}],
+                        activeEndPoint: null,
+                        activeBankId: 0
+                    }
+                };
+                store = mockStore(initialState)
+                const wrapper = shallow(<FilterWindow store={store} />).shallow()
+                const event = {};
+                event.preventDefault = () => {};
+                wrapper.find("form").simulate("submit", event)
+                expect(store.getActions()).to.deep.equal([{payload:"Error, no valid active endpoint found.", type:"ADD_ERROR_TO_LOG"}, {type:"SET_INFO_ID", payload: 0}]);
+            });
             it("changes state when OnChange is called", () => {
                 const wrapper = shallow(<FilterWindow store={store} />).shallow()
-                const event = {target:{value:"test"}}
-                wrapper.find(".inputBox").simulate("change", event)
-                expect(wrapper.state().value).to.equal("test")
+                const event = {target:{value:"test"}};
+                wrapper.find(".inputBox").simulate("change", event);
+                expect(wrapper.state().value).to.equal("test");
             });
             it("changes state when you select an option in DropDownMenu", () => {
                 const wrapper = mount(<FilterWindow store={store} />);

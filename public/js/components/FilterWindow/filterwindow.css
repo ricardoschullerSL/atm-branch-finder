@@ -38,8 +38,8 @@
 }
 
 @media all and (max-width: 550px) {
-    .filterForm .inputBox {
-        flex: 1;
-        size: 1;
+    .filterForm .inputBox, #filterDropDown {
+        font-size: 1em;
+        width:30%
     }
 }

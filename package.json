@@ -1,6 +1,6 @@
 {
   "name": "atm-branch-finder",
-  "version": "0.3.1-alpha.1",
+  "version": "0.4.0-beta.0",
   "description": "Find an ATM near you using Open Banking API",
   "main": "server.js",
   "scripts": {

@@ -40,7 +40,7 @@ export default class FilterWindow extends React.Component {
                 break;
             }
             default : {
-                this.props.dispatch({type:"NO_ACTION", payload:"Error, no valid active endpoint found."});
+                this.props.dispatch({type:"ADD_ERROR_TO_LOG", payload:"Error, no valid active endpoint found."});
                 break;
             }
         }
