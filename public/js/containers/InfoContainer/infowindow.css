@@ -1,21 +1,27 @@
+
 .infoWindow {
-    border: 1px solid #333;
+    height: 100%;
     display: flex;
-    flex-direction: column;
+    align-self: stretch;
+    flex-flow: column;
     justify-content: flex-start;
+    align-items: stretch;
     background-color: #314179;
     color: #fff;
-    height: 100%;
+    height: auto;
 }
 
 .infoViewSelector {
+    flex: 1;
     display: flex;
     justify-content: center;
 }
 
 .infoItemList {
+    align-self: flex-start;
     list-style-type:none;
     padding: 5px 5px 5px 5px;
+    max-width: 300px;
 }
 .iteratorButton {
     flex: 1;
@@ -33,6 +39,7 @@
 	background-color:#a3c9f0;
 }
 .findLocalATMs {
+    flex: 1;
     align-self: center;
 	background-color:#333;
     border: 1px solid #000;
@@ -46,4 +53,11 @@
 }
 .findLocalATMs:hover {
 	background-color:#666;
+}
+
+#distanceDropDown {
+    font-size: 1.3em;
+    margin: 15px 0px;
+    width: 130px;
+    align-self: center;
 }

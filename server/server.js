@@ -15,6 +15,9 @@ var aispId = "ATM Branch Finder";
 var aispPassword = "ATMBranchPassword";
 var aispCreds = new Buffer(aispId + ":" + aispPassword).toString("base64"); 
 
+const LONGITUDE_TO_KM = 69;
+const LATITUDE_TO_KM = 111;
+
 //Retrieving static bank data like ATMs, Branches and PCAs. 
 var getBankData = function() {
     banks.map((bank) => {
@@ -161,8 +164,8 @@ module.exports = function(port, middleware, callback) {
     
     app.get("/atms/userlocation/:userLatitude/:userLongitude/:maxDistance", (req, res) => {
         let closeAtms = atms.filter((atm) => {
-            atm.distanceSquared = Math.pow(atm.GeographicLocation.Latitude - req.params.userLatitude, 2) 
-            + Math.pow(atm.GeographicLocation.Longitude - req.params.userLongitude, 2);
+            atm.distanceSquared = Math.pow((atm.GeographicLocation.Latitude - req.params.userLatitude)*LATITUDE_TO_KM, 2) 
+            + Math.pow((atm.GeographicLocation.Longitude - req.params.userLongitude)*LATITUDE_TO_KM, 2);
             return atm.distanceSquared <= Math.pow(req.params.maxDistance, 2);
         })
         closeAtms.length > 0 ? res.send(closeAtms) : res.status(204).send("No ATMs found within max Distance");
