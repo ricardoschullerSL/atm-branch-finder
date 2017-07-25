@@ -30,10 +30,19 @@ export default class FilterWindow extends React.Component {
     
     handleSubmit(event) {
         event.preventDefault();
-        if (this.props.activeEndPoint === 'branches') {
-            this.props.dispatch(getBranchesByCity(this.props.banks[this.props.activeBankId].id, this.state.value));
-        } else {
-            this.props.dispatch(getATMsByCity(this.state.value));
+        switch(this.props.activeEndPoint) {
+            case "branches" : {
+                this.props.dispatch(getBranchesByCity(this.props.banks[this.props.activeBankId], this.state.value));
+                break;
+            }
+            case "atms" : {
+                this.props.dispatch(getATMsByCity(this.state.value));
+                break;
+            }
+            default : {
+                this.props.dispatch({type:"NO_ACTION", payload:"Error, no valid active endpoint found."});
+                break;
+            }
         }
         this.props.dispatch({type:"SET_INFO_ID", payload: 0});
     }

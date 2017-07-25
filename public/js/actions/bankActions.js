@@ -24,10 +24,44 @@ export function getAllBankData() {
 }
 export function getSingleBankData(bank) {
     return (dispatch) => {
-        axios.get("/banks/"+bank.id)
-        .then((result) => {
-            dispatch({type:"SET_SINGLE_BANK_DATA", payload: result.data});
-        });
+        let today = new Date(Date.now());
+        if (bank.expirationDate
+            && today < bank.expirationDate) {
+                dispatch({type:"NO_ACTION", payload:"Bank info still valid."});
+        } else {
+            axios.get("/banks/"+bank.id)
+            .then((result) => {
+                bank.data = result.data;
+                bank.expirationDate = new Date(new Date(today).setDate(today.getDate() + 1));
+                dispatch({type:"SET_SINGLE_BANK_DATA", payload: bank});
+            });
+        }
+    }
+}
+
+export function getSingleBankSingleEndPointData(bank, endpoint) {
+    return (dispatch) => {
+        let today = new Date(Date.now());
+        if (bank[endpoint].expirationDate
+            && today < bank[endpoint].expirationDate) {
+                dispatch({type:"NO_ACTION", payload:"Bank info still valid."});
+        } else {
+            axios.get("/banks/"+bank.id+"/"+endpoint)
+            .then((result) => {
+                let endPointData = result.data;
+                let expirationDate = new Date(new Date(today).setDate(today.getDate() + 1));
+                dispatch({type:"SET_SINGLE_BANK_SINGLE_ENDPOINT_DATA", payload: 
+                    {
+                        bankId:bank.id,
+                        endpoint: endpoint,
+                        data : {
+                            expirationDate: expirationDate,
+                            data: endPointData
+                        } 
+                    }
+                });
+            });
+        }
     }
 }
 export function getBankData(bank) {
@@ -60,16 +94,24 @@ export function getATMsByCity(cityName) {
         axios.get("/atms/city/" + cityName)
         .then((result) => {
             dispatch(setFilteredATMs(result.data));
+            dispatch(setMapCoordinates(result.data[0].GeographicLocation));
         });
     }
 }
 
-export function getBranchesByCity(bankId, cityName) {
+export function getBranchesByCity(bank, cityName) {
     return (dispatch) => {
-        axios.get("/banks/"+ bankId +"/branches/city/"+cityName)
-        .then((result) => {
-            dispatch(setFilteredBranches(result.data));
-        })
+        let today = new Date(Date.now());
+        if (bank.branches.expirationDate
+            && today < bank.branches.expirationDate) {
+                dispatch(filterBranchData(bank.branches.data, "TownName", cityName));
+        } else {
+            axios.get("/banks/"+ bank.id +"/branches/city/"+cityName)
+            .then((result) => {
+                dispatch(setFilteredBranches(result.data));
+                dispatch(setMapCoordinates(result.data[0].GeographicLocation));
+            })
+        }
     }
 }
 
@@ -114,7 +156,7 @@ export function filterATMData(data, key, value) {
         return setFilteredATMs(data);
     }
     const filteredData = data.filter((item) => {
-        return (item.Address[key] && value) ? 
+        return (item.Address[key]) ? 
                 item.Address[key].toUpperCase() === value.toUpperCase() : false;
     });
     
@@ -151,7 +193,7 @@ export function filterBranchData(data, key, value) {
         return setFilteredBranches(data);
     }
     const filteredData = data.filter((item) => {
-        return (item.Address[key] && value) ?
+        return (item.Address[key]) ?
             item.Address[key].toUpperCase() === value.toUpperCase() : false;
     });
     return setFilteredBranches(filteredData);
@@ -184,10 +226,13 @@ export function filterATMsByUserPosition(userLocation, maxDistance) {
     return (dispatch) => {
         axios.get("/atms/userlocation/"+userLocation.Latitude+"/"+userLocation.Longitude+"/"+maxDistance)
         .then((result) => {
-            let atms = result.data;
-            atms.map((atm) => atm.distance = Math.sqrt(atm.distanceSquared));
+            let atms = result.data.map((atm) => {
+                atm.distance = Math.sqrt(atm.distanceSquared);
+                return atm;
+            });
             atms.sort((a, b) => a.distance - b.distance);
-            dispatch(setFilteredATMs(result.data));
+            dispatch(setFilteredATMs(atms));
+            dispatch(setMapCoordinates(atms[0].GeographicLocation));
         });
     }
 }

@@ -145,6 +145,16 @@ module.exports = function(port, middleware, callback) {
         (bankIndex > -1) ? res.send(banks[bankIndex].atms) : res.status(400).send("Bank not found on server.");
     });
     
+    app.get("/banks/:bankId/pca", (req, res) => {
+        let bankIndex = banks.findIndex((bank) => bank.id === req.params.bankId);
+        (bankIndex > -1 ) ? res.send(banks[bankIndex].pca) : res.status(400).send("Bank not found on server.");
+    });
+    
+    app.get("/banks/:bankId/branches", (req, res) => {
+        let bankIndex = banks.findIndex((bank) => bank.id === req.params.bankId);
+        (bankIndex > -1 ) ? res.send(banks[bankIndex].branches) : res.status(400).send("Bank not found on server.");
+    });
+    
     app.get("/atms", (req, res) => {
         res.send(atms);
     });
