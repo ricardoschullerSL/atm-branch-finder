@@ -17,7 +17,7 @@
     list-style-type:none;
     padding: 5px 5px 5px 5px;
 }
-.iteratorButton {
+.userLocationButton, .findATMs, .iteratorButton {
     flex: 1;
 	background-color:#B3C3E8;
     border: 1px solid #314179;
@@ -31,4 +31,10 @@
 }
 .iteratorButton:hover {
 	background-color:#a3c9f0;
+}
+
+.userLocation {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
 }

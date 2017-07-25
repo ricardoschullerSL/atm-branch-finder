@@ -15,9 +15,11 @@ export default class InfoWindow extends React.Component{
                 <div className="infoWindow">
                 <InfoViewSelector {...this.props} />
                 <InfoView infoObject={this.props.filteredInfoObjects[this.props.infoId]} />
-                <button onClick={() => {this.props.dispatch(getUserGeoLocation())}} >Get User Location </button>
-                <button onClick={() => {this.props.dispatch(filterATMsByUserPosition(this.props.userGeoLocation, 0.01))}}>Find Local ATMS </button>
+                <div className="userLocation">
+                <div className="button userLocationButton" onClick={() => {this.props.dispatch(getUserGeoLocation())}} >Get User Location </div>
+                <div className="button findATMs" onClick={() => {this.props.dispatch(filterATMsByUserPosition(this.props.userGeoLocation, 0.01))}}>Find Local ATMS </div>
                 </div>
+            </div>
             )
         }
         else {
