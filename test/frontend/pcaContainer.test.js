@@ -28,17 +28,15 @@ describe("PCAContainer", () => {
 describe("PCAWindow", () => {
     describe("renders", () => {
         it("a pcaList when available", () => {
-            const testBank = [{ 
-                pca: [
-                    {id:"testPCA"}
-                ]
+            const testBanks = [{
+                pca: {expirationDate: null, data:[{id:"testPCA"}]}
             }];
-            const wrapper = shallow(<PCAWindow banks={testBank} activeBankId={0}/>);
+            const wrapper = shallow(<PCAWindow banks={testBanks} activeBankId={0}/>);
             expect(wrapper.find(".pcaList")).to.have.length(1);
         });
         it("nothing when pcaList is empty", () => {
             const testBank = [{ 
-                pca:[]
+                pca:{expirationDate:null, data:[]}
             }];
             const wrapper = shallow(<PCAWindow banks={testBank} activeBankId={0} />);
             expect(wrapper.find(".pcaList")).to.have.length(0);
@@ -47,9 +45,7 @@ describe("PCAWindow", () => {
     describe("has property", () => {
         it("className 'pcaWindow'", () => {
             const testBank = [{ 
-                pca: [
-                    {id:"testPCA"}
-                ]
+                pca: {expirationDate: null, data:[{id:"testPCA"}]}
             }];
             const wrapper = shallow(<PCAWindow banks={testBank} activeBankId={0} />)
             expect(wrapper.hasClass('pcaWindow')).to.equal(true);

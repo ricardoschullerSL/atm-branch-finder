@@ -6,9 +6,9 @@ export const BANKDATA = [
             branches:"https://api.halifax.co.uk/open-banking/v1.2/branches",
             pca:"https://api.halifax.co.uk/open-banking/v1.2/personal-current-accounts"
         },
-        atms: {},
-        branches: {},
-        pca: {}
+        atms: {expirationDate: null, data:[]},
+        branches: {expirationDate: null, data:[]},
+        pca: {expirationDate: null, data:[]}
         
     },
     {
@@ -18,9 +18,9 @@ export const BANKDATA = [
             branches:"https://atlas.api.barclays/open-banking/v1.3/branches",
             pca:"https://atlas.api.barclays/open-banking/v1.3/personal-current-accounts"
         },
-        atms: {},
-        branches: {},
-        pca: {},
+        atms: {expirationDate: null, data:[]},
+        branches: {expirationDate: null, data:[]},
+        pca: {expirationDate: null, data:[]},
     },
     {
         id:"RBS", 
@@ -29,9 +29,9 @@ export const BANKDATA = [
             branches:"https://openapi.rbs.co.uk/open-banking/v1.2/branches",
             pca:"https://openapi.rbs.co.uk/open-banking/v1.2/personal-current-accounts"
         },
-        atms: {},
-        branches: {},
-        pca: {},
+        atms: {expirationDate: null, data:[]},
+        branches: {expirationDate: null, data:[]},
+        pca: {expirationDate: null, data:[]},
     },
     {
         id:"Danske Bank",
@@ -40,9 +40,9 @@ export const BANKDATA = [
             branches:"https://obp-api.danskebank.com/open-banking/v1.2/branches",
             pca:"https://obp-api.danskebank.com/open-banking/v1.2/personal-current-accounts"
         },
-        atms: {},
-        branches: {},
-        pca: {},
+        atms: {expirationDate: null, data:[]},
+        branches: {expirationDate: null, data:[]},
+        pca: {expirationDate: null, data:[]},
     },
     {
         id:"NatWest",
@@ -51,9 +51,9 @@ export const BANKDATA = [
             branches:"https://openapi.natwest.com/open-banking/v1.2/atms",
             pca:"https://openapi.natwest.com/open-banking/v1.2/personal-current-accounts"
         },
-        atms: {},
-        branches: {},
-        pca: {},
+        atms: {expirationDate: null, data:[]},
+        branches: {expirationDate: null, data:[]},
+        pca: {expirationDate: null, data:[]},
     },
     {
         id:"Nationwide",
@@ -62,8 +62,8 @@ export const BANKDATA = [
             branches:"https://openapi.nationwide.co.uk/open-banking/v1.2/branches",
             pca:"https://openapi.nationwide.co.uk/open-banking/v1.2/personal-current-accounts"
         },
-        atms: {},
-        branches: {},
-        pca: {},
+        atms: {expirationDate: null, data:[]},
+        branches: {expirationDate: null, data:[]},
+        pca: {expirationDate: null, data:[]},
     }
 ];

@@ -55,17 +55,17 @@ describe("MapActions", () => {
             expect(mapActions.setMapLongitude(longitude)).to.deep.equal({type:"SET_INFO_OBJECT_LONGITUDE", payload: longitude});
         });
     });
-    describe("getUserGeoLocation", ()=> {
+    describe("filterATMsByUserGeoLocation", ()=> {
         it("should add error to log when geolocation is not available", () => {
             const temp = global.navigator;
             global.navigator = {};
-            expect(mapActions.getUserGeoLocation()).to.deep.equal({type:"ADD_ERROR_TO_LOG", payload:"No browser geographic location available."});
+            expect(mapActions.filterATMsByUserGeoLocation()).to.deep.equal({type:"ADD_ERROR_TO_LOG", payload:"No browser geographic location available."});
             global.navigator = temp;
         });
         it("should set user coordinates when geolocation is available", () => {
             const initialState = {};
             const store = mockStore(initialState);
-            store.dispatch(mapActions.getUserGeoLocation());
+            store.dispatch(mapActions.filterATMsByUserGeoLocation());
             expect(store.getActions()).to.deep.equal([ 
                 { type: 'SET_USER_LATITUDE', payload: '1.1' },
                 { type: 'SET_USER_LONGITUDE', payload: '2.2' } 
