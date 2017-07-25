@@ -108,6 +108,18 @@ export default function (state= {
                 banks: newBanks
             }
         }
+        case "SET_SINGLE_BANK_SINGLE_ENDPOINT_DATA" : {
+            const newBanks = state.banks.map((bank, i) => {
+                if (bank.id === action.payload.bankId) {
+                    bank[action.payload.endpoint] = action.payload.data;
+                }
+                return bank;
+            });
+            return {
+                ...state,
+                banks: newBanks
+            }
+        }
     }
     return state;
 }

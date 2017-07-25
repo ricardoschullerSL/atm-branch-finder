@@ -42,6 +42,69 @@ describe("Bank Actions", () => {
             .then(done,done);
         });
     });
+    describe("getSingleBankData", () => {
+        it("should return single bank data in a single action.", (done) => {
+            const testBank = {expirationDate:new Date(0)}
+            const store = mockStore({});
+            const fakeAxios = new Promise((r) => r({ data: ["singleBank"] }));
+            sandbox.stub(axios, 'get').returns(fakeAxios);
+            const waitForActions = new Promise((resolve) => {
+                resolve(store.dispatch(bankActions.getSingleBankData(testBank)));
+            })
+            waitForActions
+            .then((result)=> {
+                expect(store.getActions()[0].type).to.equal("SET_SINGLE_BANK_DATA")
+            })
+            .then(done,done);
+        });
+        it("should dispatch NO_ACTION when data is within refresh date.", (done) => {
+            let today = new Date(Date.now());
+            const testBank = {expirationDate: new Date(new Date(today).setDate(today.getDate() +1))}
+            const store = mockStore({});
+            const fakeAxios = new Promise((r) => r({ data: ["singleBank"] }));
+            sandbox.stub(axios, 'get').returns(fakeAxios);
+            const waitForActions = new Promise((resolve) => {
+                resolve(store.dispatch(bankActions.getSingleBankData(testBank)));
+            })
+            waitForActions
+            .then((result)=> {
+                expect(store.getActions()).to.deep.equal([{type:"NO_ACTION", payload:"Bank info still valid."}]);
+            })
+            .then(done,done);
+        });
+    });
+    describe("getSingleBankSingleEndPointData", () => {
+        it("should return single bank single endpoint data in a single action.", (done) => {
+            const testBank = {id:"Halifax", atms:{expirationDate:0}}
+            const store = mockStore({});
+            const fakeAxios = new Promise((r) => r({ data: ["singleBank"] }));
+            sandbox.stub(axios, 'get').returns(fakeAxios);
+            const waitForActions = new Promise((resolve) => {
+                resolve(store.dispatch(bankActions.getSingleBankSingleEndPointData(testBank, "atms")));
+            })
+            waitForActions
+            .then((result)=> {
+                expect(store.getActions()[0].type).to.equal("SET_SINGLE_BANK_SINGLE_ENDPOINT_DATA");
+            })
+            .then(done,done);
+        });
+        it("should return NO_ACTION if data is still valid.", (done) => {
+            let today = new Date(Date.now());
+            let expirationDate = new Date(today.setDate(today.getDate() + 1))
+            const testBank = {id:"Halifax", atms:{expirationDate:expirationDate}}
+            const store = mockStore({});
+            const fakeAxios = new Promise((r) => r({ data: ["singleBank"] }));
+            sandbox.stub(axios, 'get').returns(fakeAxios);
+            const waitForActions = new Promise((resolve) => {
+                resolve(store.dispatch(bankActions.getSingleBankSingleEndPointData(testBank, "atms")));
+            })
+            waitForActions
+            .then((result)=> {
+                expect(store.getActions()).to.deep.equal([{type:"NO_ACTION", payload:"Bank info still valid."}]);
+            })
+            .then(done,done);
+        });
+    })
     describe("getBankData", () => {
         it("should call getEndPointData for every bank uri", (done) => {
             const store = mockStore({});
@@ -87,6 +150,77 @@ describe("Bank Actions", () => {
             })
             .then(done,done);
         });
+    });
+    describe("getATMsByCity", () => {
+        it("should return all ATMs in some city and set map coordinates to the first one", (done) => {
+            const store = mockStore({});
+            const data = [
+                {
+                    ATMID:"TestATM1",
+                    Address:{TownName:"London", StreetName:"25 Buckingham Palace"},
+                    Currency:["GBP"],
+                    
+                },
+                {
+                    ATMID:"TestATM2",
+                    Address:{TownName:"Bristol", StreetName:"25 King Street"},
+                    Currency:["GBP"],
+                    
+                }];
+            const fakeAxios = new Promise((r) => r({data:data}));
+            sandbox.stub(axios, "get").returns(fakeAxios);
+            const waitForActions = new Promise((resolve) => {
+                resolve(store.dispatch(bankActions.getATMsByCity("Bristol")))
+            });
+            waitForActions
+            .then((result) => {
+                expect(store.getActions().length).to.equal(2);
+            })
+            .then(done,done);
+        });
+    });
+    describe("getBranchesByCity", () => {
+        it("should check expiration date on bank branch data and retrieve new data if not valid and set map coordinates", (done) => {
+            const store = mockStore({});
+            
+            const testBank = {id:"Halifax", branches:{expirationDate:new Date(0), data: null}};
+            const data = [
+                {
+                    BranchName:"TestBranch1",
+                    Address:{TownName:"London", StreetName:"25 Buckingham Palace", PostCode:"LO15151515"},                    
+                },
+                {
+                    BranchName:"TestBranch2",
+                    Address:{TownName:"Bristol", StreetName:"25 King Street", PostCode:"BS15151515"},
+                }];
+            const fakeAxios = new Promise((r) => r({data:data}));
+            sandbox.stub(axios, "get").returns(fakeAxios);
+            const waitForActions = new Promise((resolve) => {
+                resolve(store.dispatch(bankActions.getBranchesByCity(testBank, "Bristol")))
+            });
+            waitForActions
+            .then((result) => {
+                expect(store.getActions().length).to.equal(2);
+            })
+            .then(done,done);
+        });
+        it("should use cached branch data if valid and filter that and set map coordinates", () => {
+            const store = mockStore({});
+            const today = new Date(Date.now());
+            const tomorrow = new Date(new Date(today).setDate(today.getDate() + 1));
+            const data = [
+                {
+                    BranchName:"TestBranch1",
+                    Address:{TownName:"London", StreetName:"25 Buckingham Palace", PostCode:"LO15151515"},                    
+                },
+                {
+                    BranchName:"TestBranch2",
+                    Address:{TownName:"Bristol", StreetName:"25 King Street", PostCode:"BS15151515"},
+                }];
+            const testBank = {id:"Halifax", branches:{expirationDate:tomorrow, data:data}};
+            store.dispatch(bankActions.getBranchesByCity(testBank, "Bristol"));
+            expect(store.getActions().length).to.equal(1);
+        })
     });
     describe("setEndPointData", () => {
         it("should set ATM data", () => {
@@ -152,7 +286,7 @@ describe("Bank Actions", () => {
             store.dispatch(bankActions.filterEndPointData("atms", data, "TownName", "Bristol"));
             expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload:  [data[1]]}])
         });
-        it("should not filter ATM data is no value is given, ie return all data.", () => {
+        it("should not filter ATM data is no value is given, ie return all data", () => {
             const initialState= {bankWindow: {activeEndPoint:""}};
             const store = mockStore(initialState);
             const data = [
@@ -167,9 +301,29 @@ describe("Bank Actions", () => {
                     Address:{TownName:"Bristol", StreetName:"25 King Street"},
                     Currency:["GBP"],
                     
-                }];
+                }
+            ];
             store.dispatch(bankActions.filterEndPointData("atms", data, "TownName", null));
             expect(store.getActions()).to.deep.equal([{"payload": data, "type": "SET_FILTERED_INFO_OBJECTS"}])
+        });
+        it("should not return ATMs if Address[key] is null", () => {
+            const store = mockStore({});
+            const data = [
+                {
+                    ATMID:"TestATM1",
+                    Address:{StreetName:"25 Buckingham Palace"},
+                    Currency:["GBP"],
+                    
+                },
+                {
+                    ATMID:"TestATM2",
+                    Address:{StreetName:"25 King Street"},
+                    Currency:["GBP"],
+                    
+                }
+            ];
+            store.dispatch(bankActions.filterEndPointData("atms", data, "TownName", "Bristol"));
+            expect(store.getActions()).to.deep.equal([{payload:"No ATMs found.", type:"NO_ACTION"}]);
         });
         it("should filter Branch data", () => {
             const initialState= {bankWindow: {activeEndPoint:"branches"}};
@@ -201,7 +355,35 @@ describe("Bank Actions", () => {
             store.dispatch(bankActions.filterEndPointData("branches", data, "TownName", null));
             expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload: data}])
         });
+        it("should not return Branch data if Address[key] is null", () => {
+            const store = mockStore({});
+            const data = [
+                {
+                    BranchName:"TestBranch1",
+                    Address:{StreetName:"25 Buckingham Palace"},
+                    Currency:["GBP"],
+                    
+                },
+                {
+                    BranchName:"TestBranch2",
+                    Address:{StreetName:"25 King Street"},
+                    Currency:["GBP"],
+                    
+                }
+            ];
+            store.dispatch(bankActions.filterEndPointData("branches", data, "TownName", "Bristol"));
+            expect(store.getActions()).to.deep.equal([{payload:"No Branches found.", type:"NO_ACTION"}]);
+        });
     });
+    describe("setFilteredATMS", () => {
+        it("should not set infoObjects if data is empty", () => {
+            const initialState = {infoWindow: {}};
+            const store = mockStore(initialState);
+            const filteredData = [];
+            store.dispatch(bankActions.setFilteredATMs(filteredData));
+            expect(store.getActions()).to.deep.equal([{type:"NO_ACTION", payload:"No ATMs found."}]);
+        })
+    })
     describe("filterATMsByUserPosition", () => {
         it("should filter ATM by user location and max distance", (done) => {
             const testData = [
@@ -232,6 +414,20 @@ describe("Bank Actions", () => {
                         Latitude:"10"
                     },
                     distanceSquared:"49",
+                },
+                {
+                    ATMID:"TestATM3",
+                    Currency:["GBP"],
+                    Address: {
+                        TownName:"Bristol",
+                        StreetName:"Queen Park",
+                        PostCode:"BS111111"
+                    },
+                    GeographicLocation: {
+                        Longitude:"10",
+                        Latitude:"10"
+                    },
+                    distanceSquared:"64",
                 }
             ];
             const userLocation = {
@@ -239,39 +435,74 @@ describe("Bank Actions", () => {
                 Latitude: "1.1"
             };
             const store = mockStore({});
-            const fakeAxios = new Promise((r) => r({ data: testData.slice(0,1)}));
+            const fakeAxios = new Promise((r) => r({ data: testData.slice(0,2)}));
             sandbox.stub(axios, 'get').returns(fakeAxios);
             const waitForActions = new Promise((resolve) => {
-                resolve(store.dispatch(bankActions.filterATMsByUserPosition(userLocation, 5)));
+                resolve(store.dispatch(bankActions.filterATMsByUserPosition(userLocation, 7.5)));
             });
             waitForActions.then((result) => {
-                console.log(result);
-                expect(store.getActions()).to.deep.equal([{
-                    type:"SET_FILTERED_INFO_OBJECTS",
-                    payload: [ {
-                        ATMID:"TestATM1",
-                        Address: {
-                            PostCode:"BS151515",
-                            StreetName:"King Street",
-                            TownName:"Bristol"
-                        },
-                        distance:0.1,
-                        distanceSquared:"0.01",
-                        Currency: ["GBP"],
-                        GeographicLocation: {
-                            Longitude:"2.2",
-                            Latitude:"0.1"
-                        },
-                        infoViewItems: [
-                            {key:"ATM ID", value:"TestATM1"},
-                            {key:"Currency", value:"GBP"},
-                            {key:"City", value:"Bristol"},
-                            {key:"Street Name", value:"King Street"},
-                            {key:"Post Code", value:"BS151515"},
-                            {key:"Distance", value:0.1}
+                expect(store.getActions()).to.deep.equal(
+                    [
+                        {
+                            type:"SET_FILTERED_INFO_OBJECTS",
+                            payload: [ {
+                                ATMID:"TestATM1",
+                                Address: {
+                                    PostCode:"BS151515",
+                                    StreetName:"King Street",
+                                    TownName:"Bristol"
+                                },
+                                distance:0.1,
+                                distanceSquared:"0.01",
+                                Currency: ["GBP"],
+                                GeographicLocation: {
+                                    Longitude:"2.2",
+                                    Latitude:"0.1"
+                                },
+                                infoViewItems: [
+                                    {key:"ATM ID", value:"TestATM1"},
+                                    {key:"Currency", value:"GBP"},
+                                    {key:"City", value:"Bristol"},
+                                    {key:"Street Name", value:"King Street"},
+                                    {key:"Post Code", value:"BS151515"},
+                                    {key:"Distance", value:0.1}
+                                ]
+                            },{
+                                ATMID:"TestATM2",
+                                Currency:["GBP"],
+                                Address: {
+                                    TownName:"Bristol",
+                                    StreetName:"Queen Park",
+                                    PostCode:"BS111111"
+                                },
+                                GeographicLocation: {
+                                    Longitude:"10",
+                                    Latitude:"10"
+                                },
+                                distanceSquared:"49",
+                                distance:7,
+                                infoViewItems: [
+                                    {key:"ATM ID", value:"TestATM2"},
+                                    {key:"Currency", value:"GBP"},
+                                    {key:"City", value:"Bristol"},
+                                    {key:"Street Name", value:"Queen Park"},
+                                    {key:"Post Code", value:"BS111111"},
+                                    {key:"Distance", value:7}
+                                    
+                                ]
+                            }
                         ]
-                    }]
-                }])
+                        },
+                        {
+                            type:"SET_INFO_OBJECT_LATITUDE",
+                            payload:"0.1",
+                        },
+                        {
+                            type:"SET_INFO_OBJECT_LONGITUDE",
+                            payload:"2.2",
+                        }
+                    ]
+                )
             })
             .then(done,done);
         });

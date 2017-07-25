@@ -7370,6 +7370,7 @@ exports.changeActiveBank = changeActiveBank;
 exports.setActiveEndPoint = setActiveEndPoint;
 exports.getAllBankData = getAllBankData;
 exports.getSingleBankData = getSingleBankData;
+exports.getSingleBankSingleEndPointData = getSingleBankSingleEndPointData;
 exports.getBankData = getBankData;
 exports.getEndPointData = getEndPointData;
 exports.getATMsByCity = getATMsByCity;
@@ -7412,9 +7413,39 @@ function getAllBankData() {
 }
 function getSingleBankData(bank) {
     return function (dispatch) {
-        _axios2.default.get("/banks/" + bank.id).then(function (result) {
-            dispatch({ type: "SET_SINGLE_BANK_DATA", payload: result.data });
-        });
+        var today = new Date(Date.now());
+        if (bank.expirationDate && today < bank.expirationDate) {
+            dispatch({ type: "NO_ACTION", payload: "Bank info still valid." });
+        } else {
+            _axios2.default.get("/banks/" + bank.id).then(function (result) {
+                bank.data = result.data;
+                bank.expirationDate = new Date(new Date(today).setDate(today.getDate() + 1));
+                dispatch({ type: "SET_SINGLE_BANK_DATA", payload: bank });
+            });
+        }
+    };
+}
+
+function getSingleBankSingleEndPointData(bank, endpoint) {
+    return function (dispatch) {
+        var today = new Date(Date.now());
+        if (bank[endpoint].expirationDate && today < bank[endpoint].expirationDate) {
+            dispatch({ type: "NO_ACTION", payload: "Bank info still valid." });
+        } else {
+            _axios2.default.get("/banks/" + bank.id + "/" + endpoint).then(function (result) {
+                var endPointData = result.data;
+                var expirationDate = new Date(new Date(today).setDate(today.getDate() + 1));
+                dispatch({ type: "SET_SINGLE_BANK_SINGLE_ENDPOINT_DATA", payload: {
+                        bankId: bank.id,
+                        endpoint: endpoint,
+                        data: {
+                            expirationDate: expirationDate,
+                            data: endPointData
+                        }
+                    }
+                });
+            });
+        }
     };
 }
 function getBankData(bank) {
@@ -7444,15 +7475,22 @@ function getATMsByCity(cityName) {
     return function (dispatch) {
         _axios2.default.get("/atms/city/" + cityName).then(function (result) {
             dispatch(setFilteredATMs(result.data));
+            dispatch((0, _mapActions.setMapCoordinates)(result.data[0].GeographicLocation));
         });
     };
 }
 
-function getBranchesByCity(bankId, cityName) {
+function getBranchesByCity(bank, cityName) {
     return function (dispatch) {
-        _axios2.default.get("/banks/" + bankId + "/branches/city/" + cityName).then(function (result) {
-            dispatch(setFilteredBranches(result.data));
-        });
+        var today = new Date(Date.now());
+        if (bank.branches.dateReceived && today > new Date(bank.branches.dateReceived).setDay(bank.branches.dateReceived.getDay() - 1)) {
+            dispatch({ type: "NO_ACTION", payload: "Bank info still valid." });
+            dispatch(filterBranchData(bank.branches.data, "TownName", cityName));
+        } else {
+            _axios2.default.get("/banks/" + bank.id + "/branches/city/" + cityName).then(function (result) {
+                dispatch(setFilteredBranches(result.data));
+            });
+        }
     };
 }
 
@@ -7503,7 +7541,7 @@ function filterATMData(data, key, value) {
         return setFilteredATMs(data);
     }
     var filteredData = data.filter(function (item) {
-        return item.Address[key] && value ? item.Address[key].toUpperCase() === value.toUpperCase() : false;
+        return item.Address[key] && value ? item.Address[key].toUpperCase() === value.toUpperCase() : true;
     });
 
     return setFilteredATMs(filteredData);
@@ -7558,14 +7596,15 @@ function setFilteredBranches(branches) {
 function filterATMsByUserPosition(userLocation, maxDistance) {
     return function (dispatch) {
         _axios2.default.get("/atms/userlocation/" + userLocation.Latitude + "/" + userLocation.Longitude + "/" + maxDistance).then(function (result) {
-            var atms = result.data;
-            atms.map(function (atm) {
-                return atm.distance = Math.sqrt(atm.distanceSquared);
+            var atms = result.data.map(function (atm) {
+                atm.distance = Math.sqrt(atm.distanceSquared);
+                return atm;
             });
             atms.sort(function (a, b) {
                 return a.distance - b.distance;
             });
-            dispatch(setFilteredATMs(result.data));
+            dispatch(setFilteredATMs(atms));
+            dispatch((0, _mapActions.setMapCoordinates)(atms[0].GeographicLocation));
         });
     };
 }
@@ -11265,10 +11304,22 @@ var FilterWindow = (_dec = (0, _reactRedux.connect)(function (store) {
         key: "handleSubmit",
         value: function handleSubmit(event) {
             event.preventDefault();
-            if (this.props.activeEndPoint === 'branches') {
-                this.props.dispatch((0, _bankActions.getBranchesByCity)(this.props.banks[this.props.activeBankId].id, this.state.value));
-            } else {
-                this.props.dispatch((0, _bankActions.getATMsByCity)(this.state.value));
+            switch (this.props.activeEndPoint) {
+                case "branches":
+                    {
+                        this.props.dispatch((0, _bankActions.getBranchesByCity)(this.props.banks[this.props.activeBankId], this.state.value));
+                        break;
+                    }
+                case "atms":
+                    {
+                        this.props.dispatch((0, _bankActions.getATMsByCity)(this.state.value));
+                        break;
+                    }
+                default:
+                    {
+                        this.props.dispatch({ type: "NO_ACTION", payload: "Error, no valid active endpoint found." });
+                        break;
+                    }
             }
             this.props.dispatch({ type: "SET_INFO_ID", payload: 0 });
         }
@@ -18462,7 +18513,7 @@ var BankWindow = function (_React$Component) {
                         { key: key },
                         _react2.default.createElement(_BankButton2.default, { bank: bank, bankIndex: key, onClick: function onClick() {
                                 _this2.props.dispatch((0, _bankActions.changeActiveBank)(key));
-                                _this2.props.dispatch((0, _bankActions.getSingleBankData)(bank));
+                                _this2.props.dispatch((0, _bankActions.getSingleBankSingleEndPointData)(bank, _this2.props.activeEndPoint));
                             }, className: _this2.props.activeBankId === key ? "active bankButton" : "bankButton" })
                     );
                 })
@@ -19446,6 +19497,18 @@ exports.default = function () {
                     banks: _newBanks5
                 });
             }
+        case "SET_SINGLE_BANK_SINGLE_ENDPOINT_DATA":
+            {
+                var _newBanks6 = state.banks.map(function (bank, i) {
+                    if (bank.id === action.payload.bankId) {
+                        bank[action.payload.endpoint] = action.payload.data;
+                    }
+                    return bank;
+                });
+                return _extends({}, state, {
+                    banks: _newBanks6
+                });
+            }
     }
     return state;
 };
@@ -19644,9 +19707,9 @@ var BANKDATA = exports.BANKDATA = [{
         branches: "https://api.halifax.co.uk/open-banking/v1.2/branches",
         pca: "https://api.halifax.co.uk/open-banking/v1.2/personal-current-accounts"
     },
-    atms: [],
-    branches: [],
-    pca: []
+    atms: {},
+    branches: {},
+    pca: {}
 
 }, {
     id: "Barclays",
@@ -19655,9 +19718,9 @@ var BANKDATA = exports.BANKDATA = [{
         branches: "https://atlas.api.barclays/open-banking/v1.3/branches",
         pca: "https://atlas.api.barclays/open-banking/v1.3/personal-current-accounts"
     },
-    atms: [],
-    branches: [],
-    pca: []
+    atms: {},
+    branches: {},
+    pca: {}
 }, {
     id: "RBS",
     uris: {
@@ -19665,9 +19728,9 @@ var BANKDATA = exports.BANKDATA = [{
         branches: "https://openapi.rbs.co.uk/open-banking/v1.2/branches",
         pca: "https://openapi.rbs.co.uk/open-banking/v1.2/personal-current-accounts"
     },
-    atms: [],
-    branches: [],
-    pca: []
+    atms: {},
+    branches: {},
+    pca: {}
 }, {
     id: "Danske Bank",
     uris: {
@@ -19675,9 +19738,9 @@ var BANKDATA = exports.BANKDATA = [{
         branches: "https://obp-api.danskebank.com/open-banking/v1.2/branches",
         pca: "https://obp-api.danskebank.com/open-banking/v1.2/personal-current-accounts"
     },
-    atms: [],
-    branches: [],
-    pca: []
+    atms: {},
+    branches: {},
+    pca: {}
 }, {
     id: "NatWest",
     uris: {
@@ -19685,9 +19748,9 @@ var BANKDATA = exports.BANKDATA = [{
         branches: "https://openapi.natwest.com/open-banking/v1.2/atms",
         pca: "https://openapi.natwest.com/open-banking/v1.2/personal-current-accounts"
     },
-    atms: [],
-    branches: [],
-    pca: []
+    atms: {},
+    branches: {},
+    pca: {}
 }, {
     id: "Nationwide",
     uris: {
@@ -19695,9 +19758,9 @@ var BANKDATA = exports.BANKDATA = [{
         branches: "https://openapi.nationwide.co.uk/open-banking/v1.2/branches",
         pca: "https://openapi.nationwide.co.uk/open-banking/v1.2/personal-current-accounts"
     },
-    atms: [],
-    branches: [],
-    pca: []
+    atms: {},
+    branches: {},
+    pca: {}
 }];
 
 /***/ }),
@@ -23805,7 +23868,7 @@ exports = module.exports = __webpack_require__(44)(undefined);
 
 
 // module
-exports.push([module.i, ".filterWindow {\r\n    min-height: 60px;\r\n    width: 100%;\r\n    display: flex;\r\n    align-items: stretch;\r\n    justify-content: stretch;\r\n}\r\n\r\n.filterForm {\r\n    display: flex;\r\n    width: 100%;\r\n    font-size: 1.2em;\r\n    margin: 9px 9px;\r\n}\r\n\r\n.filterForm .inputBox {\r\n    flex: 2;\r\n}\r\n\r\n.filterForm .filterButton {\r\n    flex: 1;\r\n}\r\n\r\n#filterDropDown {\r\n    flex: 1;\r\n}\r\n\r\n.filterButton {\r\n    background-color:#637aad;\r\n    border: 0px;\r\n    cursor:pointer;\r\n    color:#ffffff;\r\n    font-family:Arial;\r\n}\r\n\r\n.filterButton:hover {\r\n    background-color: #314179;\r\n}", ""]);
+exports.push([module.i, ".filterWindow {\r\n    min-height: 60px;\r\n    display: flex;\r\n    justify-content: center;   \r\n}\r\n\r\n.filterForm {\r\n    display: flex;\r\n    width: 100%;\r\n    margin: 9px 9px;\r\n\r\n}\r\n\r\n.filterForm .inputBox {\r\n    flex: 2;\r\n    font-size: 1.3em;\r\n}\r\n\r\n.filterForm .filterButton {\r\n    flex: 1;\r\n    font-size: 1.3em;\r\n}\r\n\r\n#filterDropDown {\r\n    flex: 1;\r\n    font-size: 1.3em;\r\n}\r\n\r\n.filterButton {\r\n    background-color:#637aad;\r\n    border: 0px;\r\n    cursor:pointer;\r\n    color:#ffffff;\r\n}\r\n\r\n.filterButton:hover {\r\n    background-color: #314179;\r\n}\r\n\r\n@media all and (max-width: 550px) {\r\n    .filterForm .inputBox {\r\n        flex: 1;\r\n        size: 1;\r\n    }\r\n}", ""]);
 
 // exports
 
@@ -23819,7 +23882,7 @@ exports = module.exports = __webpack_require__(44)(undefined);
 
 
 // module
-exports.push([module.i, ".bankWindow {\r\n    background-color: #B3C3E8;\r\n    height:100%; \r\n    overflow: auto; \r\n    text-align: center;  \r\n}\r\n\r\n.bankButton {\r\n    transition: padding 0.5s;\r\n\tbackground-color:#637aad;\r\n\tborder:1px solid #314179;\r\n\tdisplay:block;\r\n    min-width: 7em;\r\n\tcursor:pointer;\r\n\tcolor:#ffffff;\r\n\tfont-family:Arial;\r\n\tfont-size:18px;\r\n\tfont-weight:bold;\r\n\tpadding:9px 1em;\r\n\ttext-decoration:none;\r\n\ttext-shadow:0px -1px 0px #7a8eb9;\r\n}\r\n.bankButton:hover {\r\n\tbackground-color:#314179;\r\n    padding: 9px 30px;\r\n}\r\n\r\n.bankButton.active {\r\n\tbackground-color:#314179;\r\n}\r\n.bankbutton.active:hover {\r\n    background-color:#314179;\r\n    padding: 9px 30px;\r\n}\r\n\r\n.bankTable {\r\n    display: flex;\r\n    flex-flow: row wrap;\r\n    align-content: center;\r\n    justify-content: center;\r\n    margin: 15px 10px;\r\n}\r\n\r\n@media all and (max-width: 550px) {\r\n    .bankTable {\r\n        display: flex;\r\n        flex-flow: column;\r\n        align-items: center;\r\n    }\r\n    .bankButton {\r\n        min-width: 10em;\r\n        font-size: 1.3em;\r\n    }\r\n}\r\n", ""]);
+exports.push([module.i, ".bankWindow {\r\n    background-color: #B3C3E8;\r\n    height:100%; \r\n    overflow: auto; \r\n    text-align: center;  \r\n}\r\n\r\n.bankButton {\r\n    transition: padding 0.5s;\r\n\tbackground-color:#637aad;\r\n\tborder:1px solid #314179;\r\n\tdisplay:block;\r\n    min-width: 7em;\r\n\tcursor:pointer;\r\n\tcolor:#ffffff;\r\n\tfont-family:Arial;\r\n\tfont-size:18px;\r\n\tfont-weight:bold;\r\n\tpadding:9px 1em;\r\n\ttext-decoration:none;\r\n\ttext-shadow:0px -1px 0px #7a8eb9;\r\n}\r\n.bankButton:hover {\r\n\tbackground-color:#314179;\r\n    padding: 9px 30px;\r\n}\r\n\r\n.bankButton.active {\r\n\tbackground-color:#314179;\r\n}\r\n.bankbutton.active:hover {\r\n    background-color:#314179;\r\n    padding: 9px 30px;\r\n}\r\n\r\n.bankTable {\r\n    display: flex;\r\n    flex-flow: row wrap;\r\n    align-content: center;\r\n    justify-content: center;\r\n    margin: 15px 0px;\r\n}\r\n\r\n@media all and (max-width: 550px) {\r\n    .bankTable {\r\n        display: flex;\r\n        flex-flow: column;\r\n        align-items: center;\r\n    }\r\n    .bankButton {\r\n        min-width: 10em;\r\n        font-size: 1.3em;\r\n    }\r\n}\r\n", ""]);
 
 // exports
 
@@ -23917,7 +23980,7 @@ exports = module.exports = __webpack_require__(44)(undefined);
 
 
 // module
-exports.push([module.i, "html,\r\nbody {\r\n    font-family: \"Trebuchet MS\", \"Lucida Grande\", \"Lucida Sans Unicode\", \"Lucida Sans\", sans-serif;\r\n    margin: 0px;\r\n    padding: 0px;\r\n    background-color: #C9C9C9;\r\n}\r\n\r\n.header {\r\n    flex: 0.1;\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.main {\r\n    flex: 3 100%;\r\n    display: flex;\r\n    flex-flow: row;\r\n    align-items: stretch;\r\n}\r\n\r\n.topHeader {\r\n    background-color: #333;\r\n    color: #ffffff;\r\n    \r\n}\r\n.topHeader p {\r\n    margin-left: 10px;\r\n    margin-right: 10px;\r\n}\r\n.topHeader > h1 {\r\n    font-family: \"Palatino Linotype\" !important;\r\n    font-weight: 100;\r\n    letter-spacing: 0.15em;\r\n}\r\n\r\n.infoContainer {\r\n    background-color: #A8A8A8;\n    width: auto;\r\n    height: auto;\r\n}\n\n.pcaWindow {\r\n    flex: 1 100%;\r\n    height: auto;\r\n}\r\n.branchWindow {\r\n    flex: 1 100%;\r\n    height: auto;\r\n}\r\n\r\n.mainContainer {\r\n    min-height: 500px;\r\n    display: flex;\r\n    flex-flow: column;\r\n    justify-content: center;\r\n}\r\n\r\n.mainPage {\r\n    display: flex;\r\n    flex-flow: column;\r\n    justify-content: space-around;\r\n    height:100%;\r\n}\r\n\r\n@media all and (max-width: 550px) {\r\n    .main {\r\n        flex-flow: column;\r\n    }\r\n    \r\n    body {\r\n        height: auto;\r\n    }\r\n}", ""]);
+exports.push([module.i, "html,\r\nbody {\r\n    font-family: \"Trebuchet MS\", \"Lucida Grande\", \"Lucida Sans Unicode\", \"Lucida Sans\", sans-serif;\r\n    margin: 0px;\r\n    padding: 0px;\r\n    background-color: #C9C9C9;\r\n}\r\n\r\n.header {\r\n    flex: 0.1;\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.main {\r\n    flex: 3 100%;\r\n    display: flex;\r\n    flex-flow: row;\r\n    align-items: stretch;\r\n}\r\n\r\n.topHeader {\r\n    background-color: #333;\r\n    color: #ffffff;\r\n    \r\n}\r\n.topHeader p {\r\n    margin-left: 10px;\r\n    margin-right: 10px;\r\n}\r\n.topHeader > h1 {\r\n    font-family: \"Palatino Linotype\" !important;\r\n    font-weight: 100;\r\n    letter-spacing: 0.15em;\r\n}\r\n\r\n.infoContainer {\r\n    background-color: #A8A8A8;\r\n    width: auto;\r\n    height: auto;\r\n}\r\n\r\n.pcaWindow {\r\n    flex: 1 100%;\r\n    height: auto;\r\n}\r\n.branchWindow {\r\n    flex: 1 100%;\r\n    height: auto;\r\n}\r\n\r\n.mainContainer {\r\n    min-height: 500px;\r\n    display: flex;\r\n    flex-flow: column;\r\n    justify-content: center;\r\n}\r\n\r\n.mainPage {\r\n    display: flex;\r\n    flex-flow: column;\r\n    justify-content: space-around;\r\n    height:100%;\r\n}\r\n\r\n@media all and (max-width: 550px) {\r\n    .main {\r\n        flex-flow: column;\r\n    }\r\n    \r\n    body {\r\n        height: auto;\r\n    }\r\n}", ""]);
 
 // exports
 

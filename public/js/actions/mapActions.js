@@ -39,7 +39,7 @@ export function getUserGeoLocation() {
                 const geographicLocation = {Latitude: position.coords.latitude, Longitude:position.coords.longitude};
                 dispatch(setUserCoordinates(geographicLocation));
             }, (failure) => {
-                console.log(failure);
+                // console.log(failure);
             });
         }
     } else {

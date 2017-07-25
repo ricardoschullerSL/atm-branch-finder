@@ -1,28 +1,29 @@
 .filterWindow {
     min-height: 60px;
-    width: 100%;
     display: flex;
-    align-items: stretch;
-    justify-content: stretch;
+    justify-content: center;   
 }
 
 .filterForm {
     display: flex;
     width: 100%;
-    font-size: 1.2em;
     margin: 9px 9px;
+
 }
 
 .filterForm .inputBox {
     flex: 2;
+    font-size: 1.3em;
 }
 
 .filterForm .filterButton {
     flex: 1;
+    font-size: 1.3em;
 }
 
 #filterDropDown {
     flex: 1;
+    font-size: 1.3em;
 }
 
 .filterButton {
@@ -30,9 +31,15 @@
     border: 0px;
     cursor:pointer;
     color:#ffffff;
-    font-family:Arial;
 }
 
 .filterButton:hover {
     background-color: #314179;
+}
+
+@media all and (max-width: 550px) {
+    .filterForm .inputBox {
+        flex: 1;
+        size: 1;
+    }
 }
