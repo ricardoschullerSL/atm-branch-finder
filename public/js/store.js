@@ -1,11 +1,11 @@
-import { applyMiddleware, createStore, compose } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import { createLogger } from "redux-logger";
 import thunk from "redux-thunk";
 import reducer from "./reducers";
 
 
 
-var middleWare = {}
+var middleWare = {};
 
 if (process.env.NODE_ENV !== "production") {
     middleWare = applyMiddleware(thunk, createLogger());
@@ -13,5 +13,4 @@ if (process.env.NODE_ENV !== "production") {
     middleWare= applyMiddleware(thunk);
 }
 
-const composeEnhancers = compose;
 export const store = createStore(reducer, middleWare);

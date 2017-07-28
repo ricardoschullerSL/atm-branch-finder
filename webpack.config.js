@@ -3,7 +3,7 @@ var path = require("path");
 
 module.exports = {
     context: __dirname + "/public",
-    entry: "./js/main.js",
+    entry: "./js/entry.js",
     module: {
         loaders: [
             {
@@ -32,7 +32,7 @@ module.exports = {
       'react/lib/ReactContext': true
     },
     output: {
-        filename: "bundle.js",
+        filename: "main.js",
         path: path.resolve(__dirname, "./public/")
     },
     devServer: {

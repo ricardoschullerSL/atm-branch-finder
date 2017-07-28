@@ -13,11 +13,11 @@ import styles from "./infowindow.css";
             Latitude: store.mapWindow.userLatitude,
             Longitude: store.mapWindow.userLongitude
         }
-    }
+    };
 })
 export default class InfoContainer extends React.Component {
         
     render() {
-        return (<div className="infoContainer"><InfoWindow {...this.props}/></div>)
+        return (<div className="infoContainer"><InfoWindow {...this.props}/></div>);
     }
 }

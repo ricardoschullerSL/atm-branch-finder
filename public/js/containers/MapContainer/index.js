@@ -4,14 +4,13 @@ import MapWindow from "../../components/MapWindow";
 import styles from "./mapwindow.css";
 
 @connect((store) => {
-        return {
-            latitude: store.mapWindow.latitude,
-            longitude: store.mapWindow.longitude
-        }
+    return {
+        locations:store.infoWindow.locations
+    };
 })
 export default class MapContainer extends React.Component {
     
     render() {
-        return (<MapWindow {...this.props} />)
+        return (<MapWindow {...this.props} />);
     }
 }

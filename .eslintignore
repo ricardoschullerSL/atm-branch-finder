@@ -1,0 +1,10 @@
+# Ignore config for eslint
+
+.tmp/
+.nyc_output/
+coverage/
+public/main.js
+test/
+server/
+
+*.config.js
