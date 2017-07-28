@@ -1,5 +1,5 @@
 import React from "react";
-import { filterATMsByUserGeoLocation } from "../../actions/mapActions.js"
+import { filterATMsByUserGeoLocation } from "../../actions/mapActions.js";
 import InfoViewSelector from "../InfoViewSelector/";
 import InfoView from "../InfoView/";
 import DropDownMenu from "../DropDownMenu/";
@@ -26,7 +26,7 @@ export default class InfoWindow extends React.Component{
         ];
         
         return (
-                <div className="infoWindow">
+            <div className="infoWindow">
                 <InfoViewSelector {...this.props} />
                 <InfoView infoObject={this.props.filteredInfoObjects[this.props.infoId]} />
                 <DropDownMenu name="distanceDropDown" options={options} value={this.state.distance} sendOption={this.handleSelect} />
@@ -36,6 +36,6 @@ export default class InfoWindow extends React.Component{
                     this.props.dispatch({type:"SET_INFO_ID", payload: 0});
                 }}>Find Local ATMS </button>
             </div>
-        )
+        );
     }
 }

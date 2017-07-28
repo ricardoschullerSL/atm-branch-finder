@@ -9,7 +9,7 @@ import styles from "./main.css";
 @connect((store) => {
     return {
         activeEndPoint: store.bankWindow.activeEndPoint
-    }
+    };
 })
 export default class Layout extends React.Component {
     
@@ -18,14 +18,14 @@ export default class Layout extends React.Component {
     }
     
     accountButton() {
-        if (process.env.NODE_ENV !== 'production') {
+        if (process.env.NODE_ENV !== "production") {
             return (
                 <p>Click this super secret button to get your account info!
-                <a href='/account_info'><button onClick={this.authenticate}>Get Account Info</button></a>
+                    <a href='/account_info'><button onClick={this.authenticate}>Get Account Info</button></a>
                 </p>
-            )
+            );
         } else {
-            return '';
+            return "";
         }
     }
     
@@ -37,7 +37,7 @@ export default class Layout extends React.Component {
             {this.accountButton()}
             <EndPointContainer />
         </div>
-            <MainContainer activeEndPoint={this.props.activeEndPoint} />
-        </div>)
+        <MainContainer activeEndPoint={this.props.activeEndPoint} />
+        </div>);
     }
 }

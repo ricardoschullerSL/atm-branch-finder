@@ -19,4 +19,4 @@ let endpoints= [
         id:"pca",
         buttonText:"PCA"
     }
-]
+];

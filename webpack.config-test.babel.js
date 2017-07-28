@@ -3,21 +3,21 @@
 // the standard config file. Don't forget to add the config parameter in package.json
 
 
-var nodeExternals = require("webpack-node-externals");
- 
-module.exports = {
-  target: 'node',
-  externals: [nodeExternals()],
-  module: {
-    loaders: [
-      {
-        test: /\.js$/,
-        loader: "babel-loader",
-        query: {
-            presets: ["react", "es2015", "stage-0"],
-            plugins: ["transform-decorators-legacy"]
-            }
-      }
-    ]
-  }
-};
+// var nodeExternals = require("webpack-node-externals");
+//  
+// module.exports = {
+//   target: 'node',
+//   externals: [nodeExternals()],
+//   module: {
+//     loaders: [
+//       {
+//         test: /\.js$/,
+//         loader: "babel-loader",
+//         query: {
+//             presets: ["react", "es2015", "stage-0"],
+//             plugins: ["transform-decorators-legacy"]
+//             }
+//       }
+//     ]
+//   }
+// };

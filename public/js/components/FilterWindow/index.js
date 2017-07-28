@@ -9,12 +9,12 @@ import styles from "./filterwindow.css";
         activeEndPoint: store.bankWindow.activeEndPoint,
         banks: store.bankWindow.banks,
         activeBankId: store.bankWindow.activeBankId
-    }
+    };
 })
 export default class FilterWindow extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: '', option:"TownName"};
+        this.state = {value: "", option:"TownName"};
         this.handleSelect = this.handleSelect.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,18 +31,18 @@ export default class FilterWindow extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         switch(this.props.activeEndPoint) {
-            case "branches" : {
-                this.props.dispatch(getBranchesByCity(this.props.banks[this.props.activeBankId], this.state.value));
-                break;
-            }
-            case "atms" : {
-                this.props.dispatch(getATMsByCity(this.state.value));
-                break;
-            }
-            default : {
-                this.props.dispatch({type:"ADD_ERROR_TO_LOG", payload:"Error, no valid active endpoint found."});
-                break;
-            }
+        case "branches" : {
+            this.props.dispatch(getBranchesByCity(this.props.banks[this.props.activeBankId], this.state.value));
+            break;
+        }
+        case "atms" : {
+            this.props.dispatch(getATMsByCity(this.state.value));
+            break;
+        }
+        default : {
+            this.props.dispatch({type:"ADD_ERROR_TO_LOG", payload:"Error, no valid active endpoint found."});
+            break;
+        }
         }
         this.props.dispatch({type:"SET_INFO_ID", payload: 0});
     }
@@ -55,12 +55,12 @@ export default class FilterWindow extends React.Component {
         ];
         return (        
             <div className="filterWindow">                
-            <form onSubmit={this.handleSubmit} className="filterForm">
+                <form onSubmit={this.handleSubmit} className="filterForm">
                     <DropDownMenu name="filterDropDown" options={options} value={this.state.option} sendOption={this.handleSelect} />
-                <input type="text" className="inputBox" placeholder={"Find by " + options.find((option)=> option.value === this.state.option).label.toLowerCase()} value={this.state.value} onChange={this.handleChange} />
-                <input className="button filterButton" type="submit" value="Find" />
-            </form>
+                    <input type="text" className="inputBox" placeholder={"Find by " + options.find((option)=> option.value === this.state.option).label.toLowerCase()} value={this.state.value} onChange={this.handleChange} />
+                    <input className="button filterButton" type="submit" value="Find" />
+                </form>
             </div>
-        )
+        );
     }
 }

@@ -19,19 +19,19 @@ export default class MainContainer extends React.Component {
                     <FilterWindow />
                 </div>
                 <div className="main">
-                <InfoContainer />
-                {{atms: (
-                    <MapContainer />
-                ),
-                branches: (
-                    <BranchContainer />
-                ),
-                pca: (
-                    <PCAContainer />
-                )
-            }[this.props.activeEndPoint || "atms"]}
+                    <InfoContainer />
+                    {{atms: (
+                        <MapContainer />
+                    ),
+                    branches: (
+                        <BranchContainer />
+                    ),
+                    pca: (
+                        <PCAContainer />
+                    )
+                    }[this.props.activeEndPoint || "atms"]}
+                </div>
             </div>
-        </div>
-        )
+        );
     }
 }

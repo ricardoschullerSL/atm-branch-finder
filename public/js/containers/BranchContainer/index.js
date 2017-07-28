@@ -7,6 +7,6 @@ import styles from "./branchcontainer.css";
 export default class BranchContainer extends React.Component {
     
     render() {
-        return (<BranchWindow {...this.props} />)
+        return (<BranchWindow {...this.props} />);
     }
 }

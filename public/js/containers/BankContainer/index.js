@@ -9,11 +9,11 @@ import styles from "./bankwindow.css";
         activeBankId: store.bankWindow.activeBankId,
         activeEndPoint: store.bankWindow.activeEndPoint,
         endpoints: store.staticInfo.endpoints
-    }
+    };
 })
 export default class BankContainer extends React.Component {
     
     render() {
-        return (<BankWindow {...this.props}/>)
+        return (<BankWindow {...this.props}/>);
     }
 }

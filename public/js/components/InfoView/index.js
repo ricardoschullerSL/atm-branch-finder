@@ -11,7 +11,7 @@ export default class InfoView extends React.Component {
                     )}    
                 </ul>
             </div>
-        )
+        );
     }
     
     listOpeningTimes(times) {
@@ -20,10 +20,10 @@ export default class InfoView extends React.Component {
                 <ul className="openingTimes">Opening times
                     {times.map((time, key) =>
                         <li key={key}>{time.OpeningDay} : {time.OpeningTime.slice(0,5)} - {time.ClosingTime.slice(0,5)}</li>
-                        )}
+                    )}
                 </ul>
             </div>
-        )
+        );
     }
     
     
@@ -36,14 +36,14 @@ export default class InfoView extends React.Component {
                     {this.props.infoObject.OpeningTimes ? this.listOpeningTimes(this.props.infoObject.OpeningTimes) : null}
                     
                 </div>
-            )
+            );
         } else {
             return (
                 <div>
                     <h3>INFO</h3>
                     No info items
                 </div>
-            )
+            );
         }
     }
 }

@@ -7,11 +7,11 @@ import styles from "./pcawindow.css";
     return {
         banks: store.bankWindow.banks,
         activeBankId: store.bankWindow.activeBankId    
-    }
+    };
 })
 export default class PCAContainer extends React.Component {
 
     render() {
-        return (<PCAWindow {...this.props}  />)
+        return (<PCAWindow {...this.props}  />);
     }
 }

@@ -7,7 +7,7 @@ export default class DropDownMenu extends React.Component {
     }
     
     handleChange(e) {
-        this.props.sendOption(e.target.value)
+        this.props.sendOption(e.target.value);
     }
     
     render() {
@@ -16,6 +16,6 @@ export default class DropDownMenu extends React.Component {
                 {this.props.options.map((item, index) => <option key={index} 
                     value={item.value}>{item.label}</option>)}
             </select>
-        )
+        );
     }
 }

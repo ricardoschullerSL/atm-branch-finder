@@ -2,5 +2,5 @@ node_modules/
 build_artifacts/
 .tmp/
 .nyc_output/
-server/ssl/
-public/bundle.js
+public/main.js
+public/googleapikey.js

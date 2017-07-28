@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for components/Map/index.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\index.html">All files</a> / <a href="index.html">components/Map</a> index.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">7.69% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>3/39</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">8.33% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>3/36</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
+import ReactDOM from "react-dom";
+&nbsp;
+export default class Map extends React.Component {
+<span class="fstat-no" title="function not covered" >    constructor(</span>props) <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span>{</span>
+        super(props);
+        
+        const {lat, lng} = <span class="cstat-no" title="statement not covered" >this.props.initialCenter;</span>
+<span class="cstat-no" title="statement not covered" >        this.state = {</span>
+            currentLocation: {
+                lat: lat,
+                lng: lng
+            }
+        };
+    }
+    componentDidUpdate(prevProps, prevState) {
+<span class="cstat-no" title="statement not covered" >        if (prevProps.google !== this.props.google) {</span>
+<span class="cstat-no" title="statement not covered" >            this.loadMap();</span>
+        }
+        
+<span class="cstat-no" title="statement not covered" >        if (prevState.currentLocation !== this.state.currentLocation) {</span>
+<span class="cstat-no" title="statement not covered" >            this.recenterMap();</span>
+        }
+        
+    }
+    loadMap() <span class="cstat-no" title="statement not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >        if (this.props &amp;&amp; this.props.google) <span class="cstat-no" title="statement not covered" ></span>{</span>
+            const {google} = <span class="cstat-no" title="statement not covered" >this.props;</span>
+            c</span>onst maps = <span class="cstat-no" title="statement not covered" >google.maps;
+            
+            c</span>onst mapRef = <span class="cstat-no" title="statement not covered" >this.refs.map;
+            c</span>onst node = <span class="cstat-no" title="statement not covered" >ReactDOM.findDOMNode(mapRef);
+            
+            let {initialCenter, zoom} = <span class="cstat-no" title="statement not covered" >this.props;</span>
+            const {lat, lng} = <span class="cstat-no" title="statement not covered" >this.state.currentLocation;</span>
+            c</span>onst center = <span class="cstat-no" title="statement not covered" >new maps.LatLng(lat, lng);
+            c</span>onst mapConfig = <span class="cstat-no" title="statement not covered" >Object.assign({}, {
+                center: center,
+                zoom: zoom
+            });
+<span class="cstat-no" title="statement not covered" >            this.map = new maps.Map(node, mapConfig);</span>
+<span class="cstat-no" title="statement not covered" >            this.map.addListener("dragend", <span class="fstat-no" title="function not covered" >(</span>event) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                this.props.onMove(this.map);</span>
+            });
+        }
+    }
+    
+    recenterMap() {
+        c</span>onst map = <span class="cstat-no" title="statement not covered" >this.map;
+        c</span>onst curr = <span class="cstat-no" title="statement not covered" >this.state.currentLocation;
+        c</span>onst google = <span class="cstat-no" title="statement not covered" >this.props.google;
+        c</span>onst maps = <span class="cstat-no" title="statement not covered" >google.maps;
+<span class="cstat-no" title="statement not covered" >        if (map) {</span>
+            l</span>et center = <span class="cstat-no" title="statement not covered" >new maps.LatLng(curr.lat, curr.lng);
+<span class="cstat-no" title="statement not covered" >            map.panTo(center);</span>
+        }
+    }
+    renderChildren() <span class="cstat-no" title="statement not covered" >{</span>
+        const {children} = <span class="cstat-no" title="statement not covered" >this.props;</span>
+<span class="cstat-no" title="statement not covered" >        if (!children) <span class="cstat-no" title="statement not covered" >r</span>eturn;</span>
+        
+<span class="cstat-no" title="statement not covered" >        return React.Children.map(children, <span class="fstat-no" title="function not covered" >c =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >            return React.cloneElement(c, {</span>
+                map: this.map,
+                google: this.props.google,
+                mapCenter: this.state.currentLocation
+            });
+        });
+    }
+    
+    render() {
+<span class="cstat-no" title="statement not covered" >        return (</span>
+            &lt;div ref='map' id="googlemap"&gt;
+                Loading map...
+                {this.renderChildren()}
+            &lt;/div&gt;
+        );
+    }
+}
+&nbsp;
+Map.defaultProps = {
+    zoom: 14,
+    //Bristol by default
+    initialCenter: {
+        lat:51.4518419,
+        lng: -2.5959820
+    },
+    onMove: <span class="fstat-no" title="function not covered" >function() </span>{}
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 28 2017 10:39:12 GMT+0100 (GMT Summer Time)
+</div>
+</div>
+<script src="..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\sorter.js"></script>
+</body>
+</html>

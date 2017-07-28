@@ -497,12 +497,17 @@ describe("Bank Actions", () => {
                         ]
                         },
                         {
-                            type:"SET_INFO_OBJECT_LATITUDE",
-                            payload:"0.1",
-                        },
-                        {
-                            type:"SET_INFO_OBJECT_LONGITUDE",
-                            payload:"2.2",
+                            payload:[
+                                {
+                                    "lat": "0.1",
+                                    "lng": "2.2"
+                                },
+                                {
+                                    "lat": "10",
+                                    "lng": "10"
+                                }
+                            ],
+                            type:"SET_MAP_LOCATIONS"
                         }
                     ]
                 )

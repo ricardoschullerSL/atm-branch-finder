@@ -7,14 +7,14 @@ export default class InfoViewSelector extends React.Component {
     
     previous() {
         const newCounter = this.props.infoId === 0 ? 
-                            this.props.filteredInfoObjects.length - 1 : this.props.infoId - 1;
+            this.props.filteredInfoObjects.length - 1 : this.props.infoId - 1;
         this.props.dispatch(setInfoIndex(newCounter));
         this.props.dispatch(setInfoObjectLocation(this.props.filteredInfoObjects[newCounter]));
     }
     
     next() {
         const newCounter = this.props.infoId === this.props.filteredInfoObjects.length - 1 ? 
-                            0 : this.props.infoId + 1;
+            0 : this.props.infoId + 1;
         this.props.dispatch(setInfoIndex(newCounter));
         this.props.dispatch(setInfoObjectLocation(this.props.filteredInfoObjects[newCounter]));
     }
@@ -28,6 +28,6 @@ export default class InfoViewSelector extends React.Component {
                 <button className="iteratorButton"  id="next"
                     onClick={this.next.bind(this)}>Next</button>
             </div>
-        )
+        );
     }
 }

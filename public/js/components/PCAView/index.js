@@ -11,6 +11,6 @@ export default class PCAView extends React.Component {
                 <li>Product description: {this.props.pca.ProductDescription}</li>
                 <li><a href={this.props.pca.ProductURL[0]}>Click here for more info.</a></li>
             </ul>
-        </div>)
+        </div>);
     }
 }
