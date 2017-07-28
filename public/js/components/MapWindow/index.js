@@ -1,4 +1,5 @@
 import React from "react";
+import { GOOGLE_API_KEY } from "../GoogleApiWrapper/googleapikey.js";
 import GoogleApiWrapper from "../GoogleApiWrapper/index.js";
 import Map from "../Map/";
 import Marker from "../Marker/";
@@ -16,5 +17,5 @@ export class MapWindow extends React.Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey:"AIzaSyD5S_Y4geQ7mB8wkGu9JkQtbIP9gqda-ns"
+    apiKey:process.env.GOOGLE_API_KEY || GOOGLE_API_KEY
 })(MapWindow);
