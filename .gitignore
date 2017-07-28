@@ -2,5 +2,4 @@ node_modules/
 build_artifacts/
 .tmp/
 .nyc_output/
-public/main.js
 public/googleapikey.js
