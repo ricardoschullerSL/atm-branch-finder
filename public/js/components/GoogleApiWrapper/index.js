@@ -10,10 +10,9 @@ const GoogleApi = function(opts) {
     const libraries = opts.libraries || [];
     const client = opts.client;
     const URL = "https://maps.googleapis.com/maps/api/js";
-    const googleVersion = "3.27";
+    const googleVersion = "3.28";
     
     let script = null;
-    if (window.google === "undefined") {let google = window.google = null;}
     let channel = null;
     let language = null;
     let region = null;
@@ -58,33 +57,6 @@ const wrapper = (options) => (WrappedComponent) => {
             };
         }
         
-        componentDidMount() {
-            const refs = this.refs;
-            this.scriptCache.google.onLoad((err, tag) => {
-                const maps = window.google.maps;
-                const props = Object.assign({}, this.props, {
-                    loaded: this.state.loaded
-                });
-                
-                const mapRef = refs.map;
-                
-                const node = ReactDOM.findDOMNode(mapRef);
-                let center = new maps.LatLng(this.props.lat, this.props.lng);
-                
-                let mapConfig = Object.assign({}, defaultMapConfig, {
-                    center, zoom: this.props.zoom
-                });
-                
-                this.map = new maps.Map(node, mapConfig);
-                
-                this.setState({
-                    loaded: true,
-                    map:this.map,
-                    google: window.google
-                });
-            });
-        }
-        
         componentWillMount() {
             this.scriptCache = cache({
                 google: GoogleApi({
@@ -94,18 +66,34 @@ const wrapper = (options) => (WrappedComponent) => {
             });
         }
         
+        componentDidMount() {
+            
+            this.scriptCache.google.onLoad((err, tag) => {
+                const maps = window.google.maps;
+                
+                let center = new maps.LatLng(this.props.lat, this.props.lng);
+                
+                let mapConfig = Object.assign({}, defaultMapConfig, {
+                    center, zoom: this.props.zoom
+                });
+                const map = new maps.Map(this.mapRef, mapConfig);
+                this.setState({
+                    loaded: true,
+                    map:map,
+                    google: window.google
+                });
+            });
+        }
+        
         render() {
             const props = Object.assign({}, this.props, {
                 loaded: this.state.loaded,
                 map:this.state.map,
                 google: this.state.google,
-                mapComponent: this.refs.map
+                mapComponent: this.mapRef
             });
             return (
-                <div>
-                    <WrappedComponent {...props} />
-                    <div ref="map" />
-                </div>
+                <WrappedComponent {...props} mapRef={el => this.mapRef = el} />                
             );
         }
     }

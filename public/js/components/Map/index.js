@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 
 export default class Map extends React.Component {
     constructor(props) {
@@ -13,40 +12,31 @@ export default class Map extends React.Component {
             }
         };
     }
+
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.google !== this.props.google) {
+        if (this.props.google) {
             this.loadMap();
         }
         
         if (prevState.currentLocation !== this.state.currentLocation) {
             this.recenterMap();
         }
-        
     }
+    
     loadMap() {
         if (this.props && this.props.google) {
             const {google} = this.props;
             const maps = google.maps;
-            
-            const mapRef = this.refs.map;
-            const node = ReactDOM.findDOMNode(mapRef);
-            
             let {initialCenter, zoom} = this.props;
             const {lat, lng} = this.state.currentLocation;
-            const center = new maps.LatLng(lat, lng);
-            const mapConfig = Object.assign({}, {
-                center: center,
-                zoom: zoom
-            });
-            this.map = new maps.Map(node, mapConfig);
-            this.map.addListener("dragend", (event) => {
-                this.props.onMove(this.map);
-            });
+            const map = this.props.map;
+            map.setCenter(initialCenter);
+            map.setZoom(zoom);
         }
     }
     
     recenterMap() {
-        const map = this.map;
+        const map = this.props.map;
         const curr = this.state.currentLocation;
         const google = this.props.google;
         const maps = google.maps;
@@ -61,7 +51,7 @@ export default class Map extends React.Component {
         
         return React.Children.map(children, c => {
             return React.cloneElement(c, {
-                map: this.map,
+                map: this.props.map,
                 google: this.props.google,
                 mapCenter: this.state.currentLocation
             });
@@ -70,7 +60,7 @@ export default class Map extends React.Component {
     
     render() {
         return (
-            <div ref='map' id="googlemap">
+            <div ref={this.props.mapRef} className="mapWindow" id="googleMap">
                 Loading map...
                 {this.renderChildren()}
             </div>

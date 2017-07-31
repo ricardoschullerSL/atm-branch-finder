@@ -2,4 +2,3 @@ node_modules/
 build_artifacts/
 .tmp/
 .nyc_output/
-public/js/components/GoogleApiWrapper/googleapikey.js
