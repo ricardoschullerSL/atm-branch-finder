@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">7.69% </span>
+        <span class="strong">33.33% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>3/39</span>
+        <span class='fraction'>11/33</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">14.29% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/14</span>
+        <span class='fraction'>2/14</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">33.33% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/4</span>
+        <span class='fraction'>1/3</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">8.33% </span>
+        <span class="strong">33.33% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>3/36</span>
+        <span class='fraction'>10/30</span>
       </div>
     </div>
   </div>
@@ -122,25 +122,15 @@
 77
 78
 79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+80</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,25 +147,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,12 +169,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -203,7 +183,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -222,54 +202,44 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
-import ReactDOM from "react-dom";
 &nbsp;
 export default class Map extends React.Component {
-<span class="fstat-no" title="function not covered" >    constructor(</span>props) <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span>{</span>
+    constructor(props) <span class="branch-1 cbranch-no" title="branch not covered" >{</span>
         super(props);
         
-        const {lat, lng} = <span class="cstat-no" title="statement not covered" >this.props.initialCenter;</span>
-<span class="cstat-no" title="statement not covered" >        this.state = {</span>
+        const {lat, lng} = this.props.initialCenter;
+        this.state = {
             currentLocation: {
                 lat: lat,
                 lng: lng
             }
         };
     }
+&nbsp;
     componentDidUpdate(prevProps, prevState) {
-<span class="cstat-no" title="statement not covered" >        if (prevProps.google !== this.props.google) {</span>
+<span class="cstat-no" title="statement not covered" >        if (this.props.google) {</span>
 <span class="cstat-no" title="statement not covered" >            this.loadMap();</span>
         }
         
 <span class="cstat-no" title="statement not covered" >        if (prevState.currentLocation !== this.state.currentLocation) {</span>
 <span class="cstat-no" title="statement not covered" >            this.recenterMap();</span>
         }
-        
     }
-    loadMap() <span class="cstat-no" title="statement not covered" >{</span>
+    
+    loadMap() {
 <span class="cstat-no" title="statement not covered" >        if (this.props &amp;&amp; this.props.google) <span class="cstat-no" title="statement not covered" ></span>{</span>
             const {google} = <span class="cstat-no" title="statement not covered" >this.props;</span>
             c</span>onst maps = <span class="cstat-no" title="statement not covered" >google.maps;
-            
-            c</span>onst mapRef = <span class="cstat-no" title="statement not covered" >this.refs.map;
-            c</span>onst node = <span class="cstat-no" title="statement not covered" >ReactDOM.findDOMNode(mapRef);
-            
             let {initialCenter, zoom} = <span class="cstat-no" title="statement not covered" >this.props;</span>
             const {lat, lng} = <span class="cstat-no" title="statement not covered" >this.state.currentLocation;</span>
-            c</span>onst center = <span class="cstat-no" title="statement not covered" >new maps.LatLng(lat, lng);
-            c</span>onst mapConfig = <span class="cstat-no" title="statement not covered" >Object.assign({}, {
-                center: center,
-                zoom: zoom
-            });
-<span class="cstat-no" title="statement not covered" >            this.map = new maps.Map(node, mapConfig);</span>
-<span class="cstat-no" title="statement not covered" >            this.map.addListener("dragend", <span class="fstat-no" title="function not covered" >(</span>event) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                this.props.onMove(this.map);</span>
-            });
+            c</span>onst map = <span class="cstat-no" title="statement not covered" >this.props.map;
+<span class="cstat-no" title="statement not covered" >            map.setCenter(initialCenter);</span>
+<span class="cstat-no" title="statement not covered" >            map.setZoom(zoom);</span>
         }
     }
     
     recenterMap() {
-        c</span>onst map = <span class="cstat-no" title="statement not covered" >this.map;
+        c</span>onst map = <span class="cstat-no" title="statement not covered" >this.props.map;
         c</span>onst curr = <span class="cstat-no" title="statement not covered" >this.state.currentLocation;
         c</span>onst google = <span class="cstat-no" title="statement not covered" >this.props.google;
         c</span>onst maps = <span class="cstat-no" title="statement not covered" >google.maps;
@@ -278,13 +248,13 @@ export default class Map extends React.Component {
 <span class="cstat-no" title="statement not covered" >            map.panTo(center);</span>
         }
     }
-    renderChildren() <span class="cstat-no" title="statement not covered" >{</span>
-        const {children} = <span class="cstat-no" title="statement not covered" >this.props;</span>
-<span class="cstat-no" title="statement not covered" >        if (!children) <span class="cstat-no" title="statement not covered" >r</span>eturn;</span>
+    renderChildren() {
+        const {children} = this.props;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!children) <span class="cstat-no" title="statement not covered" >return;</span>
         
-<span class="cstat-no" title="statement not covered" >        return React.Children.map(children, <span class="fstat-no" title="function not covered" >c =&gt; </span>{</span>
+        return React.Children.map(children, <span class="fstat-no" title="function not covered" >c =&gt; </span>{
 <span class="cstat-no" title="statement not covered" >            return React.cloneElement(c, {</span>
-                map: this.map,
+                map: this.props.map,
                 google: this.props.google,
                 mapCenter: this.state.currentLocation
             });
@@ -292,8 +262,8 @@ export default class Map extends React.Component {
     }
     
     render() {
-<span class="cstat-no" title="statement not covered" >        return (</span>
-            &lt;div ref='map' id="googlemap"&gt;
+        return (
+            &lt;div ref={this.props.mapRef} className="mapWindow" id="googleMap"&gt;
                 Loading map...
                 {this.renderChildren()}
             &lt;/div&gt;
@@ -316,7 +286,7 @@ Map.defaultProps = {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 28 2017 10:39:12 GMT+0100 (GMT Summer Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jul 31 2017 15:54:30 GMT+0100 (GMT Summer Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

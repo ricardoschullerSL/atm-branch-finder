@@ -18,16 +18,15 @@ describe("BranchContainer", () => {
             expect(wrapper.find("BranchWindow")).to.have.length(1);
         });
     });
+});
 
-
-    describe("BranchWindow", () => {
-        describe("renders", () => {
-            it("a div", () => {
-                const wrapper = shallow(
-                    <BranchWindow />
-                )
-                expect(wrapper.find("div")).to.have.length(1);
-            });
+describe("BranchWindow", () => {
+    describe("renders", () => {
+        it("a MapContainer", () => {
+            const initialState = {};
+            const store = mockStore(initialState);
+            const wrapper = shallow(<BranchWindow />);
+            expect(wrapper.find("Connect(MapContainer)")).to.have.length(1);
         });
     });
 });

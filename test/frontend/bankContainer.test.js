@@ -156,6 +156,6 @@ describe("BankContainer", () => {
             const endpoint = {id:"atms", buttonText:"ATM"};
             const wrapper = shallow(<EndPointButton endpoint={endpoint} className="selectorButton" />);
             expect(wrapper.find("div").hasClass("button")).to.equal(true);
-        })
+        });
     });
 });
