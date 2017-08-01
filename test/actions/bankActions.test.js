@@ -186,7 +186,6 @@ describe("Bank Actions", () => {
     });
     describe("getATMsByCity", () => {
         it("should return all ATMs in some city and set map coordinates to the first one", (done) => {
-            const store = mockStore({});
             const fakeAxios = new Promise((r) => r({data:[atms[1]]}));
             sandbox.stub(axios, "get").returns(fakeAxios);
             const waitForActions = new Promise((resolve) => {
@@ -194,32 +193,23 @@ describe("Bank Actions", () => {
             });
             waitForActions
             .then((result) => {
-                expect(store.getActions()).to.deep.equal([{type:"SET_MAP_LOCATIONS", payload:[{lat:"2.2", lng:"2.2"}]}]);
+                expect(store.getActions().length).to.equal(2);
             })
             .then(done,done);
         });
     });
     describe("getBranchesByCity", () => {
-        it("should check expiration date on bank branch data and retrieve new data if not valid and set map coordinates", (done) => {
-            const testBank = {id:"Halifax", branches:{expirationDate:new Date(0), data: null}};
-            const fakeAxios = new Promise((r) => r({data:branches}));
+        it("should return branch data from server and set map locations", (done) => {
+            const fakeAxios = new Promise((r) => r({data:[branches[1]]}));
             sandbox.stub(axios, "get").returns(fakeAxios);
             const waitForActions = new Promise((resolve) => {
-                resolve(store.dispatch(bankActions.getBranchesByCity(testBank, "Bristol")))
+                resolve(store.dispatch(bankActions.getBranchesByCity({id:"Halifax"}, "Bristol")))
             });
             waitForActions
             .then((result) => {
-                expect(store.getActions().length).to.equal(1);
+                expect(store.getActions().length).to.equal(2);
             })
             .then(done,done);
-        });
-        it("should use cached branch data if valid and filter that and set map coordinates", () => {
-            const store = mockStore({});
-            const today = new Date(Date.now());
-            const tomorrow = new Date(new Date(today).setDate(today.getDate() + 1));
-            const testBank = {id:"Halifax", branches:{expirationDate:tomorrow, data:[branches[1]]}};
-            store.dispatch(bankActions.getBranchesByCity(testBank, "Bristol"));
-            expect(store.getActions().length).to.equal(1);
         })
     });
     describe("setEndPointData", () => {

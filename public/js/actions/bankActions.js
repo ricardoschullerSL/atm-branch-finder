@@ -1,5 +1,4 @@
 import axios from "axios";
-import { setMapCoordinates } from "./mapActions.js";
 
 export function changeActiveBank(bankId) {
     return {
@@ -93,6 +92,7 @@ export function getATMsByCity(cityName) {
     return (dispatch) => {
         axios.get("/atms/city/" + cityName)
             .then((result) => {
+                dispatch(setFilteredATMs(result.data));
                 let locations = extractLocations(result.data);
                 dispatch({type:"SET_MAP_LOCATIONS", payload: locations});
             });
@@ -101,16 +101,17 @@ export function getATMsByCity(cityName) {
 
 export function getBranchesByCity(bank, cityName) {
     return (dispatch) => {
-        let today = new Date(Date.now());
-        if (bank.branches.expirationDate
-            && today < bank.branches.expirationDate) {
-            dispatch(filterBranchData(bank.branches.data, "TownName", cityName));
-        } else {
-            axios.get("/banks/"+ bank.id +"/branches/city/"+cityName)
-                .then((result) => {
-                    dispatch(setFilteredBranches(result.data));
-                });
-        }
+        // let today = new Date(Date.now());
+        // if (bank.branches.expirationDate
+        //     && today < bank.branches.expirationDate) {
+        //     dispatch(filterBranchData(bank.branches.data, "TownName", cityName));
+        // } else {
+        axios.get("/banks/"+ bank.id +"/branches/city/"+cityName)
+            .then((result) => {
+                dispatch(setFilteredBranches(result.data));
+                let locations = extractLocations(result.data);
+                dispatch({type:"SET_MAP_LOCATIONS", payload: locations});
+            });
     };
 }
 

@@ -1,7 +1,8 @@
 import React from "react";
 import DropDownMenu from "../DropDownMenu/";
 import {connect} from "react-redux";
-import { getATMsByCity, getBranchesByCity } from "../../actions/bankActions.js";
+import { getATMsByCity, getBranchesByCity, } from "../../actions/bankActions.js";
+import { setMapCoordinates } from "../../actions/bankActions.js";
 import styles from "./filterwindow.css";
 
 //#############################################################################
