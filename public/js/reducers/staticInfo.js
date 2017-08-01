@@ -1,6 +1,6 @@
 export default function(state={
     endpoints: endpoints
-}, action) {
+}) {
     
     return state;
 }

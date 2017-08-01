@@ -1,5 +1,10 @@
 let counter = 0;
-let scriptMap = new Map();
+let scriptMap = new Map(); // Javascript Map object, not Google Maps.
+
+//#############################################################################
+// ScriptCache loads scripts async when the DOM element it's attached to is
+// loaded. It makes sure the script names are unique and only loaded once.
+//#############################################################################
 
 export const ScriptCache = (function(global) {
     return function ScriptCache (scripts) {

@@ -8,6 +8,10 @@ export default class Marker extends React.Component {
         }
     }
     
+    componentWillUnmount() {
+        this.marker.setMap(null);
+    }
+    
     renderMarker() {
         let {map, google, position, mapCenter} = this.props;
         let pos = position || mapCenter;

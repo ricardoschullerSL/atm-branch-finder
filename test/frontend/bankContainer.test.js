@@ -3,9 +3,9 @@ import { Provider } from "react-redux";
 import { BANKDATA } from "../../public/js/staticdata/bankData.js"
 import BankContainer from "../../public/js/containers/BankContainer/";
 import BankWindow from "../../public/js/components/BankWindow/";
-import BankButton from "../../public/js/components/BankButton/";
+import Button from "../../public/js/components/Button/";
 import EndPointSelector from "../../public/js/components/EndPointSelector/";
-import EndPointButton from "../../public/js/components/EndPointButton/";
+
 
 // Setting up Mock Store
 import configureStore from "redux-mock-store";
@@ -60,7 +60,7 @@ describe("BankContainer", () => {
                 const wrapper = shallow(
                     <BankWindow banks={state.bankWindow.banks} 
                                 activeBankId={state.bankWindow.activeBankId}/>);
-                expect(wrapper.find("BankButton"))
+                expect(wrapper.find("Button"))
                 .to.have.length(initialState.bankWindow.banks.length);
             });
             it("a table", () => {
@@ -85,17 +85,17 @@ describe("BankContainer", () => {
     });
 
 
-    describe("BankButton", () => {
+    describe("Button", () => {
         const testBank = {id:"Halifax"};
         describe("renders", () => {
             it("the bank ID", () => {
-                const wrapper = shallow(<BankButton bank={testBank} />);
+                const wrapper = shallow(<Button innerText={testBank.id} />);
                 expect(wrapper.contains("Halifax")).to.equal(true);
             });
         });
         describe("has property", () => {
             it("class name 'bankButton'", () => {
-                const wrapper = shallow(<BankButton bank={testBank} className={"bankButton"}/>);
+                const wrapper = shallow(<Button innerText={testBank.id} className={"bankButton"} />);
                 expect(wrapper.find("div").hasClass("bankButton")).to.equal(true);
             });
             it("onClick");
@@ -130,7 +130,7 @@ describe("BankContainer", () => {
         describe("renders", () => {
             it("selector buttons", () => {
                 const wrapper = shallow(<EndPointSelector endpoints={endpoints} dispatch={store.dispatch} />);
-                expect(wrapper.find("EndPointButton")).to.have.length(3);
+                expect(wrapper.find("Button")).to.have.length(3);
             });
         });
         describe("dispatches actions when you", () => {
@@ -149,13 +149,6 @@ describe("BankContainer", () => {
                 wrapper.find("#pcaSelector").simulate("click");
                 expect(store.getActions()).to.deep.equal([{type:"SET_ACTIVE_ENDPOINT",payload:"pca"}])
             });
-        });
-    });
-    describe("EndPointButton", () => {
-        describe("renders", () => {
-            const endpoint = {id:"atms", buttonText:"ATM"};
-            const wrapper = shallow(<EndPointButton endpoint={endpoint} className="selectorButton" />);
-            expect(wrapper.find("div").hasClass("button")).to.equal(true);
         });
     });
 });

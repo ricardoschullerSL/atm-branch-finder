@@ -25,10 +25,7 @@ export default class Map extends React.Component {
     
     loadMap() {
         if (this.props && this.props.google) {
-            const {google} = this.props;
-            const maps = google.maps;
             let {initialCenter, zoom} = this.props;
-            const {lat, lng} = this.state.currentLocation;
             const map = this.props.map;
             map.setCenter(initialCenter);
             map.setZoom(zoom);

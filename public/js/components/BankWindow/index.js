@@ -1,5 +1,5 @@
 import React from "react";
-import BankButton from "../BankButton/";
+import Button from "../Button/";
 import { changeActiveBank, getSingleBankSingleEndPointData } from "../../actions/bankActions.js";
 
 export default class BankWindow extends React.Component{
@@ -13,7 +13,7 @@ export default class BankWindow extends React.Component{
         return (
             <div className="bankTable">
                 {banks.map((bank, key) =>
-                    <div key={key}><BankButton bank={bank} bankIndex={key} onClick={
+                    <div key={key}><Button innerText={bank.id} bankIndex={key} onClick={
                         () => {
                             this.props.dispatch(changeActiveBank(key));
                             this.props.dispatch(getSingleBankSingleEndPointData(bank, this.props.activeEndPoint));

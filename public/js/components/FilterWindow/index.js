@@ -4,6 +4,11 @@ import {connect} from "react-redux";
 import { getATMsByCity, getBranchesByCity } from "../../actions/bankActions.js";
 import styles from "./filterwindow.css";
 
+//#############################################################################
+// Filter window. DropDownMenu selects the endpoint. Inputbox is the value used
+// for the filter. 
+//#############################################################################
+
 @connect((store) => {
     return {
         activeEndPoint: store.bankWindow.activeEndPoint,

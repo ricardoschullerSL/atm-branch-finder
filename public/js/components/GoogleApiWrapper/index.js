@@ -1,7 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom";
-
 import cache from "./ScriptCache.js";
+
+//#############################################################################
+// Google Maps API wrapper. It finds the first <body> on the page and appends
+// a unique <script>. This wrapper allows you to use the Google Maps JS API
+// at different places in the code.
+//#############################################################################
 
 const GoogleApi = function(opts) {
     opts = opts || {};
@@ -12,12 +16,9 @@ const GoogleApi = function(opts) {
     const URL = "https://maps.googleapis.com/maps/api/js";
     const googleVersion = "3.28";
     
-    let script = null;
     let channel = null;
     let language = null;
     let region = null;
-    
-    let onLoadEvents = [];
     
     const url = () => {
         let url = URL;
@@ -70,9 +71,7 @@ const wrapper = (options) => (WrappedComponent) => {
             
             this.scriptCache.google.onLoad((err, tag) => {
                 const maps = window.google.maps;
-                
                 let center = new maps.LatLng(this.props.lat, this.props.lng);
-                
                 let mapConfig = Object.assign({}, defaultMapConfig, {
                     center, zoom: this.props.zoom
                 });

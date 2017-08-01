@@ -1,5 +1,12 @@
 import React from "react";
 
+//#############################################################################
+// General Drop Down Menu component. The options passed in must be an array of
+// objects consisting of a 'value' and 'label' property. This component must have
+// a parent component to send the 'value' to. This is done by passing in a bound 
+// method from the parent to this component as a 'sendOption' prop. 
+//#############################################################################
+
 export default class DropDownMenu extends React.Component {
     constructor(props) {
         super(props);

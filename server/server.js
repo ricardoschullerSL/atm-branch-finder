@@ -26,7 +26,7 @@ var getBankData = function() {
                 if (body) {
                     var data = JSON.parse(body).data;
                 }
-                bank[uri] = data
+                bank[uri] = data;
                 if (uri === "atms") {
                     data.map((item) => {
                         atms.push(item);

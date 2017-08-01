@@ -1,5 +1,10 @@
 import React from "react";
 
+//#############################################################################
+// InfoView lists properties of an 'infoObject', which possibly has an array of
+// 'infoItems' and 'openingTimes'. The objects must have a key and value property. 
+//#############################################################################
+
 export default class InfoView extends React.Component {
     
     listItems(items) {
@@ -28,22 +33,12 @@ export default class InfoView extends React.Component {
     
     
     render() {
-        if (this.props.infoObject) {
-            return (
-                <div>
-                    <h3>INFO</h3>
-                    {this.listItems(this.props.infoObject.infoViewItems)}
-                    {this.props.infoObject.OpeningTimes ? this.listOpeningTimes(this.props.infoObject.OpeningTimes) : null}
-                    
-                </div>
-            );
-        } else {
-            return (
-                <div>
-                    <h3>INFO</h3>
-                    No info items
-                </div>
-            );
-        }
+        return (
+            <div>
+                <h3>INFO</h3>
+                {this.props.infoObject && this.props.infoObject.infoViewItems ? this.listItems(this.props.infoObject.infoViewItems) : null}
+                {this.props.infoObject && this.props.infoObject.OpeningTimes ? this.listOpeningTimes(this.props.infoObject.OpeningTimes) : null}
+            </div>
+        );    
     }
 }
