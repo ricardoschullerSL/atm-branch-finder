@@ -2,6 +2,10 @@ import React from "react";
 import { setInfoObjectLocation } from "../../actions/mapActions.js";
 import { setInfoIndex } from "../../actions/infoActions.js";
 
+//#############################################################################
+// Info View Selector component. Shows next and previous buttons to be able
+// to scroll through the infoObjects (be it ATMs or branches).
+//#############################################################################
 
 export default class InfoViewSelector extends React.Component {
     

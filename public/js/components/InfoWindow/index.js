@@ -4,7 +4,10 @@ import InfoViewSelector from "../InfoViewSelector/";
 import InfoView from "../InfoView/";
 import DropDownMenu from "../DropDownMenu/";
 
-
+//#############################################################################
+// Info Window component. Holds the InfoViewSelector, InfoView and a drop
+// down menu which allows you to select the max distance.
+//#############################################################################
 
 export default class InfoWindow extends React.Component{
     constructor(props) {

@@ -9,7 +9,40 @@ const mockStore = configureStore(middlewares);
 let sandbox;
 
 describe("Bank Actions", () => {
-    beforeEach(() => {sandbox = sinon.sandbox.create()});
+    let branches, atms, store;
+    beforeEach(() => {
+        store = mockStore({});
+        sandbox = sinon.sandbox.create()
+        branches = [
+            {
+                BranchName:"TestBranch1",
+                Address:{TownName:"London", StreetName:"25 Buckingham Palace", PostCode:"LO15151515"},
+                GeographicLocation: {Latitude:"2.2", Longitude:"2.2"},                    
+            },
+            {
+                BranchName:"TestBranch2",
+                Address:{TownName:"Bristol", StreetName:"25 King Street", PostCode:"BS15151515"},
+                GeographicLocation: {Latitude:"1.1", Longitude:"1.1"},
+            }];
+        atms = [
+                {
+                    ATMID:"TestATM1",
+                    Address:{TownName:"London", StreetName:"25 Buckingham Palace"},
+                    GeographicLocation: {Latitude:"1.1", Longitude: "1.1"},
+                    Currency:["GBP"],
+                    distance:1
+                    
+                },
+                {
+                    ATMID:"TestATM2",
+                    Address:{TownName:"Bristol", StreetName:"25 King Street"},
+                    GeographicLocation: {Latitude:"2.2", Longitude: "2.2"},
+                    Currency:["GBP"],
+                    distance:2
+                    
+                }];
+    });
+    
     afterEach(() => {sandbox.restore()});
     describe("changeActiveBank", () => {
         it("should change activeBankId", () => {
@@ -154,55 +187,29 @@ describe("Bank Actions", () => {
     describe("getATMsByCity", () => {
         it("should return all ATMs in some city and set map coordinates to the first one", (done) => {
             const store = mockStore({});
-            const data = [
-                {
-                    ATMID:"TestATM1",
-                    Address:{TownName:"London", StreetName:"25 Buckingham Palace"},
-                    Currency:["GBP"],
-                    distance:1
-                    
-                },
-                {
-                    ATMID:"TestATM2",
-                    Address:{TownName:"Bristol", StreetName:"25 King Street"},
-                    Currency:["GBP"],
-                    distance:2
-                    
-                }];
-            const fakeAxios = new Promise((r) => r({data:data}));
+            const fakeAxios = new Promise((r) => r({data:[atms[1]]}));
             sandbox.stub(axios, "get").returns(fakeAxios);
             const waitForActions = new Promise((resolve) => {
                 resolve(store.dispatch(bankActions.getATMsByCity("Bristol")))
             });
             waitForActions
             .then((result) => {
-                expect(store.getActions().length).to.equal(2);
+                expect(store.getActions()).to.deep.equal([{type:"SET_MAP_LOCATIONS", payload:[{lat:"2.2", lng:"2.2"}]}]);
             })
             .then(done,done);
         });
     });
     describe("getBranchesByCity", () => {
         it("should check expiration date on bank branch data and retrieve new data if not valid and set map coordinates", (done) => {
-            const store = mockStore({});
-            
             const testBank = {id:"Halifax", branches:{expirationDate:new Date(0), data: null}};
-            const data = [
-                {
-                    BranchName:"TestBranch1",
-                    Address:{TownName:"London", StreetName:"25 Buckingham Palace", PostCode:"LO15151515"},                    
-                },
-                {
-                    BranchName:"TestBranch2",
-                    Address:{TownName:"Bristol", StreetName:"25 King Street", PostCode:"BS15151515"},
-                }];
-            const fakeAxios = new Promise((r) => r({data:data}));
+            const fakeAxios = new Promise((r) => r({data:branches}));
             sandbox.stub(axios, "get").returns(fakeAxios);
             const waitForActions = new Promise((resolve) => {
                 resolve(store.dispatch(bankActions.getBranchesByCity(testBank, "Bristol")))
             });
             waitForActions
             .then((result) => {
-                expect(store.getActions().length).to.equal(2);
+                expect(store.getActions().length).to.equal(1);
             })
             .then(done,done);
         });
@@ -210,16 +217,7 @@ describe("Bank Actions", () => {
             const store = mockStore({});
             const today = new Date(Date.now());
             const tomorrow = new Date(new Date(today).setDate(today.getDate() + 1));
-            const data = [
-                {
-                    BranchName:"TestBranch1",
-                    Address:{TownName:"London", StreetName:"25 Buckingham Palace", PostCode:"LO15151515"},                    
-                },
-                {
-                    BranchName:"TestBranch2",
-                    Address:{TownName:"Bristol", StreetName:"25 King Street", PostCode:"BS15151515"},
-                }];
-            const testBank = {id:"Halifax", branches:{expirationDate:tomorrow, data:data}};
+            const testBank = {id:"Halifax", branches:{expirationDate:tomorrow, data:[branches[1]]}};
             store.dispatch(bankActions.getBranchesByCity(testBank, "Bristol"));
             expect(store.getActions().length).to.equal(1);
         })
@@ -255,6 +253,7 @@ describe("Bank Actions", () => {
         });
     });
     describe("filterEndPointData", () => {
+
         it("should return NO_ACTION if no endpoint given", () => {
             const initialState= {bankWindow: {activeEndPoint:""}};
             const store = mockStore(initialState);
@@ -272,109 +271,43 @@ describe("Bank Actions", () => {
         it("should filter ATM data", () => {
             const initialState= {bankWindow: {activeEndPoint:""}};
             const store = mockStore(initialState);
-            const data = [
-                {
-                    ATMID:"TestATM1",
-                    Address:{TownName:"London", StreetName:"25 Buckingham Palace"},
-                    Currency:["GBP"],
-                    
-                },
-                {
-                    ATMID:"TestATM2",
-                    Address:{TownName:"Bristol", StreetName:"25 King Street"},
-                    Currency:["GBP"],
-                    
-                }];
-            store.dispatch(bankActions.filterEndPointData("atms", data, "TownName", "Bristol"));
-            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload:  [data[1]]}])
+            store.dispatch(bankActions.filterEndPointData("atms", atms, "TownName", "Bristol"));
+            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload:  [atms[1]]}])
         });
         it("should not filter ATM data is no value is given, ie return all data", () => {
             const initialState= {bankWindow: {activeEndPoint:""}};
             const store = mockStore(initialState);
-            const data = [
-                {
-                    ATMID:"TestATM1",
-                    Address:{TownName:"London", StreetName:"25 Buckingham Palace"},
-                    Currency:["GBP"],
-                    
-                    
-                },
-                {
-                    ATMID:"TestATM2",
-                    Address:{TownName:"Bristol", StreetName:"25 King Street"},
-                    Currency:["GBP"],
-                    
-                }
-            ];
-            store.dispatch(bankActions.filterEndPointData("atms", data, "TownName", null));
-            expect(store.getActions()).to.deep.equal([{"payload": data, "type": "SET_FILTERED_INFO_OBJECTS"}])
+            store.dispatch(bankActions.filterEndPointData("atms", atms, "TownName", null));
+            expect(store.getActions()).to.deep.equal([{"payload": atms, "type": "SET_FILTERED_INFO_OBJECTS"}])
         });
         it("should not return ATMs if Address[key] is null", () => {
             const store = mockStore({});
-            const data = [
-                {
-                    ATMID:"TestATM1",
-                    Address:{StreetName:"25 Buckingham Palace"},
-                    Currency:["GBP"],
-                    
-                },
-                {
-                    ATMID:"TestATM2",
-                    Address:{StreetName:"25 King Street"},
-                    Currency:["GBP"],
-                    
-                }
-            ];
-            store.dispatch(bankActions.filterEndPointData("atms", data, "TownName", "Bristol"));
+            const badAtms = atms.map((atm) => {
+                atm.Address["TownName"] = null;
+                return atm;
+            });
+            store.dispatch(bankActions.filterEndPointData("atms", badAtms, "TownName", "Bristol"));
             expect(store.getActions()).to.deep.equal([{payload:"No ATMs found.", type:"NO_ACTION"}]);
         });
         it("should filter Branch data", () => {
             const initialState= {bankWindow: {activeEndPoint:"branches"}};
             const store = mockStore(initialState);
-            const data = [
-                {
-                    BranchName:"Test Branch 1",
-                    Address:{TownName:"London", StreetName:"25 Buckingham Palace", PostCode:"LB121212"},                
-                },
-                {
-                    BranchName:"Test Branch 2",
-                    Address:{TownName:"Bristol", StreetName:"25 King Street", PostCode:"BS151515"},
-                }];
-            store.dispatch(bankActions.filterEndPointData("branches", data, "TownName", "Bristol"));
-            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload: [data[1]]}])
+            store.dispatch(bankActions.filterEndPointData("branches", branches, "TownName", "Bristol"));
+            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload: [branches[1]]}]);
         });
         it("should not filter Branch data when no value is given", () => {
             const initialState= {bankWindow: {activeEndPoint:"branches"}};
             const store = mockStore(initialState);
-            const data = [
-                {
-                    BranchName:"Test Branch 1",
-                    Address:{TownName:"London", StreetName:"25 Buckingham Palace", PostCode:"LB121212"},                
-                },
-                {
-                    BranchName:"Test Branch 2",
-                    Address:{TownName:"Bristol", StreetName:"25 King Street", PostCode:"BS151515"},
-                }];
-            store.dispatch(bankActions.filterEndPointData("branches", data, "TownName", null));
-            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload: data}])
+            store.dispatch(bankActions.filterEndPointData("branches", branches, "TownName", null));
+            expect(store.getActions()).to.deep.equal([{type:"SET_FILTERED_INFO_OBJECTS", payload: branches}])
         });
         it("should not return Branch data if Address[key] is null", () => {
             const store = mockStore({});
-            const data = [
-                {
-                    BranchName:"TestBranch1",
-                    Address:{StreetName:"25 Buckingham Palace"},
-                    Currency:["GBP"],
-                    
-                },
-                {
-                    BranchName:"TestBranch2",
-                    Address:{StreetName:"25 King Street"},
-                    Currency:["GBP"],
-                    
-                }
-            ];
-            store.dispatch(bankActions.filterEndPointData("branches", data, "TownName", "Bristol"));
+            const badBranches = branches.map((branch) => {
+                branch.Address["TownName"] = null;
+                return branch;
+            });
+            store.dispatch(bankActions.filterEndPointData("branches", branches, "TownName", "Bristol"));
             expect(store.getActions()).to.deep.equal([{payload:"No Branches found.", type:"NO_ACTION"}]);
         });
     });

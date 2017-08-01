@@ -1,5 +1,7 @@
 import React from "react";
-
+//#############################################################################
+// Standard button. 
+//#############################################################################
 export default class Button extends React.Component {
 
     render() {

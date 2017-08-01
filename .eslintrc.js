@@ -14,7 +14,8 @@ module.exports = {
         "browser":true,
     },
     "globals": {
-        "React": true
+        "React": true,
+        "styles": true
     },
     "parser": "babel-eslint",
     "parserOptions" : {

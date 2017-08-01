@@ -7,10 +7,8 @@ import Marker from "../Marker/";
 export class MapWindow extends React.Component {
     render () {
         return (
-            <Map google={this.props.google} zoom={14} mapRef={this.props.mapRef} map={this.props.map} >
-                {this.props.locations.map((location, key) => {
-                    return (<Marker key={key} position={location} /> );
-                })}
+            <Map google={this.props.google} zoom={14} mapRef={this.props.mapRef} 
+                map={this.props.map} locations={this.props.locations} >
             </Map>
         );
     }

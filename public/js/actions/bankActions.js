@@ -93,8 +93,8 @@ export function getATMsByCity(cityName) {
     return (dispatch) => {
         axios.get("/atms/city/" + cityName)
             .then((result) => {
-                dispatch(setFilteredATMs(result.data));
-                dispatch(setMapCoordinates(result.data[0].GeographicLocation));
+                let locations = extractLocations(result.data);
+                dispatch({type:"SET_MAP_LOCATIONS", payload: locations});
             });
     };
 }
@@ -109,7 +109,6 @@ export function getBranchesByCity(bank, cityName) {
             axios.get("/banks/"+ bank.id +"/branches/city/"+cityName)
                 .then((result) => {
                     dispatch(setFilteredBranches(result.data));
-                    dispatch(setMapCoordinates(result.data[0].GeographicLocation));
                 });
         }
     };

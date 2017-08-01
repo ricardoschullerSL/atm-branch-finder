@@ -22,12 +22,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>91/91</span>
+        <span class='fraction'>90/90</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">97.3% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>37/37</span>
+        <span class='fraction'>36/37</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>90/90</span>
+        <span class='fraction'>89/89</span>
       </div>
     </div>
   </div>
@@ -287,8 +287,7 @@
 242
 243
 244
-245
-246</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+245</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -398,7 +397,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -454,9 +452,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -464,9 +462,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -483,7 +481,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -529,10 +527,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios from "axios";
 import { setMapCoordinates } from "./mapActions.js";
 &nbsp;
@@ -628,8 +626,8 @@ export function getATMsByCity(cityName) {
     return (dispatch) =&gt; {
         axios.get("/atms/city/" + cityName)
             .then((result) =&gt; {
-                dispatch(setFilteredATMs(result.data));
-                dispatch(setMapCoordinates(result.data[0].GeographicLocation));
+                let locations = extractLocations(result.data);
+                dispatch({type:"SET_MAP_LOCATIONS", payload: locations});
             });
     };
 }
@@ -644,7 +642,6 @@ export function getBranchesByCity(bank, cityName) {
             axios.get("/banks/"+ bank.id +"/branches/city/"+cityName)
                 .then((result) =&gt; {
                     dispatch(setFilteredBranches(result.data));
-                    dispatch(setMapCoordinates(result.data[0].GeographicLocation));
                 });
         }
     };
@@ -707,7 +704,7 @@ export function setFilteredATMs(filteredData) {
                 {key:"City", value: atm.Address.TownName},
                 {key:"Street Name", value: atm.Address.StreetName},
                 {key:"Post Code", value: atm.Address.PostCode},
-                {key:"Distance", value: atm.distance ? (+atm.distance.toFixed(2)*1000).toString() + " meters": null }
+                {</span>key:"Distance", value: atm.distance ? (+atm.distance.toFixed(2)*1000).toString() + " meters": <span class="branch-1 cbranch-no" title="branch not covered" >null }
             ];
             return atm;
         });
@@ -784,7 +781,7 @@ export function extractLocations(infoObjects) {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jul 31 2017 15:54:30 GMT+0100 (GMT Summer Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Aug 01 2017 15:37:16 GMT+0100 (GMT Summer Time)
 </div>
 </div>
 <script src="..\prettify.js"></script>

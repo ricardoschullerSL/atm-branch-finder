@@ -1,6 +1,9 @@
 import React from "react";
-
 import PCAView from "../PCAView";
+
+//#############################################################################
+// Personal Current Account Window component. 
+//#############################################################################
 
 export default class PCAWindow extends React.Component {
 

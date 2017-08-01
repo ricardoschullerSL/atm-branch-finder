@@ -15,7 +15,7 @@ export default class MainContainer extends React.Component {
             
             <div className="mainContainer">
                 <div className="header">
-                    <BankContainer />
+                    {this.props.activeEndPoint === "atms" ? null : <BankContainer />}
                     <FilterWindow />
                 </div>
                 <div className="main">

@@ -1,7 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
 import EndPointContainer from "./containers/EndPointContainer";
-
 import MainContainer from "./containers/MainContainer/";
 
 import styles from "./main.css";

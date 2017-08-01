@@ -2,6 +2,10 @@ import React from "react";
 import Button from "../Button/";
 import { changeActiveBank, getSingleBankSingleEndPointData } from "../../actions/bankActions.js";
 
+//#############################################################################
+// Bank Window component. 
+//#############################################################################
+
 export default class BankWindow extends React.Component{
 
     // Turns out total bank data is 14 MB. Definitely not suited for mobile

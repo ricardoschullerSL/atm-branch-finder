@@ -1,5 +1,8 @@
 import React from "react";
 
+//#############################################################################
+// Personal Current Account View. Single PCA that shows some basic info.
+//#############################################################################
 
 export default class PCAView extends React.Component {
     

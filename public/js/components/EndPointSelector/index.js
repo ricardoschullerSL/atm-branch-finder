@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../Button/";
 
 //#############################################################################
-// Parent Component for end point selector buttons. 
+// End Point Selector Component. Just shows the end point buttons. 
 //#############################################################################
 
 export default class EndPointSelector extends React.Component {
