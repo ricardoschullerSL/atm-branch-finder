@@ -25,9 +25,9 @@ module.exports.banks =  [
     {
         id:"RBS", 
         uris: {
-            atms:"https://openapi.rbs.co.uk/open-banking/v1.2/atms",
-            branches:"https://openapi.rbs.co.uk/open-banking/v1.2/branches",
-            pca:"https://openapi.rbs.co.uk/open-banking/v1.2/personal-current-accounts"
+            atms:"https://openapi.rbs.co.uk/open-banking/v1.3/atms",
+            branches:"https://openapi.rbs.co.uk/open-banking/v1.3/branches",
+            pca:"https://openapi.rbs.co.uk/open-banking/v1.3/personal-current-accounts"
         },
         atms: [],
         branches: [],
@@ -47,9 +47,9 @@ module.exports.banks =  [
     {
         id:"NatWest",
         uris: {
-            atms:"https://openapi.natwest.com/open-banking/v1.2/atms",
-            branches:"https://openapi.natwest.com/open-banking/v1.2/atms",
-            pca:"https://openapi.natwest.com/open-banking/v1.2/personal-current-accounts"
+            atms:"https://openapi.natwest.com/open-banking/v1.3/atms",
+            branches:"https://openapi.natwest.com/open-banking/v1.3/atms",
+            pca:"https://openapi.natwest.com/open-banking/v1.3/personal-current-accounts"
         },
         atms: [],
         branches: [],
